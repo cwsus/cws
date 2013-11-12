@@ -17,12 +17,6 @@
     <version>1.0</version>
     <packaging>pom</packaging>
 
-    <scm>
-        <connection>scm:git:git@github.com:cws-us/cws-esolutions.git</connection>
-        <developerConnection>scm:git:git@github.com:cws-us/cws-esolutions.git</developerConnection>
-        <url>scm:git:git@github.com:cws-us/cws-esolutions.git</url>
-    </scm>
-
     <profiles>
         <profile>
             <id>build</id>
@@ -118,76 +112,10 @@
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.4</version>
-                <type>jar</type>
-                <scope>provided</scope>
-            </dependency>
-	        <dependency>
-	            <groupId>javax.mail</groupId>
-	            <artifactId>mail</artifactId>
-	            <version>1.4</version>
-	            <type>jar</type>
-	            <scope>provided</scope>
-	        </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
                 <artifactId>jsp-api</artifactId>
                 <version>2.0</version>
                 <scope>provided</scope>
             </dependency>
-	        <!-- apache commons -->
-            <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>1.1.1</version>
-                <type>jar</type>
-                <scope>provided</scope>
-            </dependency>
-		    <dependency>
-		        <groupId>commons-dbcp</groupId>
-		        <artifactId>commons-dbcp</artifactId>
-		        <type>jar</type>
-		        <version>1.4</version>
-		        <scope>provided</scope>
-		    </dependency>
-		    <dependency>
-		        <groupId>commons-pool</groupId>
-		        <artifactId>commons-pool</artifactId>
-		        <version>1.6</version>
-		        <type>jar</type>
-		        <scope>provided</scope>
-		    </dependency>
-            <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>2.4</version>
-                <type>jar</type>
-                <scope>provided</scope>
-            </dependency>
-            <!-- log4j -->
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>1.2.14</version>
-                <type>jar</type>
-                <scope>provided</scope>
-            </dependency>
-            <!-- slf4j -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.2</version>
-                <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
-		    <dependency>
-		        <groupId>org.slf4j</groupId>
-		        <artifactId>slf4j-log4j12</artifactId>
-		        <version>1.7.2</version>
-		        <type>jar</type>
-                <scope>compile</scope>
-		    </dependency>
 	        <!-- spring -->
 	        <dependency>
 	            <groupId>org.springframework</groupId>
@@ -302,24 +230,4 @@
 	        </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptor>src/assemble/assembly.xml</descriptor>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>assembly</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
