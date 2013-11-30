@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import org.slf4j.LoggerFactory;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.RandomStringUtils;
@@ -30,15 +31,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cws.us.pws.Constants;
 import com.cws.us.pws.ApplicationConfig;
+import com.cws.esolutions.core.utils.EmailUtils;
 import com.cws.us.pws.validators.ContactValidator;
 import com.cws.esolutions.core.processors.dto.EmailMessage;
 import com.cws.esolutions.security.audit.dto.RequestHostInfo;
 import com.cws.esolutions.core.processors.dto.MessagingRequest;
-import com.cws.esolutions.core.processors.dto.MessagingResponse;
-import com.cws.esolutions.core.processors.enums.CoreServicesStatus;
-import com.cws.esolutions.core.processors.interfaces.IMessagingProcessor;
-import com.cws.esolutions.core.processors.impl.EmailMessagingProcessorImpl;
-import com.cws.esolutions.core.processors.exception.MessagingServiceException;
 /**
  * CWSPWS_java_source
  * com.cws.us.pws.controllers
@@ -116,11 +113,12 @@ public class ContactController
 
         if (DEBUG)
         {
+            DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
+            DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
 
             DEBUGGER.debug("Dumping session content:");
-            @SuppressWarnings("unchecked")
-            Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
+            @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
 
             while (sessionEnumeration.hasMoreElements())
             {
@@ -131,8 +129,7 @@ public class ContactController
             }
 
             DEBUGGER.debug("Dumping request content:");
-            @SuppressWarnings("unchecked")
-            Enumeration<String> requestEnumeration = hRequest.getAttributeNames();
+            @SuppressWarnings("unchecked") Enumeration<String> requestEnumeration = hRequest.getAttributeNames();
 
             while (requestEnumeration.hasMoreElements())
             {
@@ -140,6 +137,17 @@ public class ContactController
                 Object requestValue = hRequest.getAttribute(requestElement);
 
                 DEBUGGER.debug("Attribute: " + requestElement + "; Value: " + requestValue);
+            }
+
+            DEBUGGER.debug("Dumping request parameters:");
+            @SuppressWarnings("unchecked") Enumeration<String> paramsEnumeration = hRequest.getParameterNames();
+
+            while (paramsEnumeration.hasMoreElements())
+            {
+                String requestElement = paramsEnumeration.nextElement();
+                Object requestValue = hRequest.getParameter(requestElement);
+
+                DEBUGGER.debug("Parameter: " + requestElement + "; Value: " + requestValue);
             }
         }
 
@@ -162,11 +170,12 @@ public class ContactController
 
         if (DEBUG)
         {
+            DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
+            DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
 
             DEBUGGER.debug("Dumping session content:");
-            @SuppressWarnings("unchecked")
-            Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
+            @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
 
             while (sessionEnumeration.hasMoreElements())
             {
@@ -177,8 +186,7 @@ public class ContactController
             }
 
             DEBUGGER.debug("Dumping request content:");
-            @SuppressWarnings("unchecked")
-            Enumeration<String> requestEnumeration = hRequest.getAttributeNames();
+            @SuppressWarnings("unchecked") Enumeration<String> requestEnumeration = hRequest.getAttributeNames();
 
             while (requestEnumeration.hasMoreElements())
             {
@@ -186,6 +194,17 @@ public class ContactController
                 Object requestValue = hRequest.getAttribute(requestElement);
 
                 DEBUGGER.debug("Attribute: " + requestElement + "; Value: " + requestValue);
+            }
+
+            DEBUGGER.debug("Dumping request parameters:");
+            @SuppressWarnings("unchecked") Enumeration<String> paramsEnumeration = hRequest.getParameterNames();
+
+            while (paramsEnumeration.hasMoreElements())
+            {
+                String requestElement = paramsEnumeration.nextElement();
+                Object requestValue = hRequest.getParameter(requestElement);
+
+                DEBUGGER.debug("Parameter: " + requestElement + "; Value: " + requestValue);
             }
         }
 
@@ -206,18 +225,18 @@ public class ContactController
 
         String viewName = null;
 
-        final IMessagingProcessor msgProcessor = new EmailMessagingProcessorImpl();
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
         final HttpSession hSession = hRequest.getSession();
 
         if (DEBUG)
         {
+            DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
+            DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
 
             DEBUGGER.debug("Dumping session content:");
-            @SuppressWarnings("unchecked")
-            Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
+            @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
 
             while (sessionEnumeration.hasMoreElements())
             {
@@ -228,8 +247,7 @@ public class ContactController
             }
 
             DEBUGGER.debug("Dumping request content:");
-            @SuppressWarnings("unchecked")
-            Enumeration<String> requestEnumeration = hRequest.getAttributeNames();
+            @SuppressWarnings("unchecked") Enumeration<String> requestEnumeration = hRequest.getAttributeNames();
 
             while (requestEnumeration.hasMoreElements())
             {
@@ -238,12 +256,23 @@ public class ContactController
 
                 DEBUGGER.debug("Attribute: " + requestElement + "; Value: " + requestValue);
             }
+
+            DEBUGGER.debug("Dumping request parameters:");
+            @SuppressWarnings("unchecked") Enumeration<String> paramsEnumeration = hRequest.getParameterNames();
+
+            while (paramsEnumeration.hasMoreElements())
+            {
+                String requestElement = paramsEnumeration.nextElement();
+                Object requestValue = hRequest.getParameter(requestElement);
+
+                DEBUGGER.debug("Parameter: " + requestElement + "; Value: " + requestValue);
+            }
         }
 
         try
         {
             // validate
-            validator.validate(message, bindResult);
+            this.validator.validate(message, bindResult);
 
             if (bindResult.hasErrors())
             {
@@ -265,7 +294,7 @@ public class ContactController
 
                 // add in a message id
                 message.setMessageId(RandomStringUtils.randomAlphanumeric(12));
-                message.setMessageFrom(new ArrayList<String>(Arrays.asList(appConfig.getServiceEmail())));
+                message.setEmailAddr(new ArrayList<>(Arrays.asList(this.appConfig.getServiceEmail())));
 
                 if (DEBUG)
                 {
@@ -282,25 +311,12 @@ public class ContactController
                     DEBUGGER.debug("MessagingRequest: {}", request);
                 }
 
-                MessagingResponse response = msgProcessor.addNewMessage(request);
+                EmailUtils.sendEmailMessage(message);
 
-                if (DEBUG)
-                {
-                    DEBUGGER.debug("MessagingResponse: {}", response);
-                }
-
-                if (response.getRequestStatus() == CoreServicesStatus.SUCCESS)
-                {
-                    // good, present the data
-                    viewName = "contactResponse";
-                }
-                else
-                {
-                    viewName = "errorResponse";
-                }
+                viewName = "contactResponse";
             }
         }
-        catch (MessagingServiceException msx)
+        catch (MessagingException msx)
         {
             ERROR_RECORDER.error(msx.getMessage(), msx);
 

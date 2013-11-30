@@ -3,7 +3,7 @@
     <dep:environment xmlns:dep="http://geronimo.apache.org/xml/ns/deployment-1.2">
         <dep:moduleId>
             <dep:groupId>console.dbpool</dep:groupId>
-            <dep:artifactId>jdbc_cwssec</dep:artifactId>
+            <dep:artifactId>jdbc_cws</dep:artifactId>
             <dep:version>1.0</dep:version>
             <dep:type>car</dep:type>
         </dep:moduleId>
@@ -21,8 +21,8 @@
             <connection-definition>
                 <connectionfactory-interface>javax.sql.DataSource</connectionfactory-interface>
                 <connectiondefinition-instance>
-                    <name>jdbc/cwssec</name>
-                    <config-property-setting name="DatabaseName">cwssec</config-property-setting>
+                    <name>jdbc/cws</name>
+                    <config-property-setting name="DatabaseName">cws</config-property-setting>
                     <config-property-setting name="Password">appuser10</config-property-setting>
                     <config-property-setting name="UserName">appuser</config-property-setting>
                     <config-property-setting name="ServerName">data.caspersbox.corp</config-property-setting>

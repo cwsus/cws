@@ -9,15 +9,13 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <bean id="messagingController" class="com.cws.us.esolutions.controllers.ServiceMessagingController">
-        <property name="appConfig">
-            <ref bean="appConfig" />
+    <import resource="classpath:/cws/dao/ProductReferenceDAO.xml" />
+
+    <bean id="productRef" class="com.cws.us.pws.processors.impl.ProductReferenceImpl" />
+
+    <bean id="productController" class="com.cws.us.pws.controllers.ProductController">
+        <property name="productRefSvc">
+            <ref bean="productRef" />
         </property>
-        <property name="serviceId" value="5C0B0A54-2456-45C9-A435-B485ED36FAC7" />
-        <property name="addServiceMessagePage" value="ServiceMessaging_SubmitMessage" />
-        <property name="viewServiceMessagesPage" value="ServiceMessaging_ViewMessages" />
-        <property name="messageSuccessfullyAdded" value="svc.messaging.sentmessage.success" />
-        <property name="messageSuccessfullyUpdated" value="svc.messaging.sentmessage.success" />
-        <property name="createMessageRedirect" value="redirect:/ui/service-messaging/add-message" />
     </bean>
 </beans>

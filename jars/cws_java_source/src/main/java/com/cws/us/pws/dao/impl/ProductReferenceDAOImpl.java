@@ -67,11 +67,10 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
      * TODO: Add in the method description/comments
      *
      * @return
-     * @throws SQLException
      * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductList()
      */
     @Override
-    public List<String[]> getProductList() throws SQLException
+    public List<String[]> getProductList()
     {
         this.methodName = IProductReferenceDAO.CNAME + "#getProductList()";
 
@@ -110,7 +109,7 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                         if (resultSet.next())
                         {
                             resultSet.beforeFirst();
-                            results = new ArrayList<String[]>();
+                            results = new ArrayList<>();
 
                             while (resultSet.next())
                             {
@@ -177,11 +176,10 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
      *
      * @param productId
      * @return
-     * @throws SQLException
      * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductData(int)
      */
     @Override
-    public List<String> getProductData(final int productId) throws SQLException
+    public List<String> getProductData(final int productId)
     {
         this.methodName = IProductReferenceDAO.CNAME + "#getProductData(final int productId) throws SQLException";
 
@@ -246,7 +244,7 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                                 if (resultSet.next())
                                 {
                                     resultSet.beforeFirst();
-                                    results = new ArrayList<String>();
+                                    results = new ArrayList<>();
 
                                     while (resultSet.next())
                                     {
