@@ -46,13 +46,13 @@
         <property name="mailSender" ref="mailSender" />
     </bean>
 
-    <bean id="messageValidator" class="com.cws.us.esolutions.validators.EmailMessageValidator">
+    <bean id="messageValidator" class="com.cws.us.pws.validators.EmailMessageValidator">
         <property name="messageSubjectRequired" value="theme.subject.required" />
         <property name="messageBodyRequired" value="theme.body.required" />
         <property name="messageFromRequired" value="theme.from.required" />
     </bean>
 
-    <bean id="addressValidator" class="com.cws.us.esolutions.validators.EmailAddressValidator">
+    <bean id="addressValidator" class="com.cws.us.pws.validators.EmailAddressValidator">
         <property name="messageEmailAddressRequired" value="email.source.addr.required" />
     </bean>
 
