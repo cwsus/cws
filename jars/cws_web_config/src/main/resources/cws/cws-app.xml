@@ -35,6 +35,11 @@
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="localhost" />
         <property name="port" value="25" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
     </bean>
 
     <bean id="mailer" class="com.cws.esolutions.core.utils.EmailUtils">

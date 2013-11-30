@@ -24,6 +24,7 @@
         <spring.version>3.2.4.RELEASE</spring.version>
         <tiles.version>2.2.2</tiles.version>
         <spring-dao.version>2.0.8</spring-dao.version>
+        <context.root>cws</context.root>
     </properties>
 
     <modules>
