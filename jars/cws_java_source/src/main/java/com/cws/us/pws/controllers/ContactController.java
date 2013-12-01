@@ -292,15 +292,6 @@ public class ContactController
                     DEBUGGER.debug("RequestHostInfo: {}", reqInfo);
                 }
 
-                // add in a message id
-                message.setMessageId(RandomStringUtils.randomAlphanumeric(12));
-                message.setEmailAddr(new ArrayList<>(Arrays.asList(this.appConfig.getServiceEmail())));
-
-                if (DEBUG)
-                {
-                    DEBUGGER.debug("Message: {}", message);
-                }
-
                 MessagingRequest request = new MessagingRequest();
                 request.setEmailMessage(message);
                 request.setRequestInfo(reqInfo);

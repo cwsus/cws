@@ -38,6 +38,7 @@
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.debug">true</prop>
+                <prop key="mail.from">noreply@caspersbox.com</prop>
             </props>
         </property>
     </bean>

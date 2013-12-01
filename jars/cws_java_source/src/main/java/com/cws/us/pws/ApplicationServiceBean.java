@@ -17,12 +17,12 @@ import java.lang.reflect.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cws.esolutions.core.Constants;
+import com.cws.us.pws.validators.EmailAddressValidator;
+import com.cws.us.pws.validators.EmailMessageValidator;
 /**
  * CWSPWS_java_source
  * com.cws.us.pws
  * ApplicationConfig.java
- *
- * TODO: Add class description
  *
  * $Id: cws-codetemplates.xml 2286 2013-01-03 20:50:12Z kmhuntly@gmail.com $
  * $Author: kmhuntly@gmail.com $
