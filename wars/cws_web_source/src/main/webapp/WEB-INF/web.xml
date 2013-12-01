@@ -17,14 +17,6 @@
         <param-value>cws</param-value>
     </context-param>
     <context-param>
-        <param-name>eSolutionsCoreConfig</param-name>
-        <param-value>eSolutionsCore/config/ServiceConfig.xml</param-value>
-    </context-param>
-    <context-param>
-        <param-name>eSolutionsCoreLogger</param-name>
-        <param-value>eSolutionsCore/config/logging.xml</param-value>
-    </context-param>
-    <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:/cws/cws-app.xml</param-value>
     </context-param>
@@ -41,9 +33,6 @@
         <param-value>en</param-value>
     </context-param>
 
-    <listener>
-        <listener-class>com.cws.esolutions.core.listeners.CoreServiceListener</listener-class>
-    </listener>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

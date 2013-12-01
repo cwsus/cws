@@ -23,7 +23,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" isThreadSafe="true" %>
 
 <html>
-    <tiles:insertAttribute name="header" />
+    <tiles:insertAttribute name="head" />
 
     <body>
         <div id="wrap">
