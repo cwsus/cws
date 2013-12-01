@@ -41,11 +41,9 @@ public class ApplicationServiceBean
     @Autowired private String homePage = null;
     @Autowired private String dateFormat = null;
     @Autowired private String fileEncoding = null;
-    @Autowired private String homeRedirect = null;
     @Autowired private String applicationId = null;
     @Autowired private String applicationName = null;
     @Autowired private String unavailablePage = null;
-    @Autowired private String contactAdminsPage = null;
     @Autowired private String errorResponsePage = null;
     @Autowired private String searchRequestPage = null;
     @Autowired private String themeMessageSource = null;
@@ -65,71 +63,6 @@ public class ApplicationServiceBean
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     private static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER);
 
-    public final void setFileEncoding(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setFileEncoding(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.fileEncoding = value;
-    }
-
-    public final void setLogonType(final LogonType value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setLogonType(final LogonType value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.logonType = value;
-    }
-
-    public final void setLogonRedirect(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setLogonRedirect(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.logonRedirect = value;
-    }
-
-    public final void setExpiredRedirect(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setExpiredRedirect(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.expiredRedirect = value;
-    }
-
-    public final void setHomeRedirect(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setHomeRedirect(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.homeRedirect = value;
-    }
-
     public final void setHomePage(final String value)
     {
         final String methodName = ApplicationServiceBean.CNAME + "#setHomePage(final String value)";
@@ -143,6 +76,58 @@ public class ApplicationServiceBean
         this.homePage = value;
     }
 
+    public final void setDateFormat(final String value)
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#setDateFormat(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.dateFormat = value;
+    }
+
+    public final void setFileEncoding(final String value)
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#setFileEncoding(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.fileEncoding = value;
+    }
+
+    public final void setApplicationId(final String value)
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#setApplicationId(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.applicationId = value;
+    }
+
+    public final void setApplicationName(final String value)
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#setApplicationName(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.applicationName = value;
+    }
+
     public final void setUnavailablePage(final String value)
     {
         final String methodName = ApplicationServiceBean.CNAME + "#setUnavailablePage(final String value)";
@@ -154,32 +139,6 @@ public class ApplicationServiceBean
         }
 
         this.unavailablePage = value;
-    }
-
-    public final void setUnauthorizedPage(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setUnauthorizedPage(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.unauthorizedPage = value;
-    }
-
-    public final void setContactAdminsPage(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setContactAdminsPage(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.contactAdminsPage = value;
     }
 
     public final void setErrorResponsePage(final String value)
@@ -208,6 +167,19 @@ public class ApplicationServiceBean
         this.searchRequestPage = value;
     }
 
+    public final void setThemeMessageSource(final String value)
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#setThemeMessageSource(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.themeMessageSource = value;
+    }
+
     public final void setRequestCompletePage(final String value)
     {
         final String methodName = ApplicationServiceBean.CNAME + "#setRequestCompletePage(final String value)";
@@ -221,9 +193,9 @@ public class ApplicationServiceBean
         this.requestCompletePage = value;
     }
 
-    public final void setRequestTimeout(final int value)
+    public final void setMessageNoSearchResults(final String value)
     {
-        final String methodName = ApplicationServiceBean.CNAME + "#setRequestTimeout(final int value)";
+        final String methodName = ApplicationServiceBean.CNAME + "#setMessageNoSearchResults(final String value)";
 
         if (DEBUG)
         {
@@ -231,124 +203,7 @@ public class ApplicationServiceBean
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.requestTimeout = value;
-    }
-
-    public final void setDateFormat(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setDateFormat(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.dateFormat = value;
-    }
-
-    public final void setSecEmailAddr(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setSecEmailAddr(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.secEmailAddr = value;
-    }
-
-    public final void setTimeoutWarning(final int value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setTimeoutWarning(final int value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.timeoutWarning = value;
-    }
-
-    public final void setApplicationName(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setApplicationName(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.applicationName = value;
-    }
-
-    public final void setApplicationId(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setApplicationId(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.applicationId = value;
-    }
-
-    public final void setServices(final Map<String, Boolean> value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setServices(final Map<String, Boolean> value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.services = value;
-    }
-
-    public final void setUploadDirectory(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setUploadDirectory(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.uploadDirectory = value;
-    }
-
-    public final void setAllowedAppFileExtensions(final List<String> value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setAllowedAppFileExtensions(final List<String> value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.allowedAppFileExtensions = value;
-    }
-
-    public final void setAllowedWebFileExtensions(final List<String> value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setAllowedWebFileExtensions(final List<String> value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.allowedWebFileExtensions = value;
+        this.messageNoSearchResults = value;
     }
 
     public final void setMessageRequestCanceled(final String value)
@@ -377,32 +232,6 @@ public class ApplicationServiceBean
         this.messageEmailSendFailed = value;
     }
 
-    public final void setMessagePasswordExpired(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setMessagePasswordExpired(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.messagePasswordExpired = value;
-    }
-
-    public final void setMessageUserNotLoggedIn(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setMessageUserNotLoggedIn(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.messageUserNotLoggedIn = value;
-    }
-
     public final void setMessageRequestProcessingFailure(final String value)
     {
         final String methodName = ApplicationServiceBean.CNAME + "#setMessageRequestProcessingFailure(final String value)";
@@ -429,19 +258,6 @@ public class ApplicationServiceBean
         this.messageValidationFailed = value;
     }
 
-    public final void setMessageNoSearchResults(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setMessageNoSearchResults(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.messageNoSearchResults = value;
-    }
-
     public final void setMessageEmailSentSuccess(final String value)
     {
         final String methodName = ApplicationServiceBean.CNAME + "#setMessageEmailSentSuccess(final String value)";
@@ -453,19 +269,6 @@ public class ApplicationServiceBean
         }
 
         this.messageEmailSentSuccess = value;
-    }
-
-    public final void setSecurityConfig(final SecurityConfig value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setSecConfig(final SecurityConfig value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.securityConfig = value;
     }
 
     public final void setEmailValidator(final EmailAddressValidator value)
@@ -494,19 +297,6 @@ public class ApplicationServiceBean
         this.messageValidator = value;
     }
 
-    public final void setThemeMessageSource(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setThemeMessageSource(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.themeMessageSource = value;
-    }
-
     public final String getFileEncoding()
     {
         final String methodName = ApplicationServiceBean.CNAME + "#getFileEncoding()";
@@ -520,71 +310,6 @@ public class ApplicationServiceBean
         return this.fileEncoding;
     }
 
-    public final LogonType getLogonType()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getLogonType()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.logonType);
-        }
-
-        return this.logonType;
-    }
-
-    public final String getLogonRedirect()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getLogonRedirect()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.logonRedirect);
-        }
-
-        return this.logonRedirect;
-    }
-
-    public final String getExpiredRedirect()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getExpiredRedirect()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.expiredRedirect);
-        }
-
-        return this.expiredRedirect;
-    }
-
-    public final String getHomeRedirect()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getHomeRedirect()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.homeRedirect);
-        }
-
-        return this.homeRedirect;
-    }
-
-    public final int getRequestTimeout()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getRequestTimeout()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.requestTimeout);
-        }
-
-        return this.requestTimeout;
-    }
-
     public final String getDateFormat()
     {
         final String methodName = ApplicationServiceBean.CNAME + "#getDateFormat()";
@@ -596,32 +321,6 @@ public class ApplicationServiceBean
         }
 
         return this.dateFormat;
-    }
-
-    public final String getSecEmailAddr()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getSecEmailAddr()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.secEmailAddr);
-        }
-
-        return this.secEmailAddr;
-    }
-
-    public final long getTimeoutWarning()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getTimeoutWarning()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.timeoutWarning);
-        }
-
-        return this.timeoutWarning;
     }
 
     public final String getApplicationName()
@@ -650,32 +349,6 @@ public class ApplicationServiceBean
         return this.applicationId;
     }
 
-    public final Map<String, Boolean> getServices()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getServices()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.services);
-        }
-
-        return this.services;
-    }
-
-    public final String getUploadDirectory()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getUploadDirectory()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.uploadDirectory);
-        }
-
-        return this.uploadDirectory;
-    }
-
     public final String getHomePage()
     {
         final String methodName = ApplicationServiceBean.CNAME + "#getHomePage()";
@@ -700,32 +373,6 @@ public class ApplicationServiceBean
         }
 
         return this.unavailablePage;
-    }
-
-    public final String getUnauthorizedPage()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getUnauthorizedPage()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.unauthorizedPage);
-        }
-
-        return this.unauthorizedPage;
-    }
-
-    public final String getContactAdminsPage()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getContactAdminsPage()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.contactAdminsPage);
-        }
-
-        return this.contactAdminsPage;
     }
 
     public final String getErrorResponsePage()
@@ -767,32 +414,6 @@ public class ApplicationServiceBean
         return this.requestCompletePage;
     }
 
-    public final List<String> getAllowedAppFileExtensions()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getAllowedAppFileExtensions()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.allowedAppFileExtensions);
-        }
-
-        return this.allowedAppFileExtensions;
-    }
-
-    public final List<String> getAllowedWebFileExtensions()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getAllowedWebFileExtensions()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.allowedWebFileExtensions);
-        }
-
-        return this.allowedWebFileExtensions;
-    }
-
     public final String getMessageRequestCanceled()
     {
         final String methodName = ApplicationServiceBean.CNAME + "#getMessageRequestCanceled()";
@@ -817,32 +438,6 @@ public class ApplicationServiceBean
         }
 
         return this.messageEmailSendFailed;
-    }
-
-    public final String getMessagePasswordExpired()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getMessagePasswordExpired()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.messagePasswordExpired);
-        }
-
-        return this.messagePasswordExpired;
-    }
-
-    public final String getMessageUserNotLoggedIn()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getMessageUserNotLoggedIn()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.messageUserNotLoggedIn);
-        }
-
-        return this.messageUserNotLoggedIn;
     }
 
     public final String getMessageRequestProcessingFailure()
@@ -895,19 +490,6 @@ public class ApplicationServiceBean
         }
 
         return this.messageEmailSentSuccess;
-    }
-
-    public final SecurityConfig getSecurityConfig()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getSecurityConfig()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.securityConfig);
-        }
-
-        return this.securityConfig;
     }
 
     public final EmailAddressValidator getEmailValidator()

@@ -30,7 +30,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cws.us.pws.Constants;
-import com.cws.us.pws.ApplicationConfig;
+import com.cws.us.pws.ApplicationServiceBean;
 import com.cws.esolutions.core.utils.EmailUtils;
 import com.cws.us.pws.validators.ContactValidator;
 import com.cws.esolutions.core.processors.dto.EmailMessage;
@@ -63,7 +63,7 @@ public class ContactController
 {
     private String methodName = null;
     private ContactValidator validator = null;
-    private ApplicationConfig appConfig = null;
+    private ApplicationServiceBean appConfig = null;
 
     private static final String CNAME = ContactController.class.getName();
 
@@ -71,9 +71,9 @@ public class ContactController
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     private static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER);
 
-    public final void setAppConfig(final ApplicationConfig value)
+    public final void setAppConfig(final ApplicationServiceBean value)
     {
-        this.methodName = ContactController.CNAME + "#setAppConfig(final ApplicationConfig value)";
+        this.methodName = ContactController.CNAME + "#setAppConfig(final ApplicationServiceBean value)";
 
         if (DEBUG)
         {
