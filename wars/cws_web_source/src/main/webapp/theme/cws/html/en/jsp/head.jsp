@@ -1,6 +1,6 @@
 <head>
     <title><tiles:insertAttribute name="pageTitle" /></title>
-    <link rel="stylesheet" type="text/css" href="/html/cws/css/cwspws.css" />
+    <link rel="stylesheet" type="text/css" href="/html/cws/css/cws.css" />
     <link rel="image/x-icon" href="/html/cws/img/favicon.ico" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <script type="text/javascript" src="/html/cws/js/FormHandler.js"></script>

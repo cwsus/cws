@@ -24,6 +24,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cws.us.pws.Constants;
+import com.cws.us.pws.ApplicationServiceBean;
 /**
  * CWSPWS_java_source
  * com.cws.us.pws.controllers
@@ -50,11 +51,25 @@ import com.cws.us.pws.Constants;
 public class HomeController
 {
     private String methodName = null;
+    private ApplicationServiceBean appConfig = null;
 
     private static final String CNAME = HomeController.class.getName();
 
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
+
+    public final void setAppConfig(final ApplicationServiceBean value)
+    {
+        final String methodName = HomeController.CNAME + "#setAppConfig(final ApplicationServiceBean value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.appConfig = value;
+    }
 
     @RequestMapping(value = "/default.htm", method = RequestMethod.GET)
     public final ModelAndView showDefaultPage()
@@ -65,6 +80,8 @@ public class HomeController
         {
             DEBUGGER.debug(this.methodName);
         }
+
+        ModelAndView mView = new ModelAndView();
 
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
@@ -110,6 +127,13 @@ public class HomeController
             }
         }
 
-        return new ModelAndView("home");
+        mView.setViewName(this.appConfig.getHomePage());
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 }

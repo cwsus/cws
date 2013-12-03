@@ -5,13 +5,13 @@
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-USE esolutionssvc;
+USE cws;
 
 --
--- Definition of table `esolutionssvc`.`site_search`
+-- Definition of table `cws`.`site_search`
 --
-DROP TABLE IF EXISTS `esolutionssvc`.`site_search`;
-CREATE TABLE `esolutionssvc`.`site_search` (
+DROP TABLE IF EXISTS `cws`.`site_search`;
+CREATE TABLE `cws`.`site_search` (
   `search_terms` varchar(100) NOT NULL default '',
   `page_title` varchar(45) NOT NULL default '',
   `page_url` varchar(45) NOT NULL default '',
@@ -21,26 +21,26 @@ CREATE TABLE `esolutionssvc`.`site_search` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `esolutionssvc`.`site_search`
+-- Dumping data for table `cws`.`site_search`
 --
-/*!40000 ALTER TABLE `esolutionssvc`.`site_search` DISABLE KEYS */;
-/*!40000 ALTER TABLE `esolutionssvc`.`site_search` ENABLE KEYS */;
+/*!40000 ALTER TABLE `cws`.`site_search` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cws`.`site_search` ENABLE KEYS */;
 COMMIT;
 
 --
--- Definition of procedure `esolutionssvc`.`getPageByAttribute`
+-- Definition of procedure `cws`.`getPageByAttribute`
 --
 DELIMITER $$
-DROP PROCEDURE IF EXISTS `esolutionssvc`.`getPageByAttribute`$$
+DROP PROCEDURE IF EXISTS `cws`.`getPageByAttribute`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `esolutionssvc`.`getPageByAttribute`(
+CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getPageByAttribute`(
     IN searchTerms VARCHAR(100)
 )
 BEGIN
     SELECT page_url, page_title,
     MATCH (search_terms, page_title, page_url, page_desc)
     AGAINST (+searchTerms WITH QUERY EXPANSION)
-    FROM `esolutionssvc`.`site_search`
+    FROM `cws`.`site_search`
     WHERE MATCH (search_terms, page_title, page_url, page_desc)
     AGAINST (+searchTerms IN BOOLEAN MODE);
 END $$

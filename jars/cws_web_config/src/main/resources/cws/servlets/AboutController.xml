@@ -9,5 +9,8 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <bean id="aboutController" class="com.cws.us.pws.controllers.AboutController" />
+    <bean id="aboutController" class="com.cws.us.pws.controllers.AboutController">
+        <property name="aboutUsPage" value="Corporate_AboutUs" />
+        <property name="careersPage" value="Corporate_Careers" />
+    </bean>
 </beans>

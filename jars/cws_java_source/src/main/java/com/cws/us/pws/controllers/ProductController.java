@@ -26,6 +26,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cws.us.pws.Constants;
+import com.cws.us.pws.ApplicationServiceBean;
 import com.cws.us.pws.processors.dto.Product;
 import com.cws.us.pws.processors.dto.ProductRequest;
 import com.cws.us.pws.processors.dto.ProductResponse;
@@ -58,6 +59,9 @@ import com.cws.us.pws.processors.exception.ProductRequestException;
 public class ProductController
 {
     private String methodName = null;
+    private String showProduct = null;
+    private String searchProducts = null;
+    private ApplicationServiceBean appConfig = null;
     private ProductReferenceImpl productRefSvc = null;
 
     private static final String CNAME = ProductController.class.getName();
@@ -65,6 +69,19 @@ public class ProductController
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     private static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER);
+
+    public final void setAppConfig(final ApplicationServiceBean value)
+    {
+        this.methodName = ProductController.CNAME + "#setProductRefSvc(final ApplicationServiceBean value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.appConfig = value;
+    }
 
     public final void setProductRefSvc(final ProductReferenceImpl value)
     {
@@ -79,6 +96,32 @@ public class ProductController
         this.productRefSvc = value;
     }
 
+    public final void setShowProduct(final String value)
+    {
+        this.methodName = ProductController.CNAME + "#setShowProduct(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.showProduct = value;
+    }
+
+    public final void setSearchProducts(final String value)
+    {
+        this.methodName = ProductController.CNAME + "#setProductRefSvc(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.searchProducts = value;
+    }
+
     @RequestMapping(value = "/default.htm", method = RequestMethod.GET)
     public ModelAndView showDefaultPage()
     {
@@ -88,6 +131,8 @@ public class ProductController
         {
             DEBUGGER.debug(this.methodName);
         }
+
+        ModelAndView mView = new ModelAndView();
 
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
@@ -133,7 +178,14 @@ public class ProductController
             }
         }
 
-        return new ModelAndView("ShowProducts");
+        mView.setViewName(this.searchProducts);
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 
     @RequestMapping(value = "/products.htm", method = RequestMethod.GET)
@@ -146,6 +198,8 @@ public class ProductController
             DEBUGGER.debug(this.methodName);
         }
 
+        ModelAndView mView = new ModelAndView();
+
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
         final HttpSession hSession = hRequest.getSession();
@@ -190,7 +244,14 @@ public class ProductController
             }
         }
 
-        return new ModelAndView("ShowProducts");
+        mView.setViewName(this.searchProducts);
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 
     @RequestMapping(value = "/products.htm/product/{product}", method = RequestMethod.GET)
@@ -204,8 +265,8 @@ public class ProductController
             DEBUGGER.debug("Product: {}", productId);
         }
 
-        String viewName = null;
         Product product = null;
+        ModelAndView mView = new ModelAndView();
 
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
@@ -290,10 +351,18 @@ public class ProductController
         {
             ERROR_RECORDER.error(prx.getMessage(), prx);
 
-            viewName = "errorResponse";
+            mView.setViewName(appConfig.getErrorResponsePage());
         }
 
-        return new ModelAndView(viewName, null, product);
+        mView.addObject("product", product);
+        mView.setViewName(this.showProduct);
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 
     @RequestMapping(value = "/products.htm", method = RequestMethod.POST)
