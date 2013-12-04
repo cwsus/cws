@@ -40,6 +40,7 @@ public class ApplicationServiceBean
 {
     @Autowired private String homePage = null;
     @Autowired private String dateFormat = null;
+    @Autowired private String contactPage = null;
     @Autowired private String fileEncoding = null;
     @Autowired private String applicationId = null;
     @Autowired private String applicationName = null;
@@ -165,6 +166,19 @@ public class ApplicationServiceBean
         }
 
         this.searchRequestPage = value;
+    }
+
+    public final void setContactPage(final String value)
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#setContactPage(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.contactPage = value;
     }
 
     public final void setThemeMessageSource(final String value)
@@ -360,6 +374,19 @@ public class ApplicationServiceBean
         }
 
         return this.homePage;
+    }
+
+    public final String getContactPage()
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#getContactPage()";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", this.contactPage);
+        }
+
+        return this.contactPage;
     }
 
     public final String getUnavailablePage()

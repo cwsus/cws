@@ -18,7 +18,7 @@
         <put-attribute name="title"         value="CaspersBox Web Services - Home"/>
         <put-attribute name="body"          value="/com.cws.us.pws.common/jsp/html/en/CommonLandingPage.jsp"/>      
     </definition>
-    <definition name="System_ContactAdmins" extends="baseLayout">
+    <definition name="System_ContactUs" extends="baseLayout">
         <put-attribute name="pageTitle"     value="CaspersBox Web Services - Contact Us" cascade="true" />
         <put-attribute name="body"          value="/com.cws.us.pws.common/jsp/html/en/System_ContactUs.jsp" cascade="true" />
     </definition>

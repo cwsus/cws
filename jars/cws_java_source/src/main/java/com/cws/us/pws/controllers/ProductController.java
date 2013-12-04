@@ -455,6 +455,5 @@ public class ProductController
         }
 
         return modelView;
-        // return new ModelAndView(viewName, null, productResponse);
     }
 }

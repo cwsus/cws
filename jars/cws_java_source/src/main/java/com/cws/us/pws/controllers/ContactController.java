@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.cws.us.pws.Constants;
 import com.cws.us.pws.ApplicationServiceBean;
 import com.cws.esolutions.core.utils.EmailUtils;
-import com.cws.us.pws.validators.ContactValidator;
 import com.cws.esolutions.core.processors.dto.EmailMessage;
 import com.cws.esolutions.security.audit.dto.RequestHostInfo;
 import com.cws.esolutions.core.processors.dto.MessagingRequest;
@@ -59,7 +59,6 @@ import com.cws.esolutions.core.processors.dto.MessagingRequest;
 public class ContactController
 {
     private String methodName = null;
-    private ContactValidator validator = null;
     private ApplicationServiceBean appConfig = null;
 
     private static final String CNAME = ContactController.class.getName();
@@ -81,19 +80,6 @@ public class ContactController
         this.appConfig = value;
     }
 
-    public final void setValidator(final ContactValidator value)
-    {
-        this.methodName = ContactController.CNAME + "#setValidator(final ContactValidator value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(this.methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.validator = value;
-    }
-
     @RequestMapping(value = "/default.htm", method = RequestMethod.GET)
     public ModelAndView showDefaultPage()
     {
@@ -104,6 +90,8 @@ public class ContactController
             DEBUGGER.debug(this.methodName);
         }
 
+        ModelAndView mView = new ModelAndView();
+
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
         final HttpSession hSession = hRequest.getSession();
@@ -113,6 +101,7 @@ public class ContactController
             DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
             DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
+            DEBUGGER.debug("Session ID: {}", hSession.getId());
 
             DEBUGGER.debug("Dumping session content:");
             @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
@@ -148,7 +137,15 @@ public class ContactController
             }
         }
 
-        return new ModelAndView("addContact", "command", new EmailMessage());
+        mView.addObject("command", new EmailMessage());
+        mView.setViewName(this.appConfig.getContactPage());
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 
     @RequestMapping(value = "/contact.htm", method = RequestMethod.GET)
@@ -161,6 +158,8 @@ public class ContactController
             DEBUGGER.debug(this.methodName);
         }
 
+        ModelAndView mView = new ModelAndView();
+
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
         final HttpSession hSession = hRequest.getSession();
@@ -170,6 +169,7 @@ public class ContactController
             DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
             DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
+            DEBUGGER.debug("Session ID: {}", hSession.getId());
 
             DEBUGGER.debug("Dumping session content:");
             @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
@@ -205,7 +205,15 @@ public class ContactController
             }
         }
 
-        return new ModelAndView("addContact", "command", new EmailMessage());
+        mView.addObject("command", new EmailMessage());
+        mView.setViewName(this.appConfig.getContactPage());
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 
     @RequestMapping(value = "/contact.htm", method = RequestMethod.POST)
@@ -220,7 +228,7 @@ public class ContactController
             DEBUGGER.debug("BindingResult: {}", bindResult);
         }
 
-        String viewName = null;
+        ModelAndView mView = new ModelAndView();
 
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
@@ -231,6 +239,7 @@ public class ContactController
             DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
             DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
+            DEBUGGER.debug("Session ID: {}", hSession.getId());
 
             DEBUGGER.debug("Dumping session content:");
             @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
@@ -269,53 +278,82 @@ public class ContactController
         try
         {
             // validate
-            this.validator.validate(message, bindResult);
+            this.appConfig.getEmailValidator().validate(message, bindResult);
 
             if (bindResult.hasErrors())
             {
                 // errors occurred during validation
                 ERROR_RECORDER.error("Form failed field validation");
 
-                viewName = "addContact";
+                mView = new ModelAndView();
+                mView.addObject(Constants.ERROR_MESSAGE, this.appConfig.getMessageValidationFailed());
+                mView.addObject("command", new EmailMessage());
+                mView.setViewName(this.appConfig.getContactPage());
+
+                if (DEBUG)
+                {
+                    DEBUGGER.debug("ModelAndView: {}", mView);
+                }
+
+                return mView;
             }
-            else
+
+            this.appConfig.getMessageValidator().validate(message, bindResult);
+
+            if (bindResult.hasErrors())
             {
-                final RequestHostInfo reqInfo = new RequestHostInfo();
-                reqInfo.setHostAddress(hRequest.getRemoteAddr());
-                reqInfo.setHostName(hRequest.getRemoteHost());
+                // errors occurred during validation
+                ERROR_RECORDER.error("Form failed field validation");
+
+                mView = new ModelAndView();
+                mView.addObject(Constants.ERROR_MESSAGE, this.appConfig.getMessageValidationFailed());
+                mView.addObject("command", new EmailMessage());
+                mView.setViewName(this.appConfig.getContactPage());
 
                 if (DEBUG)
                 {
-                    DEBUGGER.debug("RequestHostInfo: {}", reqInfo);
+                    DEBUGGER.debug("ModelAndView: {}", mView);
                 }
 
-                MessagingRequest request = new MessagingRequest();
-                request.setEmailMessage(message);
-                request.setRequestInfo(reqInfo);
-                request.setWebRequest(true);
-
-                if (DEBUG)
-                {
-                    DEBUGGER.debug("MessagingRequest: {}", request);
-                }
-
-                EmailUtils.sendEmailMessage(message);
-
-                viewName = "contactResponse";
+                return mView;
             }
+
+            RequestHostInfo reqInfo = new RequestHostInfo();
+            reqInfo.setHostAddress(hRequest.getRemoteAddr());
+            reqInfo.setHostName(hRequest.getRemoteHost());
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("RequestHostInfo: {}", reqInfo);
+            }
+
+            MessagingRequest request = new MessagingRequest();
+            request.setEmailMessage(message);
+            request.setRequestInfo(reqInfo);
+            request.setWebRequest(true);
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("MessagingRequest: {}", request);
+            }
+
+            EmailUtils.sendEmailMessage(message);
+
+            mView = new ModelAndView(new RedirectView());
+            mView.setViewName(this.appConfig.getRequestCompletePage());
         }
         catch (MessagingException msx)
         {
             ERROR_RECORDER.error(msx.getMessage(), msx);
 
-            viewName = "errorResponse";
+            mView.setViewName(this.appConfig.getErrorResponsePage());
         }
 
         if (DEBUG)
         {
-            DEBUGGER.debug("viewName: {}", viewName);
+            DEBUGGER.debug("ModelAndView: {}", mView);
         }
 
-        return new ModelAndView(viewName);
+        return mView;
     }
 }
