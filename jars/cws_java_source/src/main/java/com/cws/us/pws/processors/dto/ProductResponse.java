@@ -42,7 +42,6 @@ public class ProductResponse implements Serializable
 {
     private String response = null;
     private Product product = null;
-    private String methodName = null;
     private List<Product> results = null;
     private CoreServicesStatus requestStatus = null;
 
@@ -54,11 +53,11 @@ public class ProductResponse implements Serializable
 
     public final void setRequestStatus(final CoreServicesStatus value)
     {
-        this.methodName = ProductResponse.CNAME + "#setRequestStatus(final CoreServicesStatus value)";
+        final String methodName = ProductResponse.CNAME + "#setRequestStatus(final CoreServicesStatus value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("CoreServicesStatus: {}", value);
         }
 
@@ -67,11 +66,11 @@ public class ProductResponse implements Serializable
 
     public final void setResponse(final String value)
     {
-        this.methodName = ProductResponse.CNAME + "#setResponse(final String value)";
+        final String methodName = ProductResponse.CNAME + "#setResponse(final String value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug(value);
         }
 
@@ -80,11 +79,11 @@ public class ProductResponse implements Serializable
 
     public final void setResults(final List<Product> value)
     {
-        this.methodName = ProductResponse.CNAME + "#setResults(final List<Product> value)";
+        final String methodName = ProductResponse.CNAME + "#setResults(final List<Product> value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -93,11 +92,11 @@ public class ProductResponse implements Serializable
 
     public final void setProduct(final Product value)
     {
-        this.methodName = ProductResponse.CNAME + "#setProduct(final Product value)";
+        final String methodName = ProductResponse.CNAME + "#setProduct(final Product value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -106,11 +105,11 @@ public class ProductResponse implements Serializable
 
     public final CoreServicesStatus getRequestStatus()
     {
-        this.methodName = ProductResponse.CNAME + "#getRequestStatus()";
+        final String methodName = ProductResponse.CNAME + "#getRequestStatus()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("CoreServicesStatus: {}", this.requestStatus);
         }
 
@@ -119,11 +118,11 @@ public class ProductResponse implements Serializable
 
     public final String getResponse()
     {
-        this.methodName = ProductResponse.CNAME + "#getResponse()";
+        final String methodName = ProductResponse.CNAME + "#getResponse()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug(this.response);
         }
 
@@ -132,11 +131,11 @@ public class ProductResponse implements Serializable
 
     public final List<Product> getResults()
     {
-        this.methodName = ProductResponse.CNAME + "#getArticle()";
+        final String methodName = ProductResponse.CNAME + "#getArticle()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", this.results);
         }
 
@@ -145,11 +144,11 @@ public class ProductResponse implements Serializable
 
     public final Product getProduct()
     {
-        this.methodName = ProductResponse.CNAME + "#getProduct()";
+        final String methodName = ProductResponse.CNAME + "#getProduct()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", this.results);
         }
 
@@ -158,11 +157,11 @@ public class ProductResponse implements Serializable
 
     public final String toString()
     {
-        this.methodName = ProductResponse.CNAME + "#toString()";
+        final String methodName = ProductResponse.CNAME + "#toString()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         StringBuilder sBuilder = new StringBuilder()

@@ -50,7 +50,6 @@ import com.cws.us.pws.ApplicationServiceBean;
 @RequestMapping("/home")
 public class HomeController
 {
-    private String methodName = null;
     private ApplicationServiceBean appConfig = null;
 
     private static final String CNAME = HomeController.class.getName();
@@ -71,14 +70,14 @@ public class HomeController
         this.appConfig = value;
     }
 
-    @RequestMapping(value = "/default.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/default", method = RequestMethod.GET)
     public final ModelAndView showDefaultPage()
     {
-        this.methodName = HomeController.CNAME + "#showDefaultPage()";
+        final String methodName = HomeController.CNAME + "#showDefaultPage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         ModelAndView mView = new ModelAndView();

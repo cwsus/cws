@@ -58,7 +58,6 @@ import com.cws.us.pws.processors.exception.ProductRequestException;
 @RequestMapping("/products")
 public class ProductController
 {
-    private String methodName = null;
     private String showProduct = null;
     private String searchProducts = null;
     private ApplicationServiceBean appConfig = null;
@@ -72,11 +71,11 @@ public class ProductController
 
     public final void setAppConfig(final ApplicationServiceBean value)
     {
-        this.methodName = ProductController.CNAME + "#setProductRefSvc(final ApplicationServiceBean value)";
+        final String methodName = ProductController.CNAME + "#setProductRefSvc(final ApplicationServiceBean value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -85,11 +84,11 @@ public class ProductController
 
     public final void setProductRefSvc(final ProductReferenceImpl value)
     {
-        this.methodName = ProductController.CNAME + "#setProductRefSvc(final ProductReferenceImpl value)";
+        final String methodName = ProductController.CNAME + "#setProductRefSvc(final ProductReferenceImpl value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -98,11 +97,11 @@ public class ProductController
 
     public final void setShowProduct(final String value)
     {
-        this.methodName = ProductController.CNAME + "#setShowProduct(final String value)";
+        final String methodName = ProductController.CNAME + "#setShowProduct(final String value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -111,25 +110,25 @@ public class ProductController
 
     public final void setSearchProducts(final String value)
     {
-        this.methodName = ProductController.CNAME + "#setProductRefSvc(final String value)";
+        final String methodName = ProductController.CNAME + "#setProductRefSvc(final String value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
         this.searchProducts = value;
     }
 
-    @RequestMapping(value = "/default.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/default", method = RequestMethod.GET)
     public ModelAndView showDefaultPage()
     {
-        this.methodName = ProductController.CNAME + "#showDefaultPage()";
+        final String methodName = ProductController.CNAME + "#showDefaultPage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         ModelAndView mView = new ModelAndView();
@@ -188,14 +187,14 @@ public class ProductController
         return mView;
     }
 
-    @RequestMapping(value = "/products.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
     public ModelAndView showProductsPage()
     {
-        this.methodName = ProductController.CNAME + "#showProductsPage()";
+        final String methodName = ProductController.CNAME + "#showProductsPage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         ModelAndView mView = new ModelAndView();
@@ -254,14 +253,14 @@ public class ProductController
         return mView;
     }
 
-    @RequestMapping(value = "/products.htm/product/{product}", method = RequestMethod.GET)
+    @RequestMapping(value = "/products/product/{product}", method = RequestMethod.GET)
     public ModelAndView getProductInfo(@PathVariable(value = "product") final int productId)
     {
-        this.methodName = ProductController.CNAME + "#getProductInfo(@PathVariable(value = \"product\") final int productId)";
+        final String methodName = ProductController.CNAME + "#getProductInfo(@PathVariable(value = \"product\") final int productId)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Product: {}", productId);
         }
 
@@ -365,20 +364,20 @@ public class ProductController
         return mView;
     }
 
-    @RequestMapping(value = "/products.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "/products", method = RequestMethod.POST)
     public ModelAndView getProductInfo(@RequestParam("product") final Product request)
     {
-        this.methodName = ProductController.CNAME + "#getProductInfo(@RequestParam(\"product\") final ProductRequest request)";
+        final String methodName = ProductController.CNAME + "#getProductInfo(@RequestParam(\"product\") final ProductRequest request)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Product: {}", request);
         }
 
         // String viewName = null;
         ProductResponse productResponse = null;
-        ModelAndView modelView = new ModelAndView();
+        ModelAndView mView = new ModelAndView();
 
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
@@ -443,17 +442,21 @@ public class ProductController
 
             if (productResponse.getRequestStatus() == CoreServicesStatus.FAILURE)
             {
-                modelView.setViewName("searchProducts");
-                modelView.addObject("errorResponse", "An error occurred during the request.");
+                mView.setViewName(this.appConfig.getErrorResponsePage());
             }
         }
         catch (ProductRequestException prx)
         {
             ERROR_RECORDER.error(prx.getMessage(), prx);
 
-            modelView.setViewName("errorResponse");
+            mView.setViewName(this.appConfig.getErrorResponsePage());
         }
 
-        return modelView;
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 }

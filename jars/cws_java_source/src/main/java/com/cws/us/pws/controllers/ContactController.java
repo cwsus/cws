@@ -58,7 +58,6 @@ import com.cws.esolutions.core.processors.dto.MessagingRequest;
 @RequestMapping("/contact")
 public class ContactController
 {
-    private String methodName = null;
     private ApplicationServiceBean appConfig = null;
 
     private static final String CNAME = ContactController.class.getName();
@@ -69,25 +68,25 @@ public class ContactController
 
     public final void setAppConfig(final ApplicationServiceBean value)
     {
-        this.methodName = ContactController.CNAME + "#setAppConfig(final ApplicationServiceBean value)";
+        final String methodName = ContactController.CNAME + "#setAppConfig(final ApplicationServiceBean value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
         this.appConfig = value;
     }
 
-    @RequestMapping(value = "/default.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/default", method = RequestMethod.GET)
     public ModelAndView showDefaultPage()
     {
-        this.methodName = ContactController.CNAME + "#showDefaultPage()";
+        final String methodName = ContactController.CNAME + "#showDefaultPage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         ModelAndView mView = new ModelAndView();
@@ -148,14 +147,14 @@ public class ContactController
         return mView;
     }
 
-    @RequestMapping(value = "/contact.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public ModelAndView showMessagingPage()
     {
-        this.methodName = ContactController.CNAME + "#showMessagingPage()";
+        final String methodName = ContactController.CNAME + "#showMessagingPage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         ModelAndView mView = new ModelAndView();
@@ -216,14 +215,14 @@ public class ContactController
         return mView;
     }
 
-    @RequestMapping(value = "/contact.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "/contact", method = RequestMethod.POST)
     public ModelAndView sendMessage(@ModelAttribute("message") final EmailMessage message, final BindingResult bindResult)
     {
-        this.methodName = ContactController.CNAME + "#sendMessage(@ModelAttribute(\"message\") final EmailMessage message, final BindingResult bindResult)";
+        final String methodName = ContactController.CNAME + "#sendMessage(@ModelAttribute(\"message\") final EmailMessage message, final BindingResult bindResult)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("MessagingRequest: {}", message);
             DEBUGGER.debug("BindingResult: {}", bindResult);
         }

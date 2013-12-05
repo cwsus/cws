@@ -39,7 +39,6 @@ import com.cws.esolutions.core.Constants;
 public class Product implements Serializable
 {
     private int productId = 0;
-    private String methodName = null;
     private String productName = null;
     private String productDesc = null;
     private String productCost = null;
@@ -52,11 +51,11 @@ public class Product implements Serializable
 
     public final void setProductId(final int value)
     {
-        this.methodName = Product.CNAME + "#setProductId(final int value)";
+        final String methodName = Product.CNAME + "#setProductId(final int value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -65,11 +64,11 @@ public class Product implements Serializable
 
     public final void setProductName(final String value)
     {
-        this.methodName = Product.CNAME + "#setProductName(final String value)";
+        final String methodName = Product.CNAME + "#setProductName(final String value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -78,11 +77,11 @@ public class Product implements Serializable
 
     public final void setProductDesc(final String value)
     {
-        this.methodName = Product.CNAME + "#setProductDesc(final String value)";
+        final String methodName = Product.CNAME + "#setProductDesc(final String value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -91,11 +90,11 @@ public class Product implements Serializable
 
     public final void setProductCost(final String value)
     {
-        this.methodName = Product.CNAME + "#setProductCost(final String value)";
+        final String methodName = Product.CNAME + "#setProductCost(final String value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -104,11 +103,11 @@ public class Product implements Serializable
 
     public final int getProductId()
     {
-        this.methodName = Product.CNAME + "#getProductId()";
+        final String methodName = Product.CNAME + "#getProductId()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", this.productId);
         }
 
@@ -117,11 +116,11 @@ public class Product implements Serializable
 
     public final String getProductName()
     {
-        this.methodName = Product.CNAME + "#getProductName()";
+        final String methodName = Product.CNAME + "#getProductName()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", this.productName);
         }
 
@@ -130,11 +129,11 @@ public class Product implements Serializable
 
     public final String getProductDesc()
     {
-        this.methodName = Product.CNAME + "#getProductDesc()";
+        final String methodName = Product.CNAME + "#getProductDesc()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", this.productDesc);
         }
 
@@ -143,11 +142,11 @@ public class Product implements Serializable
 
     public final String getProductCost()
     {
-        this.methodName = Product.CNAME + "#getProductCost()";
+        final String methodName = Product.CNAME + "#getProductCost()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", this.productCost);
         }
 
@@ -156,11 +155,11 @@ public class Product implements Serializable
 
     public final String toString()
     {
-        this.methodName = Product.CNAME + "#toString()";
+        final String methodName = Product.CNAME + "#toString()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         StringBuilder sBuilder = new StringBuilder()

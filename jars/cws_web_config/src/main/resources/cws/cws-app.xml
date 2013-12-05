@@ -32,15 +32,12 @@
         </property>
     </bean>
 
+    <bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/mail/MailSession" />
+    </bean>
+
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="localhost" />
-        <property name="port" value="25" />
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.debug">true</prop>
-                <prop key="mail.from">noreply@caspersbox.com</prop>
-            </props>
-        </property>
+        <property name="session" ref="mailSession" />
     </bean>
 
     <bean id="mailer" class="com.cws.esolutions.core.utils.EmailUtils">

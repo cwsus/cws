@@ -12,10 +12,14 @@
 package com.cws.us.pws.controllers;
 
 import org.slf4j.Logger;
+
 import java.util.Enumeration;
+
 import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,22 +53,51 @@ import com.cws.us.pws.Constants;
 @RequestMapping("/services")
 public class ServicesController
 {
-    private String methodName = null;
+    private String defaultPage = null;
+    private String showService = null;
 
     private static final String CNAME = ServicesController.class.getName();
 
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
 
-    @RequestMapping(value = "/default.htm", method = RequestMethod.GET)
+    public final void setDefaultPage(final String value)
+    {
+        final String methodName = ServicesController.CNAME + "#setDefaultPage(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.defaultPage = value;
+    }
+
+    public final void setShowService(final String value)
+    {
+        final String methodName = ServicesController.CNAME + "#setShowService(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.showService = value;
+    }
+
+    @RequestMapping(value = "/default", method = RequestMethod.GET)
     public ModelAndView showDefaultPage()
     {
-        this.methodName = ServicesController.CNAME + "#showDefaultPage()";
+        final String methodName = ServicesController.CNAME + "#showDefaultPage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
+
+        ModelAndView mView = new ModelAndView();
 
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
@@ -110,18 +143,27 @@ public class ServicesController
             }
         }
 
-        return new ModelAndView("home");
+        mView.setViewName(this.defaultPage);
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 
-    @RequestMapping(value = "/services.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/services", method = RequestMethod.GET)
     public ModelAndView showServicesPage()
     {
-        this.methodName = ServicesController.CNAME + "#showServicesPage()";
+        final String methodName = ServicesController.CNAME + "#showServicesPage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
+
+        ModelAndView mView = new ModelAndView();
 
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
@@ -167,18 +209,27 @@ public class ServicesController
             }
         }
 
-        return new ModelAndView("ShowServices");
+        mView.setViewName(this.defaultPage);
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 
-    @RequestMapping(value = "/services.htm/{serviceId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/services/service/{serviceId}", method = RequestMethod.GET)
     public ModelAndView showWelcomePage()
     {
-        this.methodName = ServicesController.CNAME + "#showWelcomePage()";
+        final String methodName = ServicesController.CNAME + "#showWelcomePage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
+
+        ModelAndView mView = new ModelAndView();
 
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
@@ -224,6 +275,13 @@ public class ServicesController
             }
         }
 
-        return new ModelAndView("ShowServices");
+        mView.setViewName(this.showService);
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug("ModelAndView: {}", mView);
+        }
+
+        return mView;
     }
 }

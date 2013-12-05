@@ -19,17 +19,16 @@ import org.springframework.validation.ValidationUtils;
 
 import com.cws.us.pws.Constants;
 import com.cws.esolutions.core.processors.dto.EmailMessage;
+import com.cws.esolutions.core.processors.dto.SearchRequest;
 /**
  * CWSPWS_java_source
  * com.cws.us.pws.validators
  * ContactValidator.java
  *
- * TODO: Add class description
- *
- * $Id: cws-codetemplates.xml 2286 2013-01-03 20:50:12Z kmhuntly@gmail.com $
- * $Author: kmhuntly@gmail.com $
- * $Date: 2013-01-03 15:50:12 -0500 (Thu, 03 Jan 2013) $
- * $Revision: 2286 $
+ * $Id: $
+ * $Author: $
+ * $Date: $
+ * $Revision: $
  * @author khuntly
  * @version 1.0
  *
@@ -40,8 +39,6 @@ import com.cws.esolutions.core.processors.dto.EmailMessage;
  */
 public class SearchValidator implements Validator
 {
-    private String methodName = null;
-
     private static final String CNAME = SearchValidator.class.getName();
 
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
@@ -57,15 +54,15 @@ public class SearchValidator implements Validator
     @Override
     public boolean supports(final Class<?> clazz)
     {
-        this.methodName = SearchValidator.CNAME + "#supports(final Class clazz)";
+        final String methodName = SearchValidator.CNAME + "#supports(final Class clazz)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Class: {}", clazz);
         }
 
-        return EmailMessage.class.isAssignableFrom(clazz);
+        return SearchRequest.class.isAssignableFrom(clazz);
     }
 
     /**
@@ -78,11 +75,11 @@ public class SearchValidator implements Validator
     @Override
     public void validate(final Object target, final Errors errors)
     {
-        this.methodName = SearchValidator.CNAME + "#validate(final <Class> request)";
+        final String methodName = SearchValidator.CNAME + "#validate(final <Class> request)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("target: {}", target);
             DEBUGGER.debug("errors: {}", errors);
         }

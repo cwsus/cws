@@ -49,7 +49,6 @@ import com.cws.us.pws.Constants;
 @RequestMapping("/corp")
 public class AboutController
 {
-    private String methodName = null;
     private String aboutUsPage = null;
     private String careersPage = null;
 
@@ -84,14 +83,14 @@ public class AboutController
         this.careersPage = value;
     }
 
-    @RequestMapping(value = "/default.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/default", method = RequestMethod.GET)
     public ModelAndView showDefaultPage()
     {
-        this.methodName = AboutController.CNAME + "#showDefaultPage()";
+        final String methodName = AboutController.CNAME + "#showDefaultPage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         ModelAndView mView = new ModelAndView();
@@ -150,14 +149,14 @@ public class AboutController
         return mView;
     }
 
-    @RequestMapping(value = "/careers.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/careers", method = RequestMethod.GET)
     public ModelAndView showCareersPage()
     {
-        this.methodName = AboutController.CNAME + "#showCareersPage()";
+        final String methodName = AboutController.CNAME + "#showCareersPage()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         ModelAndView mView = new ModelAndView();

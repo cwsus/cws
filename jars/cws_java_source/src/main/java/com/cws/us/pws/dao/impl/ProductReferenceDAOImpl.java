@@ -47,16 +47,15 @@ import com.cws.us.pws.dao.interfaces.IProductReferenceDAO;
  */
 public class ProductReferenceDAOImpl implements IProductReferenceDAO
 {
-    private String methodName = null;
     @Autowired private JdbcTemplate jdbcTemplate;
 
     public final void setJdbcTemplate(final JdbcTemplate template)
     {
-        this.methodName = IProductReferenceDAO.CNAME + "#setJdbcTemplate(final JdbcTemplate template)";
+        final String methodName = IProductReferenceDAO.CNAME + "#setJdbcTemplate(final JdbcTemplate template)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("JdbcTemplate: {}", template);
         }
 
@@ -72,11 +71,11 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
     @Override
     public List<String[]> getProductList()
     {
-        this.methodName = IProductReferenceDAO.CNAME + "#getProductList()";
+        final String methodName = IProductReferenceDAO.CNAME + "#getProductList()";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
         }
 
         List<String[]> response = this.jdbcTemplate.execute("myproc", new PreparedStatementCallback<List<String[]>>()
@@ -181,11 +180,11 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
     @Override
     public List<String> getProductData(final int productId)
     {
-        this.methodName = IProductReferenceDAO.CNAME + "#getProductData(final int productId) throws SQLException";
+        final String methodName = IProductReferenceDAO.CNAME + "#getProductData(final int productId) throws SQLException";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Product ID: {}", productId);
         }
 

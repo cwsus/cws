@@ -42,16 +42,15 @@ import com.cws.esolutions.core.processors.enums.CoreServicesStatus;
  */
 public class ProductReferenceImpl implements IProductReference
 {
-    private String methodName = null;
     @Autowired private ProductReferenceDAOImpl productDAO = null;
 
     public final void setProductDAO(final ProductReferenceDAOImpl value)
     {
-        this.methodName = IProductReference.CNAME + "#setProductDAO(final ProductReferenceDAOImpl value)";
+        final String methodName = IProductReference.CNAME + "#setProductDAO(final ProductReferenceDAOImpl value)";
 
         if (DEBUG)
         {
-            DEBUGGER.debug(this.methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("Value: {}", value);
         }
 
@@ -61,11 +60,11 @@ public class ProductReferenceImpl implements IProductReference
     @Override
     public List<Product> getProductList()
     {
-        this.methodName = IProductReference.CNAME + "#getProductList()";
+        final String methodName = IProductReference.CNAME + "#getProductList()";
         
         if (DEBUG)
         {
-        	DEBUGGER.debug(this.methodName);
+        	DEBUGGER.debug(methodName);
         }
         
         return null;
@@ -73,11 +72,11 @@ public class ProductReferenceImpl implements IProductReference
 
     public ProductResponse getProductData(final ProductRequest request) throws ProductRequestException
     {
-        this.methodName = IProductReference.CNAME + "#getProductData(final ProductRequest request) throws ProductRequestException";
+        final String methodName = IProductReference.CNAME + "#getProductData(final ProductRequest request) throws ProductRequestException";
         
         if (DEBUG)
         {
-        	DEBUGGER.debug(this.methodName);
+        	DEBUGGER.debug(methodName);
             DEBUGGER.debug("request: {}", request);
         }
 

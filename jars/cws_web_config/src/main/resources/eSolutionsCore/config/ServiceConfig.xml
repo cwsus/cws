@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <application-config>
+        <appName>eSolutionsCore</appName>
+        <dateFormat>MM/dd/yyyy hh:mm</dateFormat>
+        <messageIdLength>16</messageIdLength>
+        <serviceRootDirectory />
+        <archiveRootDirectory />
+        <fileRepositoryRoot />
+        <connectTimeout />
+        <scriptTimeout />
+        <virtualManagerClass />
+        <agentBundleSource />
+    </application-config>
+
+    <mq-config />
+
+    <proxy-config />
+
+    <dns-config />
+
+    <mail-config>
+        <dataSourceName>mail/MailSession</dataSourceName>
+    </mail-config>
+
+    <ssh-config />
+
+    <exception-config>
+        <sendExceptionNotifications>false</sendExceptionNotifications>
+        <!-- use these properties if you wish to send notifications for exceptions -->
+        <!--
+        <emailFrom />
+        <notificationAddresses>
+            <emailAddress />
+        </notificationAddresses>
+        -->
+    </exception-config>
+
+    <resource-config>
+        <DataSourceManager>
+            <dsName>ApplicationDataSource</dsName>
+            <datasource>jdbc/cws</datasource>
+        </DataSourceManager>
+    </resource-config>
+</configuration>
