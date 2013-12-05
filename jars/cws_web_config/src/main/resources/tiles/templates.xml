@@ -8,8 +8,8 @@
         <put-attribute name="pageTitle"     value="CaspersBox Web Services" cascade="true" />
         <!-- jsp files -->
         <put-attribute name="head"          value="/theme/cws/html/en/jsp/head.jsp" cascade="true" />
-        <put-attribute name="top-nav"       value="/theme/cws/html/en/jsp/SearchForm.jsp" cascade="true" />
-        <put-attribute name="right-nav"     value="/theme/cws/html/en/jsp/navbar.jsp" cascade="true" />
+        <put-attribute name="top-nav"       value="/theme/cws/html/en/jsp/top-nav.jsp" cascade="true" />
+        <put-attribute name="right-nav"     value="/theme/cws/html/en/jsp/right-nav.jsp" cascade="true" />
         <put-attribute name="footer"        value="/theme/cws/html/en/jsp/footer.jsp" cascade="true" />
     </definition>
 

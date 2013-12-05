@@ -2,12 +2,12 @@
     <div id="header-nav-top">
         <ul>
             <li>
-                <a href="${pageContext.request.contextPath}/ui/corp/about.htm" title="<spring:message code="theme.top-nav.about" />">
+                <a href="${pageContext.request.contextPath}/ui/corp/default" title="<spring:message code="theme.top-nav.about" />">
                     <spring:message code="theme.top-nav.about" />
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/ui/corp/contact.htm" title="<spring:message code="theme.top-nav.contact" />">
+                <a href="${pageContext.request.contextPath}/ui/contact/default" title="<spring:message code="theme.top-nav.contact" />">
                     <spring:message code="theme.top-nav.contact" />
                 </a>
             </li>
@@ -21,27 +21,27 @@
 <div id="header-nav-bottom">
     <ul>
         <li>
-            <a href="${pageContext.request.contextPath}/ui/home/welcome.htm" title="<spring:message code="theme.top-nav.home" />">
+            <a href="${pageContext.request.contextPath}/ui/home/default" title="<spring:message code="theme.top-nav.home" />">
                 <spring:message code="theme.top-nav.home" />
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/ui/shop/products.htm" title="<spring:message code="theme.top-nav.products" />">
+            <a href="${pageContext.request.contextPath}/ui/products/default" title="<spring:message code="theme.top-nav.products" />">
                 <spring:message code="theme.top-nav.products" />
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/ui/shop/services.htm" title="<spring:message code="theme.top-nav.services" />">
+            <a href="${pageContext.request.contextPath}/ui/services/default" title="<spring:message code="theme.top-nav.services" />">
                 <spring:message code="theme.top-nav.services" />
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/ui/help/support.htm" title="<spring:message code="theme.top-nav.support" />">
+            <a href="${pageContext.request.contextPath}/ui/help/support/default" title="<spring:message code="theme.top-nav.support" />">
                 <spring:message code="theme.top-nav.support" />
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/ui/corp/corp.htm" title="<spring:message code="theme.top-nav.corporate" />">
+            <a href="${pageContext.request.contextPath}/ui/corp/default" title="<spring:message code="theme.top-nav.corporate" />">
                 <spring:message code="theme.top-nav.corporate" />
             </a>
         </li>

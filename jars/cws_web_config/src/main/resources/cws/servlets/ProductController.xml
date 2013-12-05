@@ -17,6 +17,9 @@
         <property name="productRefSvc">
             <ref bean="productRef" />
         </property>
+        <property name="appConfig">
+            <ref bean="appConfig" />
+        </property>
         <property name="searchProducts" value="Products_SearchProducts" />
         <property name="showProduct" value="Product_ShowProduct" />
     </bean>

@@ -59,12 +59,12 @@
 			    <div id="header-nav-top">
 			        <ul>
 			            <li>
-			                <a href="${pageContext.request.contextPath}/ui/corp/about.htm" title="<spring:message code="theme.top-nav.about" />">
+			                <a href="${pageContext.request.contextPath}/ui/corp/about" title="<spring:message code="theme.top-nav.about" />">
 			                    <spring:message code="theme.top-nav.about" />
 			                </a>
 			            </li>
 			            <li>
-			                <a href="${pageContext.request.contextPath}/ui/corp/contact.htm" title="<spring:message code="theme.top-nav.contact" />">
+			                <a href="${pageContext.request.contextPath}/ui/corp/contact" title="<spring:message code="theme.top-nav.contact" />">
 			                    <spring:message code="theme.top-nav.contact" />
 			                </a>
 			            </li>
@@ -87,7 +87,7 @@
 			    </div>
 			    <div class="right-column-box-standard">
 			        <div class="right-column-title-blue"><spring:message code="theme.right-nav.questions" /></div>
-			        Please feel free to <a href="${pageContext.request.contextPath}/ui/corp/contact.htm" title="Contact Us"> contact us</a>!
+			        Please feel free to <a href="${pageContext.request.contextPath}/ui/corp/contact" title="Contact Us"> contact us</a>!
 			    </div>
 			</div>
 

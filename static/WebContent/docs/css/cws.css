@@ -393,6 +393,29 @@ form label
     font-size: 1.1em;
 }
 
+/* error */
+.middle-column-title-standard-error
+{
+    display: block;
+    margin: 0em 0em 0.5em 0em;
+    padding: 0.2em 0em 0.2em 0em;    
+    border-bottom: solid 0.167em #CCCCCC;    
+    background-color: rgb(255,255,255);
+    color: #FF0000;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.middle-column-box-full-standard-error
+{
+    float: left;
+    width: 43.0em;
+    margin: 0em 0em 2.0em 0em;
+    padding: 0em;
+    background-color: rgb(255,255,255);
+    color: #FF0000;
+}
+
 .middle-column-title-standard
 {
     display: block;

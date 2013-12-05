@@ -6,6 +6,6 @@
     </div>
     <div class="right-column-box-standard">
         <div class="right-column-title-blue"><spring:message code="theme.right-nav.questions" /></div>
-        Please feel free to <a href="${pageContext.request.contextPath}/ui/corp/contact.htm" title="Contact Us"> contact us</a>!
+        Please feel free to <a href="${pageContext.request.contextPath}/ui/corp/contact" title="Contact Us"> contact us</a>!
     </div>
 </div>
