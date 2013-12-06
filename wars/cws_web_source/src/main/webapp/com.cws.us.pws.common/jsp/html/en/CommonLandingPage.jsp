@@ -1,8 +1,3 @@
-<c:set var="req" value="${pageContext.request}" />
-<c:set var="baseURL" value="${fn:replace(req.requestURL, fn:substring(req.requestURI, 1, fn:length(req.requestURI)), 'html')}" />
-
-<c:import url="${baseURL}/cws/main-bulletin.htm" />
-
 <div class="middle-column-box-full-standard">
     <div class="middle-column-title-standard">CaspersBox Web Services</div>
             

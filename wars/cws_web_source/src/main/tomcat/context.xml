@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context docBase="@document.base@">
+
+    <Resource name="jdbc/cws" auth="Container" type="javax.sql.DataSource" closeMethod="close"
+        username="@database.user.name@" password="@database.user.password@" driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://@database.host.name@/cws?autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull"
+        testWhileIdle="true" testOnBorrow="true" testOnReturn="false" validationQuery="SELECT 1 FROM DUAL"
+        validationInterval="30000" timeBetweenEvictionRunsMillis="5000" maxActive="100" minIdle="0" maxWait="10000"
+        initialSize="0" removeAbandonedTimeout="60" removeAbandoned="true" logAbandoned="true" minEvictableIdleTimeMillis="30000"
+        jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;
+            org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer;
+            org.apache.tomcat.jdbc.pool.interceptor.SlowQueryReportJmx(threshold=10000)" />
+
+    <Valve className="org.apache.catalina.valves.ExtendedAccessLogValve" directory="@sysLogDirectory@" prefix="access" suffix=".log"
+        fileDateFormat="yyyy-MM-dd" rotatable="true" renameOnRotate="true"
+        pattern="date time time-taken bytes cs-uri cs-uri-query cs-uri-stem date s-dns s-ip sc-status c-dns x-H(remoteUser) cs-method cs-uri x-H(protocol)"
+        encoding="UTF-8" locale="en_US" requestAttributesEnabled="true" buffered="true" />
+</Context>
