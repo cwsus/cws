@@ -38,6 +38,7 @@ import com.cws.us.pws.validators.EmailMessageValidator;
  */
 public class ApplicationServiceBean
 {
+    @AutoWired private String siteMap = null;
     @Autowired private String homePage = null;
     @Autowired private String dateFormat = null;
     @Autowired private String contactPage = null;
@@ -63,6 +64,19 @@ public class ApplicationServiceBean
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     private static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER);
+
+    public final void setSiteMap(final String value)
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#setSiteMap(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.siteMap = value;
+    }
 
     public final void setHomePage(final String value)
     {
@@ -309,6 +323,19 @@ public class ApplicationServiceBean
         }
 
         this.messageValidator = value;
+    }
+
+    public final String getSiteMap()
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#getSiteMap()";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", this.siteMap);
+        }
+
+        return this.siteMap;
     }
 
     public final String getFileEncoding()

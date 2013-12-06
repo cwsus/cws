@@ -30,11 +30,15 @@
         <put-attribute name="pageTitle"     value="CaspersBox Web Services - Request Complete" cascade="true" />
         <put-attribute name="body"          value="/com.cws.us.pws.common/jsp/html/en/System_RequestComplete.jsp" cascade="true" />
     </definition>
+    <definition name="System_SiteMap" extends="baseLayout">
+        <put-attribute name="pageTitle"     value="CaspersBox Web Services - Site Map" cascade="true" />
+        <put-attribute name="body"          value="/com.cws.us.pws.common/jsp/html/en/System_SiteMap.jsp" cascade="true" />
+    </definition>
 
     <!-- Corporate -->
     <definition name="Corporate_AboutUs" extends="baseLayout">
         <put-attribute name="pageTitle"     value="CaspersBox Web Services - About Us" cascade="true" />
-        <put-attribute name="body"          value="/com.cws.us.pws.corporate/jsp/html/en/Corporate_AboutUs.jsp" cascade="true" />
+        <put-attribute name="body"          value="/com.cws.us.pws.corporate/jsp/html/en/Corporate_AboutCWS.jsp" cascade="true" />
     </definition>
     <definition name="Corporate_Careers" extends="baseLayout">
         <put-attribute name="pageTitle"     value="CaspersBox Web Services - Careers" cascade="true" />
@@ -44,10 +48,10 @@
     <!-- Products -->
     <definition name="Products_SearchProducts" extends="baseLayout">
         <put-attribute name="title"         value="CaspersBox Web Services - Product Search" cascade="true" />
-        <put-attribute name="body"          value="/com.cws.us.pws.product/jsp/html/en/Product_ProductSearch.jsp" cascade="true" />
+        <put-attribute name="body"          value="/com.cws.us.pws.product/jsp/html/en/Product_SearchProducts.jsp" cascade="true" />
     </definition>
     <definition name="Product_ShowProduct" extends="baseLayout">
         <put-attribute name="title"         value="CaspersBox Web Services - View Product" cascade="true" />
-        <put-attribute name="body"          value="/com.cws.us.pws.product/jsp/html/en/Product_ViewProduct.jsp" cascade="true" />
+        <put-attribute name="body"          value="/com.cws.us.pws.product/jsp/html/en/Product_ShowProduct.jsp" cascade="true" />
     </definition>
 </tiles-definitions>

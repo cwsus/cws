@@ -72,6 +72,7 @@
         <property name="requestCompletePage" value="System_RequestComplete" />
         <property name="searchRequestPage" value="System_SearchRequest" />
         <property name="unavailablePage" value="System_UnavailablePage" />
+        <property name="siteMap" value="System_SiteMap" />
         <property name="themeMessageSource" value="nls.theme.resources" />
         <property name="messageEmailSendFailed" value="theme.system.message.email.send.failed" />
         <property name="messageRequestCanceled" value="theme.system.message.request.canceled" />
