@@ -12,23 +12,27 @@
 package com.cws.us.pws.controllers;
 
 import org.slf4j.Logger;
-
 import java.util.Enumeration;
-
 import org.slf4j.LoggerFactory;
-
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cws.us.pws.Constants;
 import com.cws.us.pws.ApplicationServiceBean;
+import com.cws.esolutions.core.utils.EmailUtils;
+import com.cws.security.audit.dto.RequestHostInfo;
+import com.cws.esolutions.core.processors.dto.EmailMessage;
+import com.cws.esolutions.core.processors.dto.MessagingRequest;
 /**
  * CWSPWS_java_source
  * com.cws.us.pws.controllers
@@ -60,6 +64,7 @@ public class CommonController
 
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
+    private static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER);
 
     public final void setAppConfig(final ApplicationServiceBean value)
     {
@@ -143,7 +148,7 @@ public class CommonController
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public ModelAndView showMessagingPage()
     {
-        final String methodName = ContactController.CNAME + "#showMessagingPage()";
+        final String methodName = CommonController.CNAME + "#showMessagingPage()";
 
         if (DEBUG)
         {
@@ -211,7 +216,7 @@ public class CommonController
     @RequestMapping(value = "/contact", method = RequestMethod.POST)
     public ModelAndView sendMessage(@ModelAttribute("message") final EmailMessage message, final BindingResult bindResult)
     {
-        final String methodName = ContactController.CNAME + "#sendMessage(@ModelAttribute(\"message\") final EmailMessage message, final BindingResult bindResult)";
+        final String methodName = CommonController.CNAME + "#sendMessage(@ModelAttribute(\"message\") final EmailMessage message, final BindingResult bindResult)";
 
         if (DEBUG)
         {
