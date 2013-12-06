@@ -1,8 +1,8 @@
 <head>
     <title><tiles:insertAttribute name="pageTitle" /></title>
     <link rel="stylesheet" type="text/css" href="/html/cws/css/cws.css" />
-    <link rel="image/x-icon" href="/html/cws/img/favicon.ico" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/x-icon" href="/html/cws/img/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/html/cws/img/favicon.ico" />
     <script type="text/javascript" src="/html/cws/js/FormHandler.js"></script>
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />

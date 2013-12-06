@@ -36,7 +36,7 @@ import com.cws.us.pws.processors.exception.ProductRequestException;
 /**
  * CWSPWS_java_source
  * com.cws.us.pws.controllers
- * HomeController.java
+ * ProductController.java
  *
  * This is a VERY basic controller because it really doesn't need to do
  * anything. It loads the home page and that's pretty much it - nothing

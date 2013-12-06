@@ -38,8 +38,7 @@
 
     <!-- import controllers -->
     <import resource="classpath:/cws/servlets/AboutController.xml" />
-    <import resource="classpath:/cws/servlets/ContactController.xml" />
-    <import resource="classpath:/cws/servlets/HomeController.xml" />
+    <import resource="classpath:/cws/servlets/CommonController.xml" />
     <import resource="classpath:/cws/servlets/ProductController.xml" />
     <import resource="classpath:/cws/servlets/ServicesController.xml" />
 </beans>
