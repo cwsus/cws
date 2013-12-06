@@ -512,7 +512,7 @@ public class CommonController
             SearchRequest request = new SearchRequest();
             request.setSearchType(SearchRequestType.SITE);
             request.setSearchTerms(terms);
-            request.setStartPage(page);
+            request.setStartRow(page);
 
             if (DEBUG)
             {

@@ -48,7 +48,6 @@ public class ApplicationServiceBean
     @Autowired private String unavailablePage = null;
     @Autowired private String errorResponsePage = null;
     @Autowired private String searchRequestPage = null;
-    @Autowired private String themeMessageSource = null;
     @Autowired private String requestCompletePage = null;
     @Autowired private String messageNoSearchResults = null;
     @Autowired private String messageEmailSendFailed = null;
@@ -193,19 +192,6 @@ public class ApplicationServiceBean
         }
 
         this.contactPage = value;
-    }
-
-    public final void setThemeMessageSource(final String value)
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#setThemeMessageSource(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.themeMessageSource = value;
     }
 
     public final void setRequestCompletePage(final String value)
@@ -570,19 +556,6 @@ public class ApplicationServiceBean
         }
 
         return this.messageValidator ;
-    }
-
-    public final String getThemeMessageSource()
-    {
-        final String methodName = ApplicationServiceBean.CNAME + "#getThemeMessageSource()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.themeMessageSource);
-        }
-
-        return this.themeMessageSource;
     }
 
     @Override
