@@ -38,7 +38,7 @@ import com.cws.us.pws.validators.EmailMessageValidator;
  */
 public class ApplicationServiceBean
 {
-    @AutoWired private String siteMap = null;
+    @Autowired private String siteMap = null;
     @Autowired private String homePage = null;
     @Autowired private String dateFormat = null;
     @Autowired private String contactPage = null;
