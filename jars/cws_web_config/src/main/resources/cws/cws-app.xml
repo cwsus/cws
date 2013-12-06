@@ -85,9 +85,10 @@
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basenames">
             <list>
-                <value>classpath:nls/CommonServlet/CommonServlet</value>
                 <value>classpath:nls/AboutServlet/AboutServlet</value>
+                <value>classpath:nls/CommonServlet/CommonServlet</value>
                 <value>classpath:nls/ContactServlet/ContactServlet</value>
+                <value>classpath:nls/CorporateServlet/CorporateServlet</value>
                 <value>classpath:nls/ProductServlet/ProductServlet</value>
                 <value>classpath:nls/ServicesServlet/ServicesServlet</value>
                 <value>classpath:nls/theme/resources</value>
