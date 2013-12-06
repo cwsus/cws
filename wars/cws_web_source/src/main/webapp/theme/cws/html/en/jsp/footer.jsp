@@ -1,3 +1,3 @@
 <div id="footer">
-    <spring:message code="theme.footer.copyright" />
+    &copy; <spring:message code="theme.footer.copyright" />
 </div>
