@@ -79,8 +79,8 @@
     </servlet>
 
     <servlet-mapping>
-    	<servlet-name>cws</servlet-name>
-    	<url-pattern>/ui/*</url-pattern>
+        <servlet-name>cws</servlet-name>
+        <url-pattern>/ui/*</url-pattern>
     </servlet-mapping>
 
     <resource-ref>

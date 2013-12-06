@@ -68,29 +68,29 @@
         <property name="dateFormat" value="MM/dd/yyyy hh:mm" /> <!-- date format (displayed on jsp's) -->
         <property name="homePage" value="HomePage" />
         <property name="contactPage" value="System_ContactUs" />
-	    <property name="errorResponsePage" value="System_ErrorResponse" />
-	    <property name="requestCompletePage" value="System_RequestComplete" />
-	    <property name="searchRequestPage" value="System_SearchRequest" />
-	    <property name="unavailablePage" value="System_UnavailablePage" />
-	    <property name="themeMessageSource" value="nls.theme.resources" />
-	    <property name="messageEmailSendFailed" value="theme.system.message.email.send.failed" />
-	    <property name="messageRequestCanceled" value="theme.system.message.request.canceled" />
-	    <property name="messageRequestProcessingFailure" value="theme.system.service.failure" />
-	    <property name="messageValidationFailed" value="theme.request.validation.failed" />
-	    <property name="messageNoSearchResults" value="theme.search.no.results" />
-	    <property name="messageEmailSentSuccess" value="theme.email.sent.success" />
+        <property name="errorResponsePage" value="System_ErrorResponse" />
+        <property name="requestCompletePage" value="System_RequestComplete" />
+        <property name="searchRequestPage" value="System_SearchRequest" />
+        <property name="unavailablePage" value="System_UnavailablePage" />
+        <property name="themeMessageSource" value="nls.theme.resources" />
+        <property name="messageEmailSendFailed" value="theme.system.message.email.send.failed" />
+        <property name="messageRequestCanceled" value="theme.system.message.request.canceled" />
+        <property name="messageRequestProcessingFailure" value="theme.system.service.failure" />
+        <property name="messageValidationFailed" value="theme.request.validation.failed" />
+        <property name="messageNoSearchResults" value="theme.search.no.results" />
+        <property name="messageEmailSentSuccess" value="theme.email.sent.success" />
     </bean>
 
     <!-- internationalization -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basenames">
             <list>
-				<value>classpath:nls/AboutServlet/AboutServlet</value>
-				<value>classpath:nls/ContactServlet/ContactServlet</value>
-				<value>classpath:nls/HomeServlet/HomeServlet</value>
-				<value>classpath:nls/ProductServlet/ProductServlet</value>
-				<value>classpath:nls/ServicesServlet/ServicesServlet</value>
-				<value>classpath:nls/theme/resources</value>
+                <value>classpath:nls/AboutServlet/AboutServlet</value>
+                <value>classpath:nls/ContactServlet/ContactServlet</value>
+                <value>classpath:nls/HomeServlet/HomeServlet</value>
+                <value>classpath:nls/ProductServlet/ProductServlet</value>
+                <value>classpath:nls/ServicesServlet/ServicesServlet</value>
+                <value>classpath:nls/theme/resources</value>
             </list>
         </property>
         <property name="cacheSeconds">

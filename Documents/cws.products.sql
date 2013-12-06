@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: cws
 -- ------------------------------------------------------
--- Server version	5.5.27-log
+-- Server version    5.5.27-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;

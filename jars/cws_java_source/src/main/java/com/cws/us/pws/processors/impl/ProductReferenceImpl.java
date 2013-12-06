@@ -64,7 +64,7 @@ public class ProductReferenceImpl implements IProductReference
         
         if (DEBUG)
         {
-        	DEBUGGER.debug(methodName);
+            DEBUGGER.debug(methodName);
         }
         
         return null;
@@ -76,7 +76,7 @@ public class ProductReferenceImpl implements IProductReference
         
         if (DEBUG)
         {
-        	DEBUGGER.debug(methodName);
+            DEBUGGER.debug(methodName);
             DEBUGGER.debug("request: {}", request);
         }
 

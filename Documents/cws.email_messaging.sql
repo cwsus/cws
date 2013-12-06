@@ -31,7 +31,7 @@ CREATE TABLE `cws`.`email_messages` (
 --
 /*!40000 ALTER TABLE `cws`.`email_messages` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cws`.`email_messages` ENABLE KEYS */;
-COMMIT;	
+COMMIT;    
 
 --
 -- Definition of procedure `cws`.`getEmailByAttribute`

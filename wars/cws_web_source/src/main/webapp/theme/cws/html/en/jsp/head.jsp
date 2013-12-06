@@ -17,12 +17,12 @@
     <meta name="copyright" content="&copy; 2008 CaspersBox Web Services" />
     <meta name="description" content="CaspersBox Web Services is your full service provider for all your development and consulting needs." />
     <meta name="keywords" content="incident, change management, incident management, infinix, caspersbox, caspersbox web services" />
-	<script type="text/javascript">
-		<!--
-		if (top != self)
-		{
-			top.location = self.location;
-		}
-		//-->
-	</script>
+    <script type="text/javascript">
+        <!--
+        if (top != self)
+        {
+            top.location = self.location;
+        }
+        //-->
+    </script>
 </head>
