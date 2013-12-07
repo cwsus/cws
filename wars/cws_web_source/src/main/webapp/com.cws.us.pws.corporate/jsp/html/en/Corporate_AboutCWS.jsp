@@ -7,8 +7,8 @@
     <div class="middle-column-title-standard"><spring:message code="corporate.locations.text" /></div>
     <spring:message code="corporate.text.addr" />
     <br /><br />
-    <spring:message code="corporate.text.addr.1" /><br />
-    <spring:message code="corporate.text.addr.2" /><br />
+    <spring:message code="corporate.street.addr.1" /><br />
+    <spring:message code="corporate.street.addr.2" /><br />
     <spring:message code="corporate.city.addr" />
 
     <%--
