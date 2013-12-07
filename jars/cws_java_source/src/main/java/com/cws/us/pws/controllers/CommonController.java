@@ -12,15 +12,11 @@
 package com.cws.us.pws.controllers;
 
 import org.slf4j.Logger;
-
 import java.util.Enumeration;
-
 import org.slf4j.LoggerFactory;
-
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -359,7 +355,7 @@ public class CommonController
                 DEBUGGER.debug("MessagingRequest: {}", request);
             }
 
-            EmailUtils.sendEmailMessage(message);
+            EmailUtils.sendEmailMessage(message, true);
 
             mView = new ModelAndView(new RedirectView());
             mView.setViewName(this.appConfig.getRequestCompletePage());
