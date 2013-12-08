@@ -30,6 +30,15 @@
             <tiles:insertAttribute name="top-nav" />
 
             <div id="middle-column">
+                <c:if test="${not empty alertMessages}">
+                    <c:forEach var="message" items="${alertMessages}">
+                        <div class="middle-column-box-full-standard">
+                            <div class="middle-column-title-standard-error"><spring:message code="theme.important.message" /></div>
+                            ${message.messageText}
+                        </div>
+                    </c:forEach>
+                </c:if>
+
                 <tiles:insertAttribute name="body" />
             </div>
 
@@ -38,3 +47,4 @@
         </div>
     </body>
 </html>
+

@@ -109,7 +109,7 @@
 
             <div id="middle-column">
                 <div class="middle-column-box-full-standard">
-                    <div class="middle-column-title-standard"><spring:message code="theme.messaging.send.email.message" /></div>
+                    <div class="middle-column-title-standard-error"><spring:message code="theme.messaging.send.email.message" /></div>
                     <spring:message code="theme.system.service.failure" />
                 </div>
             </div>

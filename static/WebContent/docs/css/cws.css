@@ -425,16 +425,6 @@ p#validationError
     font-size: 1.2em;
 }
 
-.middle-column-box-full-standard-error
-{
-    float: left;
-    width: 43.0em;
-    margin: 0em 0em 2.0em 0em;
-    padding: 0em;
-    background-color: rgb(255,255,255);
-    color: #FF0000;
-}
-
 .middle-column-title-standard
 {
     display: block;
