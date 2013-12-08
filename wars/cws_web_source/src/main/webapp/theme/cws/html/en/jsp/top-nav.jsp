@@ -2,11 +2,6 @@
     <div id="header-nav-top">
         <ul>
             <li>
-                <a href="${pageContext.request.contextPath}/ui/corp/default" title="<spring:message code="theme.top-nav.about" />">
-                    <spring:message code="theme.top-nav.about" />
-                </a>
-            </li>
-            <li>
                 <a href="${pageContext.request.contextPath}/ui/common/contact" title="<spring:message code="theme.top-nav.contact" />">
                     <spring:message code="theme.top-nav.contact" />
                 </a>
@@ -44,17 +39,13 @@
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/ui/help/common/support" title="<spring:message code="theme.top-nav.support" />">
-                <spring:message code="theme.top-nav.support" />
-            </a>
-        </li>
-        <li>
             <a href="${pageContext.request.contextPath}/ui/corp/default" title="<spring:message code="theme.top-nav.corporate" />">
                 <spring:message code="theme.top-nav.corporate" />
             </a>
         </li>
     </ul>
 </div>
+
 <div id="left-column-first">
     <img class="img-left-nav" src="/html/cws/img/img_left_nav.jpg" alt="" />
 </div>

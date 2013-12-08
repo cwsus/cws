@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <bean id="servicesController" class="com.cws.us.pws.controllers.ServicesController">
-        <property name="defaultPage" value="Servcices_SearchServices" />
+        <property name="defaultPage" value="Services_SearchServices" />
         <property name="showService" value="Services_ShowService" />
     </bean>
 </beans>

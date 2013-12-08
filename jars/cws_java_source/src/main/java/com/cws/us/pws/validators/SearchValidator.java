@@ -11,6 +11,8 @@
  */
 package com.cws.us.pws.validators;
 
+import java.util.regex.Pattern;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
@@ -84,17 +86,24 @@ public class SearchValidator implements Validator
             DEBUGGER.debug("errors: {}", errors);
         }
 
-        final EmailMessage request = (EmailMessage) target;
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug("EmailMessage: {}", request);
-        }
+        final Pattern pattern = Pattern.compile("^[A-Za-z0-9]+(?:[\\s-][A-Za-z0-9]+)*$");
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "email.first.name.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "email.last.name.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "messageTo", "email.source.addr.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "messageSubject", "email.message.subject.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "messageBody", "email.message.body.required");
+
+        final SearchRequest request = (SearchRequest) target;
+
+        if (DEBUG)
+        {
+        	DEBUGGER.debug("SearchRequest: {}", request);
+        }
+
+        if (!(pattern.matcher(request.getSearchTerms()).matches()))
+        {
+            errors.reject("searchTerms");
+        }
     }
 }
