@@ -43,6 +43,7 @@ public class ApplicationServiceBean
     @Autowired private String dateFormat = null;
     @Autowired private String contactPage = null;
     @Autowired private String fileEncoding = null;
+    @Autowired private String serviceEmail = null;
     @Autowired private String applicationId = null;
     @Autowired private String applicationName = null;
     @Autowired private String unavailablePage = null;
@@ -311,6 +312,19 @@ public class ApplicationServiceBean
         this.messageValidator = value;
     }
 
+    public final void setServiceEmail(final String value)
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#setServiceEmail(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.serviceEmail = value;
+    }
+
     public final String getSiteMap()
     {
         final String methodName = ApplicationServiceBean.CNAME + "#getSiteMap()";
@@ -521,7 +535,7 @@ public class ApplicationServiceBean
 
     public final String getMessageEmailSentSuccess()
     {
-        final String methodName = ApplicationServiceBean.CNAME + "# getMessageEmailSentSuccess()";
+        final String methodName = ApplicationServiceBean.CNAME + "#getMessageEmailSentSuccess()";
 
         if (DEBUG)
         {
@@ -547,7 +561,7 @@ public class ApplicationServiceBean
 
     public final EmailMessageValidator getMessageValidator()
     {
-        final String methodName = ApplicationServiceBean.CNAME + "#getMessageValidator(final EmailMessageValidator value)";
+        final String methodName = ApplicationServiceBean.CNAME + "#getMessageValidator()";
 
         if (DEBUG)
         {
@@ -555,7 +569,20 @@ public class ApplicationServiceBean
             DEBUGGER.debug("Value: {}", this.messageValidator);
         }
 
-        return this.messageValidator ;
+        return this.messageValidator;
+    }
+
+    public final String getServiceAddress()
+    {
+        final String methodName = ApplicationServiceBean.CNAME + "#getServiceAddress()";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", this.serviceAddress);
+        }
+
+        return this.serviceAddress;
     }
 
     @Override

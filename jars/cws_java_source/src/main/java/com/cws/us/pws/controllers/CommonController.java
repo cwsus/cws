@@ -36,11 +36,11 @@ import com.cws.esolutions.core.processors.dto.SearchRequest;
 import com.cws.esolutions.core.processors.dto.SearchResponse;
 import com.cws.esolutions.security.audit.dto.RequestHostInfo;
 import com.cws.esolutions.core.processors.dto.MessagingRequest;
-import com.cws.esolutions.core.processors.enums.CoreServicesStatus;
 import com.cws.esolutions.core.processors.enums.SearchRequestType;
-import com.cws.esolutions.core.processors.exception.SearchRequestException;
+import com.cws.esolutions.core.processors.enums.CoreServicesStatus;
 import com.cws.esolutions.core.processors.impl.SearchProcessorImpl;
 import com.cws.esolutions.core.processors.interfaces.ISearchProcessor;
+import com.cws.esolutions.core.processors.exception.SearchRequestException;
 /**
  * CWSPWS_java_source
  * com.cws.us.pws.controllers
@@ -68,6 +68,7 @@ public class CommonController
 {
     private int recordsPerPage = 20;
     private ApplicationServiceBean appConfig = null;
+    private SimpleMailMessage contactResponseEmail = null;
 
     private static final String CNAME = CommonController.class.getName();
 
@@ -99,6 +100,19 @@ public class CommonController
         }
 
         this.recordsPerPage = value;
+    }
+
+    public final void setContactResponseEmail(final SimpleMailMessage value)
+    {
+        final String methodName = CommonController.CNAME + "#setContactResponseEmail(final SimpleMailMessage value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.contactResponseEmail = value;
     }
 
     @RequestMapping(value = "/default", method = RequestMethod.GET)
@@ -224,6 +238,7 @@ public class CommonController
             }
         }
 
+        mView.addObject("svcAddress", this.appConfig.getServiceEmail());
         mView.addObject("command", new EmailMessage());
         mView.setViewName(this.appConfig.getContactPage());
 
@@ -243,7 +258,7 @@ public class CommonController
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("MessagingRequest: {}", message);
+            DEBUGGER.debug("EmailMessage: {}", message);
             DEBUGGER.debug("BindingResult: {}", bindResult);
         }
 
@@ -294,68 +309,63 @@ public class CommonController
             }
         }
 
+        // validate
+        this.appConfig.getEmailValidator().validate(message, bindResult);
+
+        if (bindResult.hasErrors())
+        {
+            // errors occurred during validation
+            ERROR_RECORDER.error("Form failed field validation");
+
+            mView.addObject(Constants.ERROR_MESSAGE, this.appConfig.getMessageValidationFailed());
+            mView.addObject("command", new EmailMessage());
+            mView.setViewName(this.appConfig.getContactPage());
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ModelAndView: {}", mView);
+            }
+
+            return mView;
+        }
+
+        this.appConfig.getMessageValidator().validate(message, bindResult);
+
+        if (bindResult.hasErrors())
+        {
+            // errors occurred during validation
+            ERROR_RECORDER.error("Form failed field validation");
+
+            mView = new ModelAndView();
+            mView.addObject(Constants.ERROR_MESSAGE, this.appConfig.getMessageValidationFailed());
+            mView.addObject("command", new EmailMessage());
+            mView.setViewName(this.appConfig.getContactPage());
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ModelAndView: {}", mView);
+            }
+
+            return mView;
+        }
+
         try
         {
-            // validate
-            this.appConfig.getEmailValidator().validate(message, bindResult);
-
-            if (bindResult.hasErrors())
-            {
-                // errors occurred during validation
-                ERROR_RECORDER.error("Form failed field validation");
-
-                mView.addObject(Constants.ERROR_MESSAGE, this.appConfig.getMessageValidationFailed());
-                mView.addObject("command", new EmailMessage());
-                mView.setViewName(this.appConfig.getContactPage());
-
-                if (DEBUG)
-                {
-                    DEBUGGER.debug("ModelAndView: {}", mView);
-                }
-
-                return mView;
-            }
-
-            this.appConfig.getMessageValidator().validate(message, bindResult);
-
-            if (bindResult.hasErrors())
-            {
-                // errors occurred during validation
-                ERROR_RECORDER.error("Form failed field validation");
-
-                mView = new ModelAndView();
-                mView.addObject(Constants.ERROR_MESSAGE, this.appConfig.getMessageValidationFailed());
-                mView.addObject("command", new EmailMessage());
-                mView.setViewName(this.appConfig.getContactPage());
-
-                if (DEBUG)
-                {
-                    DEBUGGER.debug("ModelAndView: {}", mView);
-                }
-
-                return mView;
-            }
-
-            RequestHostInfo reqInfo = new RequestHostInfo();
-            reqInfo.setHostAddress(hRequest.getRemoteAddr());
-            reqInfo.setHostName(hRequest.getRemoteHost());
-
-            if (DEBUG)
-            {
-                DEBUGGER.debug("RequestHostInfo: {}", reqInfo);
-            }
-
-            MessagingRequest request = new MessagingRequest();
-            request.setEmailMessage(message);
-            request.setRequestInfo(reqInfo);
-            request.setWebRequest(true);
-
-            if (DEBUG)
-            {
-                DEBUGGER.debug("MessagingRequest: {}", request);
-            }
-
             EmailUtils.sendEmailMessage(message, true);
+
+            EmailMessage autoResponse = new EmailMessage();
+            autoResponse.setIsAlert(false);
+            autoResponse.setMessageSubject(this.contactResponseEmail.getSubject());
+            autoResponse.setMessageTo(new ArrayList<>(Arrays.asList(String.format(this.contactResponseEmail.getTo()[0], message.getEmailAddr()))));
+            autoResponse.setEmailAddr(new ArrayList<>(Arrays.asList(String.format(this.contactResponseEmail.getTo()[0], this.appConfig.getSvcEmailAddr()))));
+            autoResponse.setMessageBody(String.format(this.contactResponseEmail.getText(), message.getEmailAddr(), message.getMessageBody()));
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("EmailMessage: {}", autoResponse);
+            }
+
+            EmailUtils.sendEmailMessage(autoResponse, true);
 
             mView = new ModelAndView(new RedirectView());
             mView.setViewName(this.appConfig.getRequestCompletePage());

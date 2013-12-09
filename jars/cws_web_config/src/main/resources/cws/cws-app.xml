@@ -53,6 +53,7 @@
         <property name="fileEncoding" value="UTF-8" />
         <property name="applicationName" value="cws" /> <!-- application name -->
         <property name="applicationId" value="B5FFD1BD-6970-42AC-9115-41E935BF03BD" />
+        <property name="serviceEmail" value="info@caspersbox.com" />
         <property name="dateFormat" value="MM/dd/yyyy hh:mm" /> <!-- date format (displayed on jsp's) -->
         <property name="homePage" value="HomePage" />
         <property name="contactPage" value="System_ContactUs" />
