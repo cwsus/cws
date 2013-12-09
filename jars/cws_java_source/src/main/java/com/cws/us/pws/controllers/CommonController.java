@@ -31,7 +31,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.cws.us.pws.Constants;
 import com.cws.us.pws.ApplicationServiceBean;
 import com.cws.esolutions.core.utils.EmailUtils;
-import com.cws.esolutions.core.processors.dto.EmailMessage;
+import com.cws.esolutions.core.utils.dto.EmailMessage;
 import com.cws.esolutions.core.processors.dto.SearchRequest;
 import com.cws.esolutions.core.processors.dto.SearchResponse;
 import com.cws.esolutions.security.audit.dto.RequestHostInfo;
