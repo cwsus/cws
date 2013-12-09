@@ -11,16 +11,14 @@
  */
 package com.cws.us.pws.validators;
 
-import java.util.regex.Pattern;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.regex.Pattern;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.validation.ValidationUtils;
 
 import com.cws.us.pws.Constants;
-import com.cws.esolutions.core.processors.dto.EmailMessage;
 import com.cws.esolutions.core.processors.dto.SearchRequest;
 /**
  * CWSPWS_java_source

@@ -572,17 +572,17 @@ public class ApplicationServiceBean
         return this.messageValidator;
     }
 
-    public final String getServiceAddress()
+    public final String getServiceEmail()
     {
-        final String methodName = ApplicationServiceBean.CNAME + "#getServiceAddress()";
+        final String methodName = ApplicationServiceBean.CNAME + "#getServiceEmail()";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.serviceAddress);
+            DEBUGGER.debug("Value: {}", this.serviceEmail);
         }
 
-        return this.serviceAddress;
+        return this.serviceEmail;
     }
 
     @Override

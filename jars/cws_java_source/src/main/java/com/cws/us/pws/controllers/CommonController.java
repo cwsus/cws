@@ -11,13 +11,16 @@
  */
 package com.cws.us.pws.controllers;
 
+import jaca.util.Arrays;
 import org.slf4j.Logger;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import org.slf4j.LoggerFactory;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -357,7 +360,7 @@ public class CommonController
             autoResponse.setIsAlert(false);
             autoResponse.setMessageSubject(this.contactResponseEmail.getSubject());
             autoResponse.setMessageTo(new ArrayList<>(Arrays.asList(String.format(this.contactResponseEmail.getTo()[0], message.getEmailAddr()))));
-            autoResponse.setEmailAddr(new ArrayList<>(Arrays.asList(String.format(this.contactResponseEmail.getTo()[0], this.appConfig.getSvcEmailAddr()))));
+            autoResponse.setEmailAddr(new ArrayList<>(Arrays.asList(String.format(this.contactResponseEmail.getTo()[0], this.appConfig.getServiceEmail()))));
             autoResponse.setMessageBody(String.format(this.contactResponseEmail.getText(), message.getEmailAddr(), message.getMessageBody()));
 
             if (DEBUG)
