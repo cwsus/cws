@@ -12,8 +12,11 @@
 package com.cws.us.pws.dao.interfaces;
 
 import java.util.List;
+
 import org.slf4j.Logger;
+
 import java.sql.SQLException;
+
 import org.slf4j.LoggerFactory;
 
 import com.cws.esolutions.core.Constants;
@@ -47,5 +50,7 @@ public interface IProductReferenceDAO
 
     List<String[]> getProductList() throws SQLException;
 
-    List<String> getProductData(final int productId) throws SQLException;
+    List<String[]> getFeaturedProducts() throws SQLException;
+
+    List<String> getProductData(final String productId) throws SQLException;
 }

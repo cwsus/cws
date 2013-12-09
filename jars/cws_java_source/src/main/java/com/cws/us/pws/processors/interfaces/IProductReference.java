@@ -11,16 +11,14 @@
  */
 package com.cws.us.pws.processors.interfaces;
 
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cws.esolutions.core.Constants;
-import com.cws.us.pws.dao.impl.ProductReferenceDAOImpl;
-import com.cws.us.pws.dao.interfaces.IProductReferenceDAO;
-import com.cws.us.pws.processors.dto.Product;
 import com.cws.us.pws.processors.dto.ProductRequest;
 import com.cws.us.pws.processors.dto.ProductResponse;
+import com.cws.us.pws.dao.impl.ProductReferenceDAOImpl;
+import com.cws.us.pws.dao.interfaces.IProductReferenceDAO;
 import com.cws.us.pws.processors.exception.ProductRequestException;
 /**
  * CWSPWS_java_source
@@ -52,7 +50,7 @@ public interface IProductReference
     static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER + CNAME);
     static final Logger WARN_RECORDER = LoggerFactory.getLogger(Constants.WARN_LOGGER + CNAME);
 
-    List<Product> getProductList();
+    ProductResponse getProductList(final ProductRequest request) throws ProductRequestException;
 
     ProductResponse getProductData(final ProductRequest request) throws ProductRequestException;
 }

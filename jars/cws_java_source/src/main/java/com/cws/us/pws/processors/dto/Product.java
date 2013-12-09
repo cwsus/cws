@@ -38,7 +38,7 @@ import com.cws.esolutions.core.Constants;
  */
 public class Product implements Serializable
 {
-    private int productId = 0;
+    private String productId = null;
     private String productName = null;
     private String productDesc = null;
     private String productCost = null;
@@ -49,9 +49,9 @@ public class Product implements Serializable
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
 
-    public final void setProductId(final int value)
+    public final void setProductId(final String value)
     {
-        final String methodName = Product.CNAME + "#setProductId(final int value)";
+        final String methodName = Product.CNAME + "#setProductId(final String value)";
 
         if (DEBUG)
         {
@@ -101,7 +101,7 @@ public class Product implements Serializable
         this.productCost = value;
     }
 
-    public final int getProductId()
+    public final String getProductId()
     {
         final String methodName = Product.CNAME + "#getProductId()";
 
@@ -153,6 +153,7 @@ public class Product implements Serializable
         return this.productCost;
     }
 
+    @Override
     public final String toString()
     {
         final String methodName = Product.CNAME + "#toString()";

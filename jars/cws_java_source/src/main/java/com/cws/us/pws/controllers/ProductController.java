@@ -11,16 +11,19 @@
  */
 package com.cws.us.pws.controllers;
 
+import java.util.List;
 import org.slf4j.Logger;
 import java.util.Enumeration;
 import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -59,7 +62,7 @@ import com.cws.us.pws.processors.exception.ProductRequestException;
 public class ProductController
 {
     private String showProduct = null;
-    private String searchProducts = null;
+    private String defaultPage = null;
     private ApplicationServiceBean appConfig = null;
     private ProductReferenceImpl productRefSvc = null;
 
@@ -80,6 +83,19 @@ public class ProductController
         }
 
         this.appConfig = value;
+    }
+
+    public final void setDefaultPage(final String value)
+    {
+        final String methodName = ProductController.CNAME + "#setDefaultPage(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.defaultPage = value;
     }
 
     public final void setProductRefSvc(final ProductReferenceImpl value)
@@ -108,21 +124,8 @@ public class ProductController
         this.showProduct = value;
     }
 
-    public final void setSearchProducts(final String value)
-    {
-        final String methodName = ProductController.CNAME + "#setProductRefSvc(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
-        }
-
-        this.searchProducts = value;
-    }
-
     @RequestMapping(value = "/default", method = RequestMethod.GET)
-    public ModelAndView showDefaultPage()
+    public final ModelAndView showDefaultPage()
     {
         final String methodName = ProductController.CNAME + "#showDefaultPage()";
 
@@ -177,7 +180,45 @@ public class ProductController
             }
         }
 
-        mView.setViewName(this.searchProducts);
+        try
+        {
+            ProductRequest productRequest = new ProductRequest();
+            productRequest.setIsFeatured(true);
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ProductRequest: {}", productRequest);
+            }
+
+            ProductResponse productResponse = this.productRefSvc.getProductData(productRequest);
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ProductResponse: {}", productResponse);
+            }
+
+            if (productResponse.getRequestStatus() == CoreServicesStatus.SUCCESS)
+            {
+                List<Product> featuredProducts = productResponse.getProductList();
+
+                if (DEBUG)
+                {
+                    DEBUGGER.debug("List<Product>: {}", featuredProducts);
+                }
+
+                mView.addObject("featuredProducts", featuredProducts);
+            }
+
+            mView.addObject("command", new Product());
+            mView.setViewName(this.defaultPage);
+        }
+        catch (ProductRequestException prx)
+        {
+            ERROR_RECORDER.error(prx.getMessage(), prx);
+
+            mView = new ModelAndView(new RedirectView());
+            mView.setViewName(appConfig.getErrorResponsePage());
+        }
 
         if (DEBUG)
         {
@@ -187,76 +228,10 @@ public class ProductController
         return mView;
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public ModelAndView showProductsPage()
+    @RequestMapping(value = "/product/{product}", method = RequestMethod.GET)
+    public final ModelAndView getProductInfo(@PathVariable("productId") final String productId)
     {
-        final String methodName = ProductController.CNAME + "#showProductsPage()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-        }
-
-        ModelAndView mView = new ModelAndView();
-
-        final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        final HttpServletRequest hRequest = requestAttributes.getRequest();
-        final HttpSession hSession = hRequest.getSession();
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
-            DEBUGGER.debug("HttpServletRequest: {}", hRequest);
-            DEBUGGER.debug("HttpSession: {}", hSession);
-
-            DEBUGGER.debug("Dumping session content:");
-            @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
-
-            while (sessionEnumeration.hasMoreElements())
-            {
-                String sessionElement = sessionEnumeration.nextElement();
-                Object sessionValue = hSession.getAttribute(sessionElement);
-
-                DEBUGGER.debug("Attribute: " + sessionElement + "; Value: " + sessionValue);
-            }
-
-            DEBUGGER.debug("Dumping request content:");
-            @SuppressWarnings("unchecked") Enumeration<String> requestEnumeration = hRequest.getAttributeNames();
-
-            while (requestEnumeration.hasMoreElements())
-            {
-                String requestElement = requestEnumeration.nextElement();
-                Object requestValue = hRequest.getAttribute(requestElement);
-
-                DEBUGGER.debug("Attribute: " + requestElement + "; Value: " + requestValue);
-            }
-
-            DEBUGGER.debug("Dumping request parameters:");
-            @SuppressWarnings("unchecked") Enumeration<String> paramsEnumeration = hRequest.getParameterNames();
-
-            while (paramsEnumeration.hasMoreElements())
-            {
-                String requestElement = paramsEnumeration.nextElement();
-                Object requestValue = hRequest.getParameter(requestElement);
-
-                DEBUGGER.debug("Parameter: " + requestElement + "; Value: " + requestValue);
-            }
-        }
-
-        mView.setViewName(this.searchProducts);
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug("ModelAndView: {}", mView);
-        }
-
-        return mView;
-    }
-
-    @RequestMapping(value = "/products/product/{product}", method = RequestMethod.GET)
-    public ModelAndView getProductInfo(@PathVariable(value = "product") final int productId)
-    {
-        final String methodName = ProductController.CNAME + "#getProductInfo(@PathVariable(value = \"product\") final int productId)";
+        final String methodName = ProductController.CNAME + "#getProductInfo(@PathVariable(\"productId\") final String productId)";
 
         if (DEBUG)
         {
@@ -344,6 +319,15 @@ public class ProductController
                 {
                     DEBUGGER.debug("Product: {}", product);
                 }
+
+                mView.addObject("product", product);
+                mView.setViewName(this.showProduct);
+            }
+            else
+            {
+                mView = new ModelAndView(new RedirectView());
+                mView.addObject(Constants.ERROR_MESSAGE, productResponse.getResponse());
+                mView.setViewName(this.defaultPage);
             }
         }
         catch (ProductRequestException prx)
@@ -353,9 +337,6 @@ public class ProductController
             mView.setViewName(appConfig.getErrorResponsePage());
         }
 
-        mView.addObject("product", product);
-        mView.setViewName(this.showProduct);
-
         if (DEBUG)
         {
             DEBUGGER.debug("ModelAndView: {}", mView);
@@ -364,10 +345,10 @@ public class ProductController
         return mView;
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public ModelAndView getProductInfo(@RequestParam("product") final Product request)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public final ModelAndView searchProducts(@ModelAttribute("request") final Product request, final BindingResult binding)
     {
-        final String methodName = ProductController.CNAME + "#getProductInfo(@RequestParam(\"product\") final ProductRequest request)";
+        final String methodName = ProductController.CNAME + "#searchProducts(@ModelAttribute(\"request\") final Product request, final BindingResult binding)";
 
         if (DEBUG)
         {

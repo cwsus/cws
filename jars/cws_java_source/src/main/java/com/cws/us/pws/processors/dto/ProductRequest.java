@@ -40,6 +40,7 @@ public class ProductRequest implements Serializable
 {
     private Product product = null;
     private String productName = null;
+    private boolean isFeatured = false;
 
     private static final long serialVersionUID = 8384477289554786349L;
     private static final String CNAME = ProductRequest.class.getName();
@@ -67,10 +68,23 @@ public class ProductRequest implements Serializable
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug(value);
+            DEBUGGER.debug("Value: {}", value);
         }
 
         this.productName = value;
+    }
+
+    public final void setIsFeatured(final boolean value)
+    {
+        final String methodName = ProductRequest.CNAME + "#setIsFeatured(final boolean value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.isFeatured = value;
     }
 
     public final Product getProduct()
@@ -99,6 +113,20 @@ public class ProductRequest implements Serializable
         return this.productName;
     }
 
+    public final boolean isFeatured()
+    {
+        final String methodName = ProductRequest.CNAME + "#isFeatured()";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", this.isFeatured);
+        }
+
+        return this.isFeatured;
+    }
+
+    @Override
     public final String toString()
     {
         final String methodName = ProductRequest.CNAME + "#toString()";

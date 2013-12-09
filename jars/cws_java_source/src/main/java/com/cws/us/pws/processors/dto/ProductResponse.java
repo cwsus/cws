@@ -42,7 +42,7 @@ public class ProductResponse implements Serializable
 {
     private String response = null;
     private Product product = null;
-    private List<Product> results = null;
+    private List<Product> productList = null;
     private CoreServicesStatus requestStatus = null;
 
     private static final long serialVersionUID = -7541177746694315851L;
@@ -77,9 +77,9 @@ public class ProductResponse implements Serializable
         this.response = value;
     }
 
-    public final void setResults(final List<Product> value)
+    public final void setProductList(final List<Product> value)
     {
-        final String methodName = ProductResponse.CNAME + "#setResults(final List<Product> value)";
+        final String methodName = ProductResponse.CNAME + "#setProductList(final List<Product> value)";
 
         if (DEBUG)
         {
@@ -87,7 +87,7 @@ public class ProductResponse implements Serializable
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.results = value;
+        this.productList = value;
     }
 
     public final void setProduct(final Product value)
@@ -129,17 +129,17 @@ public class ProductResponse implements Serializable
         return this.response;
     }
 
-    public final List<Product> getResults()
+    public final List<Product> getProductList()
     {
-        final String methodName = ProductResponse.CNAME + "#getArticle()";
+        final String methodName = ProductResponse.CNAME + "#getProductList()";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.results);
+            DEBUGGER.debug("Value: {}", this.productList);
         }
 
-        return this.results;
+        return this.productList;
     }
 
     public final Product getProduct()
@@ -149,12 +149,13 @@ public class ProductResponse implements Serializable
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.results);
+            DEBUGGER.debug("Value: {}", this.product);
         }
 
         return this.product;
     }
 
+    @Override
     public final String toString()
     {
         final String methodName = ProductResponse.CNAME + "#toString()";

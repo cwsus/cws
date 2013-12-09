@@ -8,12 +8,11 @@
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+USE cws;
 
 --
 -- Table structure for table `cws`.`products`
@@ -21,16 +20,124 @@
 
 DROP TABLE IF EXISTS `cws`.`products`;
 CREATE TABLE `products` (
-    `product_id` varchar(128) NOT NULL,
-    `product_name` varchar(128) NOT NULL,
-    `product_desc` text NOT NULL,
-    `product_price` varchar(20) NOT NULL DEFAULT '0.00',
-    PRIMARY KEY (`product_id`),
-    FULLTEXT KEY `TK_search_products` (`product_id`,`product_name`,`product_price`)
+    `PRODUCT_ID` VARCHAR(128) NOT NULL,
+    `PRODUCT_NAME` VARCHAR(128) NOT NULL,
+    `PRODUCT_DESC` TEXT NOT NULL,
+    `PRODUCT_PRICE` VARCHAR(20) NOT NULL DEFAULT '0.00',
+    `PRODUCT_LANG` VARCHAR(2) NOT NULL DEFAULT 'EN',
+    `IS_FEATURED` BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (`PRODUCT_ID`),
+    FULLTEXT KEY `TK_search_products` (`PRODUCT_ID`, `PRODUCT_NAME`, `PRODUCT_PRICE`, `PRODUCT_DESC`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+/*!40000 ALTER TABLE `cws`.`products` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cws`.`products` ENABLE KEYS */;
 
 COMMIT;
+
+--
+-- Definition of procedure `cws`.`getProductsByAttribute`
+--
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `cws`.`getProductsByAttribute`$$
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
+CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getProductsByAttribute`(
+    IN searchTerms VARCHAR(100),
+    IN startRow INT
+)
+BEGIN
+    SELECT
+        PRODUCT_ID,
+        PRODUCT_NAME,
+        PRODUCT_DESC,
+        PRODUCT_PRICE,
+        PRODUCT_LANG,
+        IS_FEATURED,
+    MATCH (`PRODUCT_ID`, `PRODUCT_NAME`, `PRODUCT_PRICE`, `PRODUCT_DESC`)
+    AGAINST (+searchTerms WITH QUERY EXPANSION)
+    FROM `cws`.`products`
+    WHERE MATCH (`PRODUCT_ID`, `PRODUCT_NAME`, `PRODUCT_PRICE`, `PRODUCT_DESC`)
+    AGAINST (+searchTerms IN BOOLEAN MODE)
+    LIMIT startRow, 20;
+END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+COMMIT;
+
+--
+-- Definition of procedure `cws`.`getFeaturedProducts`
+--
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `cws`.`getFeaturedProducts`$$
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
+CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getFeaturedProducts`(
+)
+BEGIN
+    SELECT
+        PRODUCT_ID,
+        PRODUCT_NAME,
+        PRODUCT_DESC,
+        PRODUCT_PRICE,
+        PRODUCT_LANG,
+        IS_FEATURED
+    FROM `cws`.`products`
+    WHERE IS_FEATURED = TRUE;
+END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+COMMIT;
+
+--
+-- Definition of procedure `cws`.`getProductList`
+--
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `cws`.`getProductList`$$
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
+CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getProductList`(
+)
+BEGIN
+    SELECT
+        PRODUCT_ID,
+        PRODUCT_NAME,
+        PRODUCT_DESC,
+        PRODUCT_PRICE,
+        PRODUCT_LANG,
+        IS_FEATURED
+    FROM `cws`.`products`
+    ORDER BY IS_FEATURED ASC;
+END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+COMMIT;
+
+--
+-- Definition of procedure `cws`.`getProductData`
+--
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `cws`.`getProductData`$$
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
+CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getProductData`(
+    IN productId VARCHAR(128)
+)
+BEGIN
+    SELECT
+        PRODUCT_ID,
+        PRODUCT_NAME,
+        PRODUCT_DESC,
+        PRODUCT_PRICE,
+        PRODUCT_LANG,
+        IS_FEATURED
+    FROM `cws`.`products`
+    WHERE PRODUCT_ID = productId;
+END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+COMMIT;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

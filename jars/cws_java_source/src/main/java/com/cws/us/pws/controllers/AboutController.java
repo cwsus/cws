@@ -84,7 +84,7 @@ public class AboutController
     }
 
     @RequestMapping(value = "/default", method = RequestMethod.GET)
-    public ModelAndView showDefaultPage()
+    public final ModelAndView showDefaultPage()
     {
         final String methodName = AboutController.CNAME + "#showDefaultPage()";
 
@@ -150,7 +150,7 @@ public class AboutController
     }
 
     @RequestMapping(value = "/careers", method = RequestMethod.GET)
-    public ModelAndView showCareersPage()
+    public final ModelAndView showCareersPage()
     {
         final String methodName = AboutController.CNAME + "#showCareersPage()";
 

@@ -12,6 +12,8 @@
 package com.cws.us.pws.processors.impl;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cws.us.pws.processors.dto.Product;
@@ -58,16 +60,74 @@ public class ProductReferenceImpl implements IProductReference
     }
 
     @Override
-    public List<Product> getProductList()
+    public ProductResponse getProductList(final ProductRequest request) throws ProductRequestException
     {
-        final String methodName = IProductReference.CNAME + "#getProductList()";
+        final String methodName = IProductReference.CNAME + "#getProductList(final ProductRequest request) throws ProductRequestException";
         
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
         }
-        
-        return null;
+
+        ProductResponse response = new ProductResponse();
+
+        try
+        {
+            List<String[]> productList = this.productDAO.getProductList();
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("productList: {}", productList);
+            }
+
+            if ((productList != null) && (productList.size() != 0))
+            {
+                List<Product> products = new ArrayList<Product>();
+
+                for (String[] array : productList)
+                {
+                    Product product = new Product();
+                    product.setProductId(array[0]);
+                    product.setProductName(array[1]);
+                    product.setProductDesc(array[2]);
+                    product.setProductCost(array[3]);
+
+                    if (DEBUG)
+                    {
+                        DEBUGGER.debug("Product: {}", product);
+                    }
+
+                    products.add(product);
+                }
+
+                if (DEBUG)
+                {
+                    DEBUGGER.debug("List<Product>: {}", products);
+                }
+
+                response.setRequestStatus(CoreServicesStatus.SUCCESS);
+                response.setResponse("Successfully loaded product list.");
+                response.setProductList(products);
+            }
+            else
+            {
+                response.setRequestStatus(CoreServicesStatus.FAILURE);
+                response.setResponse("Failed to load available products");
+            }
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ProductResponse: {}", response);
+            }
+        }
+        catch (SQLException sqx)
+        {
+            ERROR_RECORDER.error(sqx.getMessage(), sqx);
+
+            throw new ProductRequestException(sqx.getMessage(), sqx);
+        }
+
+        return response;
     }
 
     public ProductResponse getProductData(final ProductRequest request) throws ProductRequestException
@@ -91,39 +151,48 @@ public class ProductReferenceImpl implements IProductReference
 
         if (reqProduct != null)
         {
-            List<String> productList = this.productDAO.getProductData(reqProduct.getProductId());
-
-            if (DEBUG)
+            try
             {
-                DEBUGGER.debug("productList: {}", productList);
-            }
-
-            if (productList.size() != 0)
-            {
-                Product product = new Product();
-                product.setProductId(Integer.valueOf(productList.get(0)));
-                product.setProductName(productList.get(1));
-                product.setProductDesc(productList.get(2));
-                product.setProductCost(productList.get(3));
+                List<String> productList = this.productDAO.getProductData(reqProduct.getProductId());
 
                 if (DEBUG)
                 {
-                    DEBUGGER.debug("Product: {}", product);
+                    DEBUGGER.debug("productList: {}", productList);
                 }
 
-                response.setRequestStatus(CoreServicesStatus.SUCCESS);
-                response.setResponse("Successfully loaded product " + reqProduct.getProductId());
-                response.setProduct(product);
-            }
-            else
-            {
-                response.setRequestStatus(CoreServicesStatus.FAILURE);
-                response.setResponse("Failed to load product with ID " + reqProduct.getProductId());
-            }
+                if ((productList != null) && (productList.size() != 0))
+                {
+                    Product product = new Product();
+                    product.setProductId(productList.get(0));
+                    product.setProductName(productList.get(1));
+                    product.setProductDesc(productList.get(2));
+                    product.setProductCost(productList.get(3));
 
-            if (DEBUG)
+                    if (DEBUG)
+                    {
+                        DEBUGGER.debug("Product: {}", product);
+                    }
+
+                    response.setRequestStatus(CoreServicesStatus.SUCCESS);
+                    response.setResponse("Successfully loaded product " + reqProduct.getProductId());
+                    response.setProduct(product);
+                }
+                else
+                {
+                    response.setRequestStatus(CoreServicesStatus.FAILURE);
+                    response.setResponse("Failed to load product with ID " + reqProduct.getProductId());
+                }
+
+                if (DEBUG)
+                {
+                    DEBUGGER.debug("ProductResponse: {}", response);
+                }
+            }
+            catch (SQLException sqx)
             {
-                DEBUGGER.debug("ProductResponse: {}", response);
+                ERROR_RECORDER.error(sqx.getMessage(), sqx);
+
+                throw new ProductRequestException(sqx.getMessage(), sqx);
             }
         }
         else

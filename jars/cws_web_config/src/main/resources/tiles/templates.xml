@@ -6,7 +6,6 @@
 <tiles-definitions>
     <definition name="baseLayout" template="/theme/cws/html/en/Default.jsp">
         <put-attribute name="pageTitle"     value="CaspersBox Web Services" cascade="true" />
-        <!-- jsp files -->
         <put-attribute name="head"          value="/theme/cws/html/en/jsp/head.jsp" cascade="true" />
         <put-attribute name="top-nav"       value="/theme/cws/html/en/jsp/top-nav.jsp" cascade="true" />
         <put-attribute name="right-nav"     value="/theme/cws/html/en/jsp/right-nav.jsp" cascade="true" />
@@ -46,12 +45,18 @@
     </definition>
 
     <!-- Products -->
-    <definition name="Products_SearchProducts" extends="baseLayout">
-        <put-attribute name="title"         value="CaspersBox Web Services - Product Search" cascade="true" />
-        <put-attribute name="body"          value="/com.cws.us.pws.product/jsp/html/en/Product_SearchProducts.jsp" cascade="true" />
+    <definition name="Products_DefaultHandler" extends="baseLayout">
+        <put-attribute name="title"         value="CaspersBox Web Services - Products" cascade="true" />
+        <put-attribute name="body"          value="/com.cws.us.pws.product/jsp/html/en/Product_DefaultPage.jsp" cascade="true" />
     </definition>
     <definition name="Product_ShowProduct" extends="baseLayout">
         <put-attribute name="title"         value="CaspersBox Web Services - View Product" cascade="true" />
         <put-attribute name="body"          value="/com.cws.us.pws.product/jsp/html/en/Product_ShowProduct.jsp" cascade="true" />
+    </definition>
+
+    <!-- Services -->
+    <definition name="Services_DefaultHandler" extends="baseLayout">
+        <put-attribute name="title"         value="CaspersBox Web Services - Services" cascade="true" />
+        <put-attribute name="body"          value="/com.cws.us.pws.services/jsp/html/en/Services_DefaultPage.jsp" cascade="true" />
     </definition>
 </tiles-definitions>
