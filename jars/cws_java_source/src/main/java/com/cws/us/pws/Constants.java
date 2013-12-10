@@ -36,6 +36,7 @@ public class Constants
     public static final String ERROR_LOGGER = "ERROR_RECORDER.";
     public static final String AUDIT_LOGGER = "AUDIT_RECORDER.";
 
+    public static final String PARAMETER_LANG = "lang";
     public static final String ERROR_MESSAGE = "errorMessage";
     public static final String MESSAGE_RESPONSE = "messageResponse";
     public static final String LINE_BREAK = System.getProperty("line.separator");

@@ -14,11 +14,11 @@
     <bean id="productRef" class="com.cws.us.pws.processors.impl.ProductReferenceImpl" />
 
     <bean id="productController" class="com.cws.us.pws.controllers.ProductController">
-        <property name="productRefSvc">
-            <ref bean="productRef" />
-        </property>
         <property name="appConfig">
             <ref bean="appConfig" />
+        </property>
+        <property name="productRefSvc">
+            <ref bean="productRef" />
         </property>
         <property name="defaultPage" value="Products_DefaultHandler" />
         <property name="showProduct" value="Product_ShowProduct" />

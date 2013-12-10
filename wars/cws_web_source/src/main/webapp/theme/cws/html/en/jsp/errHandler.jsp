@@ -20,7 +20,7 @@
  * Kevin Huntly         12/22/2009 14:58:03            Added escape chars
  */
  --%>
-<%@page contentType="text/html" pageEncoding="UTF-8" isThreadSafe="true" isErrorPage="true" %>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" isThreadSafe="true" isErrorPage="true" %>
 
 <html>
     <head>

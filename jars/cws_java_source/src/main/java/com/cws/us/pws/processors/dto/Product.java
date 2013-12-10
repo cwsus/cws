@@ -13,6 +13,7 @@ package com.cws.us.pws.processors.dto;
 
 import org.slf4j.Logger;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.lang.reflect.Field;
 import org.slf4j.LoggerFactory;
 
@@ -38,10 +39,12 @@ import com.cws.esolutions.core.Constants;
  */
 public class Product implements Serializable
 {
-    private String productId = null;
-    private String productName = null;
-    private String productDesc = null;
-    private String productCost = null;
+    private String productId = null; // PRODUCT_ID
+    private String shortDesc = null; // PRODUCT_SHORT_DESC
+    private String productName = null; // PRODUCT_NAME
+    private String productDesc = null; // PRODUCT_DESC
+    private boolean isFeatured = false; // IS_FEATURED
+    private BigDecimal productCost = null; // PRODUCT_PRICE
 
     private static final String CNAME = Product.class.getName();
     private static final long serialVersionUID = 1356041731091642819L;
@@ -62,6 +65,19 @@ public class Product implements Serializable
         this.productId = value;
     }
 
+    public final void setIsFeatured(final boolean value)
+    {
+        final String methodName = Product.CNAME + "#setIsFeatured(final boolean value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.isFeatured = value;
+    }
+
     public final void setProductName(final String value)
     {
         final String methodName = Product.CNAME + "#setProductName(final String value)";
@@ -73,6 +89,19 @@ public class Product implements Serializable
         }
 
         this.productName = value;
+    }
+
+    public final void setShortDesc(final String value)
+    {
+        final String methodName = Product.CNAME + "#setShortDesc(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.shortDesc = value;
     }
 
     public final void setProductDesc(final String value)
@@ -88,9 +117,9 @@ public class Product implements Serializable
         this.productDesc = value;
     }
 
-    public final void setProductCost(final String value)
+    public final void setProductCost(final BigDecimal value)
     {
-        final String methodName = Product.CNAME + "#setProductCost(final String value)";
+        final String methodName = Product.CNAME + "#setProductCost(final BigDecimal value)";
 
         if (DEBUG)
         {
@@ -114,6 +143,19 @@ public class Product implements Serializable
         return this.productId;
     }
 
+    public final boolean getIsFeatured()
+    {
+        final String methodName = Product.CNAME + "#getIsFeatured()";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", this.isFeatured);
+        }
+
+        return this.isFeatured;
+    }
+
     public final String getProductName()
     {
         final String methodName = Product.CNAME + "#getProductName()";
@@ -125,6 +167,19 @@ public class Product implements Serializable
         }
 
         return this.productName;
+    }
+
+    public final String getShortDesc()
+    {
+        final String methodName = Product.CNAME + "#getShortDesc()";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", this.shortDesc);
+        }
+
+        return this.shortDesc;
     }
 
     public final String getProductDesc()
@@ -140,7 +195,7 @@ public class Product implements Serializable
         return this.productDesc;
     }
 
-    public final String getProductCost()
+    public final BigDecimal getProductCost()
     {
         final String methodName = Product.CNAME + "#getProductCost()";
 

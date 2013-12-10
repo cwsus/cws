@@ -11,9 +11,14 @@
 
     <import resource="classpath:/cws/mailTemplates/ContactResponse.xml" />
 
+    <bean id="productRef" class="com.cws.us.pws.processors.impl.ProductReferenceImpl" />
+
     <bean id="commonController" class="com.cws.us.pws.controllers.CommonController">
         <property name="appConfig">
             <ref bean="appConfig" />
+        </property>
+        <property name="productRefSvc">
+            <ref bean="productRef" />
         </property>
         <property name="contactResponseEmail" ref="contactResponseEmail" />
     </bean>

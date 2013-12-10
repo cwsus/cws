@@ -12,11 +12,17 @@
 package com.cws.us.pws.controllers;
 
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
+
 import java.util.Enumeration;
+
 import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -139,12 +145,14 @@ public class ProductController
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
         final HttpSession hSession = hRequest.getSession();
+        final String lang = hRequest.getParameter(Constants.PARAMETER_LANG);
 
         if (DEBUG)
         {
             DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
             DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
+            DEBUGGER.debug("lang: {}", lang);
 
             DEBUGGER.debug("Dumping session content:");
             @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
@@ -184,6 +192,7 @@ public class ProductController
         {
             ProductRequest productRequest = new ProductRequest();
             productRequest.setIsFeatured(true);
+            productRequest.setLang((StringUtils.isBlank(lang)) ? "en" : lang);
 
             if (DEBUG)
             {
@@ -245,12 +254,14 @@ public class ProductController
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
         final HttpSession hSession = hRequest.getSession();
+        final String lang = hRequest.getParameter(Constants.PARAMETER_LANG);
 
         if (DEBUG)
         {
             DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
             DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
+            DEBUGGER.debug("lang: {}", lang);
 
             DEBUGGER.debug("Dumping session content:");
             @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
@@ -298,6 +309,7 @@ public class ProductController
 
             ProductRequest productRequest = new ProductRequest();
             productRequest.setProduct(reqProduct);
+            productRequest.setLang((StringUtils.isBlank(lang)) ? "en" : lang);
 
             if (DEBUG)
             {
@@ -363,12 +375,14 @@ public class ProductController
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
         final HttpSession hSession = hRequest.getSession();
+        final String lang = hRequest.getParameter(Constants.PARAMETER_LANG);
 
         if (DEBUG)
         {
             DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
             DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
+            DEBUGGER.debug("lang: {}", lang);
 
             DEBUGGER.debug("Dumping session content:");
             @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
@@ -408,6 +422,7 @@ public class ProductController
         {
             ProductRequest productRequest = new ProductRequest();
             productRequest.setProduct(request);
+            productRequest.setLang((StringUtils.isBlank(lang)) ? "en" : lang);
 
             if (DEBUG)
             {

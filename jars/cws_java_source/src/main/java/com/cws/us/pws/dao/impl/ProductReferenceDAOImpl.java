@@ -28,8 +28,6 @@ import com.cws.us.pws.dao.interfaces.IProductReferenceDAO;
  * com.cws.us.pws.dao.interfaces
  * ProductReferenceDAOImpl.java
  *
- * TODO: Add class description
- *
  * $Id$
  * $Author$
  * $Date$
@@ -60,16 +58,16 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
     }
 
     @Override
-    public List<String[]> getProductList() throws SQLException
+    public List<Object[]> getProductList(final String lang) throws SQLException
     {
-        final String methodName = IProductReferenceDAO.CNAME + "#getFeaturedProducts() throws SQLException";
+        final String methodName = IProductReferenceDAO.CNAME + "#getProductList(final String lang) throws SQLException";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
         }
 
-        List<String[]> response = null;
+        List<Object[]> response = null;
 
         this.jdbcTemplate.execute(
                 new PreparedStatementCreator()
@@ -84,7 +82,8 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                             DEBUGGER.debug("Connection: {}", sqlConn);
                         }
 
-                        PreparedStatement stmt = sqlConn.prepareCall("{CALL getProductList()}");
+                        PreparedStatement stmt = sqlConn.prepareCall("{CALL getProductList(?)}");
+                        stmt.setString(1, lang);
 
                         if (DEBUG)
                         {
@@ -94,9 +93,9 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                         return stmt;
                     }
                 },
-                new PreparedStatementCallback<List<String[]>>()
+                new PreparedStatementCallback<List<Object[]>>()
                 {
-                    public List<String[]> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
+                    public List<Object[]> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
                     {
                         final String methodName = IProductReferenceDAO.CNAME + "#doInPreparedStatement(final PreparedStatement stmt) throws SQLException";
 
@@ -107,7 +106,7 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                         }
 
                         ResultSet resultSet = null;
-                        List<String[]> results = null;
+                        List<Object[]> results = null;
 
                         try
                         {
@@ -123,18 +122,19 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                                 if (resultSet.next())
                                 {
                                     resultSet.beforeFirst();
-                                    results = new ArrayList<>();
+                                    results = new ArrayList<Object[]>();
 
                                     while (resultSet.next())
                                     {
-                                        String[] data = new String[]
+                                        Object[] data = new Object[]
                                         {
-                                            resultSet.getString(1),
-                                            resultSet.getString(2),
-                                            resultSet.getString(3),
-                                            resultSet.getString(4),
-                                            resultSet.getString(5),
-                                            resultSet.getString(6)
+                                            resultSet.getString(1), // PRODUCT_ID
+                                            resultSet.getString(2), // PRODUCT_NAME
+                                            resultSet.getString(3), // PRODUCT_SHORT_DESC
+                                            resultSet.getString(4), // PRODUCT_DESC
+                                            resultSet.getBigDecimal(5), // PRODUCT_PRICE
+                                            resultSet.getString(6), // PRODUCT_LANG
+                                            resultSet.getBoolean(7) // IS_FEATURED
                                         };
 
                                         results.add(data);
@@ -179,16 +179,16 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
     }
 
     @Override
-    public List<String[]> getFeaturedProducts() throws SQLException
+    public List<Object[]> getFeaturedProducts(final String lang) throws SQLException
     {
-        final String methodName = IProductReferenceDAO.CNAME + "#getFeaturedProducts() throws SQLException";
+        final String methodName = IProductReferenceDAO.CNAME + "#getFeaturedProducts(final String lang) throws SQLException";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
         }
 
-        List<String[]> response = null;
+        List<Object[]> response = null;
 
         this.jdbcTemplate.execute(
                 new PreparedStatementCreator()
@@ -203,7 +203,8 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                             DEBUGGER.debug("Connection: {}", sqlConn);
                         }
 
-                        PreparedStatement stmt = sqlConn.prepareCall("{CALL getFeaturedProducts()}");
+                        PreparedStatement stmt = sqlConn.prepareCall("{CALL getFeaturedProducts(?)}");
+                        stmt.setString(1, lang);
 
                         if (DEBUG)
                         {
@@ -213,9 +214,9 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                         return stmt;
                     }
                 },
-                new PreparedStatementCallback<List<String[]>>()
+                new PreparedStatementCallback<List<Object[]>>()
                 {
-                    public List<String[]> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
+                    public List<Object[]> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
                     {
                         final String methodName = IProductReferenceDAO.CNAME + "#doInPreparedStatement(final PreparedStatement stmt) throws SQLException";
 
@@ -226,7 +227,7 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                         }
 
                         ResultSet resultSet = null;
-                        List<String[]> results = null;
+                        List<Object[]> results = null;
 
                         try
                         {
@@ -242,11 +243,11 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                                 if (resultSet.next())
                                 {
                                     resultSet.beforeFirst();
-                                    results = new ArrayList<>();
+                                    results = new ArrayList<Object[]>();
 
                                     while (resultSet.next())
                                     {
-                                        String[] data = new String[]
+                                        Object[] data = new Object[]
                                         {
                                             resultSet.getString(1),
                                             resultSet.getString(2),
@@ -298,16 +299,14 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
     }
 
     /**
-     * TODO: Add in the method description/comments
-     *
      * @param productId
      * @return
      * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductData(int)
      */
     @Override
-    public List<String> getProductData(final String productId) throws SQLException
+    public List<Object> getProductData(final String productId, final String lang) throws SQLException
     {
-        final String methodName = IProductReferenceDAO.CNAME + "#getProductData(final int productId) throws SQLException";
+        final String methodName = IProductReferenceDAO.CNAME + "#getProductData(final int productId, final String lang) throws SQLException";
 
         if (DEBUG)
         {
@@ -315,7 +314,7 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
             DEBUGGER.debug("Product ID: {}", productId);
         }
 
-        List<String> response = null;
+        List<Object> response = null;
 
         this.jdbcTemplate.execute(
                 new PreparedStatementCreator()
@@ -330,8 +329,9 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                             DEBUGGER.debug("Connection: {}", sqlConn);
                         }
 
-                        PreparedStatement stmt = sqlConn.prepareCall("{CALL getProductData(?)}");
+                        PreparedStatement stmt = sqlConn.prepareCall("{CALL getProductData(?, ?)}");
                         stmt.setString(1, productId);
+                        stmt.setString(2, lang);
 
                         if (DEBUG)
                         {
@@ -341,9 +341,9 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                         return stmt;
                     }
                 },
-                new PreparedStatementCallback<List<String>>()
+                new PreparedStatementCallback<List<Object>>()
                 {
-                    public List<String> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
+                    public List<Object> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
                     {
                         final String methodName = IProductReferenceDAO.CNAME + "#createPreparedStatement(final PreparedStatement stmt) throws SQLException";
 
@@ -354,7 +354,7 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                         }
 
                         ResultSet resultSet = null;
-                        List<String> results = null;
+                        List<Object> results = null;
 
                         try
                         {
@@ -370,7 +370,7 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                                 if (resultSet.next())
                                 {
                                     resultSet.beforeFirst();
-                                    results = new ArrayList<>();
+                                    results = new ArrayList<Object>();
 
                                     while (resultSet.next())
                                     {

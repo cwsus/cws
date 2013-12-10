@@ -13,7 +13,9 @@ package com.cws.us.pws.processors.impl;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cws.us.pws.processors.dto.Product;
@@ -27,8 +29,6 @@ import com.cws.esolutions.core.processors.enums.CoreServicesStatus;
  * CWSPWS_java_source
  * com.cws.us.pws.processors.impl
  * ProductReferenceImpl.java
- *
- * TODO: Add class description
  *
  * $Id$
  * $Author$
@@ -73,7 +73,7 @@ public class ProductReferenceImpl implements IProductReference
 
         try
         {
-            List<String[]> productList = this.productDAO.getProductList();
+            List<Object[]> productList = this.productDAO.getProductList(request.getLang());
 
             if (DEBUG)
             {
@@ -84,13 +84,15 @@ public class ProductReferenceImpl implements IProductReference
             {
                 List<Product> products = new ArrayList<Product>();
 
-                for (String[] array : productList)
+                for (Object[] array : productList)
                 {
                     Product product = new Product();
-                    product.setProductId(array[0]);
-                    product.setProductName(array[1]);
-                    product.setProductDesc(array[2]);
-                    product.setProductCost(array[3]);
+                    product.setProductId((String) array[0]);
+                    product.setShortDesc((String) array[1]);
+                    product.setProductName((String) array[2]);
+                    product.setProductDesc((String) array[3]);
+                    product.setIsFeatured((boolean) array[4]);
+                    product.setProductCost((BigDecimal) array[5]);
 
                     if (DEBUG)
                     {
@@ -153,7 +155,7 @@ public class ProductReferenceImpl implements IProductReference
         {
             try
             {
-                List<String> productList = this.productDAO.getProductData(reqProduct.getProductId());
+                List<Object> productList = this.productDAO.getProductData(reqProduct.getProductId(), request.getLang());
 
                 if (DEBUG)
                 {
@@ -163,10 +165,12 @@ public class ProductReferenceImpl implements IProductReference
                 if ((productList != null) && (productList.size() != 0))
                 {
                     Product product = new Product();
-                    product.setProductId(productList.get(0));
-                    product.setProductName(productList.get(1));
-                    product.setProductDesc(productList.get(2));
-                    product.setProductCost(productList.get(3));
+                    product.setProductId((String) productList.get(0));
+                    product.setShortDesc((String) productList.get(1));
+                    product.setProductName((String) productList.get(2));
+                    product.setProductDesc((String) productList.get(3));
+                    product.setIsFeatured((boolean) productList.get(4));
+                    product.setProductCost((BigDecimal) productList.get(5));
 
                     if (DEBUG)
                     {

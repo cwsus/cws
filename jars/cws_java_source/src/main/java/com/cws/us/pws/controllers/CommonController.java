@@ -11,6 +11,7 @@
  */
 package com.cws.us.pws.controllers;
 
+import java.util.List;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Enumeration;
 import org.slf4j.LoggerFactory;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.mail.SimpleMailMessage;
@@ -33,11 +35,16 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cws.us.pws.Constants;
 import com.cws.us.pws.ApplicationServiceBean;
+import com.cws.us.pws.processors.dto.Product;
 import com.cws.esolutions.core.utils.EmailUtils;
+import com.cws.us.pws.processors.dto.ProductRequest;
+import com.cws.us.pws.processors.dto.ProductResponse;
 import com.cws.esolutions.core.utils.dto.EmailMessage;
+import com.cws.us.pws.processors.impl.ProductReferenceImpl;
 import com.cws.esolutions.core.processors.dto.SearchRequest;
 import com.cws.esolutions.core.processors.dto.SearchResponse;
 import com.cws.esolutions.core.processors.enums.SearchRequestType;
+import com.cws.us.pws.processors.exception.ProductRequestException;
 import com.cws.esolutions.core.processors.enums.CoreServicesStatus;
 import com.cws.esolutions.core.processors.impl.SearchProcessorImpl;
 import com.cws.esolutions.core.processors.interfaces.ISearchProcessor;
@@ -69,6 +76,7 @@ public class CommonController
 {
     private int recordsPerPage = 20;
     private ApplicationServiceBean appConfig = null;
+    private ProductReferenceImpl productRefSvc = null;
     private SimpleMailMessage contactResponseEmail = null;
 
     private static final String CNAME = CommonController.class.getName();
@@ -103,6 +111,20 @@ public class CommonController
         this.recordsPerPage = value;
     }
 
+
+    public final void setProductRefSvc(final ProductReferenceImpl value)
+    {
+        final String methodName = CommonController.CNAME + "#setProductRefSvc(final ProductReferenceImpl value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.productRefSvc = value;
+    }
+
     public final void setContactResponseEmail(final SimpleMailMessage value)
     {
         final String methodName = CommonController.CNAME + "#setContactResponseEmail(final SimpleMailMessage value)";
@@ -131,12 +153,14 @@ public class CommonController
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest hRequest = requestAttributes.getRequest();
         final HttpSession hSession = hRequest.getSession();
+        final String lang = hRequest.getParameter(Constants.PARAMETER_LANG);
 
         if (DEBUG)
         {
             DEBUGGER.debug("ServletRequestAttributes: {}", requestAttributes);
             DEBUGGER.debug("HttpServletRequest: {}", hRequest);
             DEBUGGER.debug("HttpSession: {}", hSession);
+            DEBUGGER.debug("lang: {}", lang);
 
             DEBUGGER.debug("Dumping session content:");
             @SuppressWarnings("unchecked") Enumeration<String> sessionEnumeration = hSession.getAttributeNames();
@@ -170,6 +194,44 @@ public class CommonController
 
                 DEBUGGER.debug("Parameter: " + requestElement + "; Value: " + requestValue);
             }
+        }
+
+        try
+        {
+            ProductRequest productRequest = new ProductRequest();
+            productRequest.setIsFeatured(true);
+            productRequest.setLang((StringUtils.isBlank(lang)) ? "en" : lang);
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ProductRequest: {}", productRequest);
+            }
+
+            ProductResponse productResponse = this.productRefSvc.getProductData(productRequest);
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ProductResponse: {}", productResponse);
+            }
+
+            if (productResponse.getRequestStatus() == CoreServicesStatus.SUCCESS)
+            {
+                List<Product> featuredProducts = productResponse.getProductList();
+
+                if (DEBUG)
+                {
+                    DEBUGGER.debug("List<Product>: {}", featuredProducts);
+                }
+
+                mView.addObject("featuredProducts", featuredProducts);
+            }
+        }
+        catch (ProductRequestException prx)
+        {
+            ERROR_RECORDER.error(prx.getMessage(), prx);
+
+            mView = new ModelAndView(new RedirectView());
+            mView.setViewName(appConfig.getErrorResponsePage());
         }
 
         mView.setViewName(this.appConfig.getHomePage());

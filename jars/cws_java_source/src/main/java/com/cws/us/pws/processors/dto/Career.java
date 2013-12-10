@@ -18,39 +18,39 @@ import org.slf4j.LoggerFactory;
 
 import com.cws.esolutions.core.Constants;
 /**
- * CWSPWS_java_source
- * com.cws.us.pws.processors.dto
- * ProductRequest.java
+ * eSolutionsCore
+ * com.cws.esolutions.core.processors.dto
+ * Career.java
  *
- * TODO: Add class description
- *
- * $Id: SearchRequest.java 2287 2013-01-03 20:52:22Z kmhuntly@gmail.com $
- * $Author: kmhuntly@gmail.com $
- * $Date: 2013-01-03 15:52:22 -0500 (Thu, 03 Jan 2013) $
- * $Revision: 2287 $
- * @author kh05451
+ * $Id$
+ * $Author$
+ * $Date$
+ * $Revision$
+ * @author 35033355
  * @version 1.0
  *
  * History
  * ----------------------------------------------------------------------------
- * kh05451 @ Oct 30, 2012 2:45:21 PM
+ * 35033355 @ Apr 16, 2013 11:22:17 AM
  *     Created.
  */
-public class ProductRequest implements Serializable
+public class Career implements Serializable
 {
-    private String lang = "en";
-    private Product product = null;
-    private boolean isFeatured = false;
+    private String jobTitle = null;
+    private String jobReqId = null;
+    private String jobShortDesc = null;
+    private String jobDescription = null;
 
-    private static final long serialVersionUID = 8384477289554786349L;
-    private static final String CNAME = ProductRequest.class.getName();
+    private static final String CNAME = Career.class.getName();
+    private static final long serialVersionUID = 6015843683692286034L;
+
 
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
 
-    public final void setLang(final String value)
+    public final void setJobTitle(final String value)
     {
-        final String methodName = ProductRequest.CNAME + "#setLang(final String value)";
+        final String methodName = Career.CNAME + "#setJobTitle(final String value)";
 
         if (DEBUG)
         {
@@ -58,12 +58,12 @@ public class ProductRequest implements Serializable
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.lang = value;
+        this.jobTitle = value;
     }
 
-    public final void setProduct(final Product value)
+    public final void setJobReqId(final String value)
     {
-        final String methodName = ProductRequest.CNAME + "#setProduct(final Product value)";
+        final String methodName = Career.CNAME + "#setJobReqId(final String value)";
 
         if (DEBUG)
         {
@@ -71,12 +71,12 @@ public class ProductRequest implements Serializable
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.product = value;
+        this.jobReqId = value;
     }
 
-    public final void setIsFeatured(final boolean value)
+    public final void setJobShortDesc(final String value)
     {
-        final String methodName = ProductRequest.CNAME + "#setIsFeatured(final boolean value)";
+        final String methodName = Career.CNAME + "#setJobShortDesc(final String value)";
 
         if (DEBUG)
         {
@@ -84,52 +84,78 @@ public class ProductRequest implements Serializable
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.isFeatured = value;
+        this.jobShortDesc = value;
     }
 
-    public final Product getProduct()
+    public final void setJobDescription(final String value)
     {
-        final String methodName = ProductRequest.CNAME + "#getProduct()";
+        final String methodName = Career.CNAME + "#setJobDescription(final String value)";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.product);
+            DEBUGGER.debug("Value: {}", value);
         }
 
-        return this.product;
+        this.jobDescription = value;
     }
 
-    public final String getLang()
+    public final String getJobTitle()
     {
-        final String methodName = ProductRequest.CNAME + "#getLang(final String value)";
+        final String methodName = Career.CNAME + "#getJobTitle()";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.lang);
+            DEBUGGER.debug("Value: {}", this.jobTitle);
         }
 
-        return this.lang;
+        return this.jobTitle;
     }
 
-    public final boolean isFeatured()
+    public final String getJobReqId()
     {
-        final String methodName = ProductRequest.CNAME + "#isFeatured()";
+        final String methodName = Career.CNAME + "#getJobReqId()";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.isFeatured);
+            DEBUGGER.debug("Value: {}", this.jobReqId);
         }
 
-        return this.isFeatured;
+        return this.jobReqId;
+    }
+
+    public final String getJobShortDesc()
+    {
+        final String methodName = Career.CNAME + "#getJobShortDesc()";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", this.jobShortDesc);
+        }
+
+        return this.jobShortDesc;
+    }
+
+    public final String getJobDescription()
+    {
+        final String methodName = Career.CNAME + "#getJobDescription()";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", this.jobDescription);
+        }
+
+        return this.jobDescription;
     }
 
     @Override
     public final String toString()
     {
-        final String methodName = ProductRequest.CNAME + "#toString()";
+        final String methodName = Career.CNAME + "#toString()";
 
         if (DEBUG)
         {
