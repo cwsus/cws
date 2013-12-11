@@ -28,6 +28,34 @@
  */
 --%>
 
+<!--
+function validateForm(theForm)
+{
+    if (theForm.messageSubject.value == '')
+    {
+        clearText(theForm);
+
+        document.getElementById('validationError').innerHTML = 'Please provide a brief subject for your request.';
+        document.getElementById('txtMessageSubject').style.color = '#FF0000';
+        document.getElementById('execute').disabled = false;
+        document.getElementById('messageSubject').focus();
+    }
+    else if (theForm.messageBody.value == '')
+    {
+        clearText(theForm);
+
+        document.getElementById('validationError').innerHTML = 'Please provide the information regarding your request.';
+        document.getElementById('txtMessageBody').style.color = '#FF0000';
+        document.getElementById('execute').disabled = false;
+        document.getElementById('messageSubject').focus();
+    }
+    else
+    {
+        theForm.submit();
+    }
+}
+//-->
+
 <div class="middle-column-box-full-standard">
     <div class="middle-column-title-standard"><spring:message code="theme.messaging.send.email.message" /></div>
 
@@ -69,7 +97,7 @@
                 <form:textarea path="messageBody" />
                 <form:errors path="messageBody" cssClass="error" />
                 <br /><br />
-                <input type="button" name="execute" value="<spring:message code='theme.button.submit.text' />" id="execute" class="submit" onclick="disableButton(this); validateForm(this.form, event);" />
+                <input type="button" name="execute" value="<spring:message code='theme.button.submit.text' />" id="execute" class="submit" onclick="disableButton(this); validateForm(this.form);" />
                 <input type="button" name="reset" value="<spring:message code='theme.button.reset.text' />" id="reset" class="submit" onclick="clearForm();" />
             </p>
         </form:form>

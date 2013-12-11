@@ -59,7 +59,7 @@
         <priority value="DEBUG" />
         <appender-ref ref="esolutions-error" />
     </category>
-    <category name="CWS-DEBUGGER" additivity="false">
+    <category name="CWS_DEBUGGER" additivity="false">
         <priority value="DEBUG" />
         <appender-ref ref="cws-debug" />
     </category>
