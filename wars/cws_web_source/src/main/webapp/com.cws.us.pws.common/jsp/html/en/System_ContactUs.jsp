@@ -53,7 +53,7 @@
     </c:if>
 
     <p>
-        <form:form name="submitContactForm" method="post" action="${pageContext.request.contextPath}/ui/common/submit-contact">
+        <form:form id="submitContactForm" name="submitContactForm" action="${pageContext.request.contextPath}/ui/common/contact" method="post">
             <form:hidden path="messageTo" value="${svcAddress}" />
 
             <p>
