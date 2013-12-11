@@ -102,9 +102,17 @@ public class EmailAddressValidator implements Validator
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddr", this.messageEmailAddressRequired);
 
-        if (!(pattern.matcher(address).matches()))
+        for (String str : message.emailAddr())
         {
-            errors.reject("emailAddr", this.messageEmailAddressRequired);
+        	if (DEBUG)
+        	{
+        		DEBUGGER.debug("Address: {}", str);
+        	}
+
+            if (!(pattern.matcher(str).matches()))
+            {
+                errors.reject("emailAddr", this.messageEmailAddressRequired);
+            }
         }
     }
 }
