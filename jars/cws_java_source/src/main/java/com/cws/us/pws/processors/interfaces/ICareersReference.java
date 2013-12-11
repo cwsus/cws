@@ -14,7 +14,7 @@ package com.cws.us.pws.processors.interfaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cws.esolutions.core.Constants;
+import com.cws.us.pws.Constants;
 import com.cws.us.pws.dao.impl.CareersReferenceDAOImpl;
 import com.cws.us.pws.dao.interfaces.ICareersReferenceDAO;
 

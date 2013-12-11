@@ -11,7 +11,7 @@
  * express written authorization of CaspersBox Web Services, N.A.
  *
  * eSolutions_web_source
- * com.cws.us.esolutions/jsp/html/en
+ * com.cws.us.pws.common/jsp/html/en
  * System_ContactAdmins.jsp
  *
  * $Id$
@@ -28,33 +28,35 @@
  */
 --%>
 
+<script>
 <!--
-function validateForm(theForm)
-{
-    if (theForm.messageSubject.value == '')
+    function validateForm(theForm)
     {
-        clearText(theForm);
-
-        document.getElementById('validationError').innerHTML = 'Please provide a brief subject for your request.';
-        document.getElementById('txtMessageSubject').style.color = '#FF0000';
-        document.getElementById('execute').disabled = false;
-        document.getElementById('messageSubject').focus();
+        if (theForm.messageSubject.value == '')
+        {
+            clearText(theForm);
+    
+            document.getElementById('validationError').innerHTML = 'Please provide a brief subject for your request.';
+            document.getElementById('txtMessageSubject').style.color = '#FF0000';
+            document.getElementById('execute').disabled = false;
+            document.getElementById('messageSubject').focus();
+        }
+        else if (theForm.messageBody.value == '')
+        {
+            clearText(theForm);
+    
+            document.getElementById('validationError').innerHTML = 'Please provide the information regarding your request.';
+            document.getElementById('txtMessageBody').style.color = '#FF0000';
+            document.getElementById('execute').disabled = false;
+            document.getElementById('messageSubject').focus();
+        }
+        else
+        {
+            theForm.submit();
+        }
     }
-    else if (theForm.messageBody.value == '')
-    {
-        clearText(theForm);
-
-        document.getElementById('validationError').innerHTML = 'Please provide the information regarding your request.';
-        document.getElementById('txtMessageBody').style.color = '#FF0000';
-        document.getElementById('execute').disabled = false;
-        document.getElementById('messageSubject').focus();
-    }
-    else
-    {
-        theForm.submit();
-    }
-}
 //-->
+</script>
 
 <div class="middle-column-box-full-standard">
     <div class="middle-column-title-standard"><spring:message code="theme.messaging.send.email.message" /></div>

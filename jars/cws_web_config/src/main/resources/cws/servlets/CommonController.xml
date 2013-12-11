@@ -11,7 +11,11 @@
 
     <import resource="classpath:/cws/mailTemplates/ContactResponse.xml" />
 
-    <bean id="productRef" class="com.cws.us.pws.processors.impl.ProductReferenceImpl" />
+    <bean id="productRef" class="com.cws.us.pws.processors.impl.ProductReferenceImpl">
+        <property name="productDAO">
+            <ref bean="productDao" />
+        </property>
+    </bean>
 
     <bean id="commonController" class="com.cws.us.pws.controllers.CommonController">
         <property name="appConfig">

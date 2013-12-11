@@ -32,6 +32,8 @@
         </property>
     </bean>
 
+    <import resource="classpath:/cws/dao/ProductReferenceDAO.xml" />
+
     <bean id="messageValidator" class="com.cws.us.pws.validators.EmailMessageValidator">
         <property name="messageSubjectRequired" value="theme.subject.required" />
         <property name="messageBodyRequired" value="theme.body.required" />

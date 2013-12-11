@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import org.slf4j.LoggerFactory;
 
-import com.cws.esolutions.core.Constants;
+import com.cws.us.pws.Constants;
 /**
  * eSolutionsCore
  * com.cws.esolutions.core.processors.dto

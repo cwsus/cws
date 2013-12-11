@@ -194,7 +194,7 @@ public class ProductController
                 DEBUGGER.debug("ProductRequest: {}", productRequest);
             }
 
-            ProductResponse productResponse = this.productRefSvc.getProductData(productRequest);
+            ProductResponse productResponse = this.productRefSvc.getFeaturedProducts(productRequest);
 
             if (DEBUG)
             {

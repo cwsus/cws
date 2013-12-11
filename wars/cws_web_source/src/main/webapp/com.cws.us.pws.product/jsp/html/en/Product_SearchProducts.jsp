@@ -11,8 +11,8 @@
  * express written authorization of CaspersBox Web Services, N.A.
  *
  * eSolutions_web_source
- * com.cws.us.pws.common/jsp/html/en
- * System_SiteSearch.jsp
+ * com.cws.us.pws.product/jsp/html/en
+ * Product_SearchProducts.jsp
  *
  * $Id$
  * $Author$
@@ -28,24 +28,26 @@
  */
 --%>
 
+<script>
 <!--
-function validateForm(theForm)
-{
-    if (theForm.searchTerms.value = '')
+    function validateForm(theForm)
     {
-        clearText(theForm);
-
-        document.getElementById('validationError').innerHTML = 'Search terms must be provided.';
-        document.getElementById('txtSearchTerms').style.color = '#FF0000';
-        document.getElementById('execute').disabled = false;
-        document.getElementById('searchTerms').focus();
+        if (theForm.searchTerms.value = '')
+        {
+            clearText(theForm);
+    
+            document.getElementById('validationError').innerHTML = 'Search terms must be provided.';
+            document.getElementById('txtSearchTerms').style.color = '#FF0000';
+            document.getElementById('execute').disabled = false;
+            document.getElementById('searchTerms').focus();
+        }
+        else
+        {
+            theForm.submit();
+        }
     }
-    else
-    {
-        theForm.submit();
-    }
-}
 //-->
+</script>
 
 <div class="middle-column-box-full-standard">
     <div class="middle-column-title-standard"><spring:message code="site.search.header" /></div>

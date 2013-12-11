@@ -14,7 +14,7 @@ package com.cws.us.pws.processors.interfaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cws.esolutions.core.Constants;
+import com.cws.us.pws.Constants;
 import com.cws.us.pws.processors.dto.ProductRequest;
 import com.cws.us.pws.processors.dto.ProductResponse;
 import com.cws.us.pws.dao.impl.ProductReferenceDAOImpl;
@@ -48,9 +48,10 @@ public interface IProductReference
     static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER + CNAME);
-    static final Logger WARN_RECORDER = LoggerFactory.getLogger(Constants.WARN_LOGGER + CNAME);
 
     ProductResponse getProductList(final ProductRequest request) throws ProductRequestException;
+
+    ProductResponse getFeaturedProducts(final ProductRequest request) throws ProductRequestException;
 
     ProductResponse getProductData(final ProductRequest request) throws ProductRequestException;
 }

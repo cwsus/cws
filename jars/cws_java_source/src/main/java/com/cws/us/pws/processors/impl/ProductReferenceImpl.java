@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cws.us.pws.processors.dto.Product;
@@ -74,6 +73,79 @@ public class ProductReferenceImpl implements IProductReference
         try
         {
             List<Object[]> productList = this.productDAO.getProductList(request.getLang());
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("productList: {}", productList);
+            }
+
+            if ((productList != null) && (productList.size() != 0))
+            {
+                List<Product> products = new ArrayList<Product>();
+
+                for (Object[] array : productList)
+                {
+                    Product product = new Product();
+                    product.setProductId((String) array[0]);
+                    product.setShortDesc((String) array[1]);
+                    product.setProductName((String) array[2]);
+                    product.setProductDesc((String) array[3]);
+                    product.setIsFeatured((boolean) array[4]);
+                    product.setProductCost((BigDecimal) array[5]);
+
+                    if (DEBUG)
+                    {
+                        DEBUGGER.debug("Product: {}", product);
+                    }
+
+                    products.add(product);
+                }
+
+                if (DEBUG)
+                {
+                    DEBUGGER.debug("List<Product>: {}", products);
+                }
+
+                response.setRequestStatus(CoreServicesStatus.SUCCESS);
+                response.setResponse("Successfully loaded product list.");
+                response.setProductList(products);
+            }
+            else
+            {
+                response.setRequestStatus(CoreServicesStatus.FAILURE);
+                response.setResponse("Failed to load available products");
+            }
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ProductResponse: {}", response);
+            }
+        }
+        catch (SQLException sqx)
+        {
+            ERROR_RECORDER.error(sqx.getMessage(), sqx);
+
+            throw new ProductRequestException(sqx.getMessage(), sqx);
+        }
+
+        return response;
+    }
+
+    @Override
+    public ProductResponse getFeaturedProducts(final ProductRequest request) throws ProductRequestException
+    {
+        final String methodName = IProductReference.CNAME + "#getFeaturedProducts(final ProductRequest request) throws ProductRequestException";
+        
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+        }
+
+        ProductResponse response = new ProductResponse();
+
+        try
+        {
+            List<Object[]> productList = this.productDAO.getFeaturedProducts(request.getLang());
 
             if (DEBUG)
             {

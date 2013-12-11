@@ -9,9 +9,11 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <import resource="classpath:/cws/dao/ProductReferenceDAO.xml" />
-
-    <bean id="productRef" class="com.cws.us.pws.processors.impl.ProductReferenceImpl" />
+    <bean id="productRef" class="com.cws.us.pws.processors.impl.ProductReferenceImpl">
+        <property name="productDAO">
+            <ref bean="productDao" />
+        </property>
+    </bean>
 
     <bean id="productController" class="com.cws.us.pws.controllers.ProductController">
         <property name="appConfig">

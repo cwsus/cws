@@ -12,25 +12,16 @@
 package com.cws.us.pws.dao.interfaces;
 
 import java.util.List;
-
 import org.slf4j.Logger;
-
 import java.sql.SQLException;
-
 import org.slf4j.LoggerFactory;
 
-import com.cws.esolutions.core.Constants;
+import com.cws.us.pws.Constants;
 /**
  * CWSPWS_java_source
  * com.cws.us.pws.dao.interfaces
  * IProductReferenceDAO.java
  *
- * TODO: Add class description
- *
- * $Id$
- * $Author$
- * $Date$
- * $Revision$
  * @author 35033355
  * @version 1.0
  *
@@ -46,7 +37,6 @@ public interface IProductReferenceDAO
     static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER + CNAME);
-    static final Logger WARN_RECORDER = LoggerFactory.getLogger(Constants.WARN_LOGGER + CNAME);
 
     List<Object[]> getProductList(final String lang) throws SQLException;
 

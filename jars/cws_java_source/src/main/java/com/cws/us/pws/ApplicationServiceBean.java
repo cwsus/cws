@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cws.esolutions.core.Constants;
+import com.cws.us.pws.Constants;
 import com.cws.us.pws.validators.EmailAddressValidator;
 import com.cws.us.pws.validators.EmailMessageValidator;
 /**

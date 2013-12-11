@@ -111,7 +111,6 @@ public class CommonController
         this.recordsPerPage = value;
     }
 
-
     public final void setProductRefSvc(final ProductReferenceImpl value)
     {
         final String methodName = CommonController.CNAME + "#setProductRefSvc(final ProductReferenceImpl value)";
@@ -207,7 +206,7 @@ public class CommonController
                 DEBUGGER.debug("ProductRequest: {}", productRequest);
             }
 
-            ProductResponse productResponse = this.productRefSvc.getProductData(productRequest);
+            ProductResponse productResponse = this.productRefSvc.getFeaturedProducts(productRequest);
 
             if (DEBUG)
             {
@@ -311,7 +310,7 @@ public class CommonController
     }
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
-    public ModelAndView showMessagingPage()
+    public final ModelAndView showMessagingPage()
     {
         final String methodName = CommonController.CNAME + "#showMessagingPage()";
 
@@ -660,6 +659,8 @@ public class CommonController
 
         try
         {
+            System.out.println(message);
+            System.out.println(message.getEmailAddr());
             EmailUtils.sendEmailMessage(message, true);
 
             EmailMessage autoResponse = new EmailMessage();

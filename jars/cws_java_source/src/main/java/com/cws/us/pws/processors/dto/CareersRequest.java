@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import java.io.Serializable;
 import org.slf4j.LoggerFactory;
 
-import com.cws.esolutions.core.Constants;
+import com.cws.us.pws.Constants;
 /**
  * cws_java_source
  * com.cws.us.pws.processors.dto

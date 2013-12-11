@@ -53,11 +53,11 @@
 
     <category name="INFO_RECORDER.com.cws.us.pws" additivity="false">
         <priority value="DEBUG" />
-        <appender-ref ref="esolutions-info" />
+        <appender-ref ref="cws-info" />
     </category>
     <category name="ERROR_RECORDER.com.cws.us.pws" additivity="false">
         <priority value="DEBUG" />
-        <appender-ref ref="esolutions-error" />
+        <appender-ref ref="cws-error" />
     </category>
     <category name="CWS_DEBUGGER" additivity="false">
         <priority value="DEBUG" />
