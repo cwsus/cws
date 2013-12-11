@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import com.cws.us.pws.Constants;
 import com.cws.us.pws.dao.impl.CareersReferenceDAOImpl;
 import com.cws.us.pws.dao.interfaces.ICareersReferenceDAO;
-
 /**
  * cws_java_source
  * com.cws.us.pws.processors.interfaces
@@ -44,5 +43,4 @@ public interface ICareersReference
     static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER + CNAME);
-    static final Logger WARN_RECORDER = LoggerFactory.getLogger(Constants.WARN_LOGGER + CNAME);
 }
