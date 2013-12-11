@@ -97,7 +97,7 @@ public class EmailAddressValidator implements Validator
 
         if (DEBUG)
         {
-            DEBUGGER.debug("address: {}", address);
+            DEBUGGER.debug("EmailMessage: {}", message);
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddr", this.messageEmailAddressRequired);
