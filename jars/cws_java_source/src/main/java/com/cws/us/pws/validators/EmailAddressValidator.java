@@ -102,7 +102,7 @@ public class EmailAddressValidator implements Validator
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddr", this.messageEmailAddressRequired);
 
-        for (String str : message.emailAddr())
+        for (String str : message.getEmailAddr())
         {
         	if (DEBUG)
         	{
