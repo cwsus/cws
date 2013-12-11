@@ -30,7 +30,7 @@ COMMIT;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`getEmailByAttribute`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getEmailByAttribute`(
+CREATE PROCEDURE `cws`.`getEmailByAttribute`(
     IN attributeName VARCHAR(100)
 )
 BEGIN
@@ -61,7 +61,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`insertEmailMessage`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`insertEmailMessage`(
+CREATE PROCEDURE `cws`.`insertEmailMessage`(
     IN messageId VARCHAR(128),
     IN messageDate BIGINT,
     IN messageFrom VARCHAR(255),
@@ -97,7 +97,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`retrieve_email_count`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`retrieve_email_count`(
+CREATE PROCEDURE `cws`.`retrieve_email_count`(
 )
 BEGIN
     SELECT COUNT(EMAIL_MESSAGE_ID)
@@ -113,7 +113,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`retrieveMessages`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`retrieveMessages`(
+CREATE PROCEDURE `cws`.`retrieveMessages`(
 )
 BEGIN
     SELECT
@@ -139,7 +139,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`retrieveMessage`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`retrieveMessage`(
+CREATE PROCEDURE `cws`.`retrieveMessage`(
     IN messageId VARCHAR(100)
 )
 BEGIN

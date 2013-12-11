@@ -24,7 +24,7 @@ COMMIT;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`getPageByAttribute`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getPageByAttribute`(
+CREATE PROCEDURE `cws`.`getPageByAttribute`(
     IN searchTerms VARCHAR(100)
 )
 BEGIN

@@ -13,22 +13,18 @@
 CREATE DATABASE IF NOT EXISTS cws;
 COMMIT;
 
+GRANT SELECT,INSERT,UPDATE,DELETE,EXECUTE ON cws.* TO 'appuser'@'localhost' IDENTIFIED BY PASSWORD '*ED66694310AF846C68C9FC3D430B30594837998D';
+GRANT SELECT ON `mysql`.`proc` TO 'appuser'@'localhost';
+
+FLUSH PRIVILEGES;
+COMMIT;
+
 USE cws;
 
 SOURCE ./cws.email_messaging.sql;
 SOURCE ./cws.search.sql;
 SOURCE ./cws.products.sql;
 
-COMMIT;
-
---
--- add privileges
--- NOTE: if the user does not already exist he'll be created
---
-GRANT SELECT,INSERT,UPDATE,DELETE,EXECUTE ON cws.* TO 'appuser'@'localhost' IDENTIFIED BY PASSWORD '*ED66694310AF846C68C9FC3D430B30594837998D';
-GRANT SELECT ON `mysql`.`proc` TO 'appuser'@'localhost';
-
-FLUSH PRIVILEGES;
 COMMIT;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

@@ -25,7 +25,7 @@ COMMIT;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`getProductsByAttribute`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getProductsByAttribute`(
+CREATE PROCEDURE `cws`.`getProductsByAttribute`(
     IN searchTerms VARCHAR(100),
     IN lang VARCHAR(2),
     IN startRow INT
@@ -58,7 +58,7 @@ COMMIT;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`getFeaturedProducts`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getFeaturedProducts`(
+CREATE PROCEDURE `cws`.`getFeaturedProducts`(
     IN lang VARCHAR(2)
 )
 BEGIN
@@ -85,7 +85,7 @@ COMMIT;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`getProductList`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getProductList`(
+CREATE PROCEDURE `cws`.`getProductList`(
     IN lang VARCHAR(2)
 )
 BEGIN
@@ -112,7 +112,7 @@ COMMIT;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`getProductData`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
-CREATE DEFINER=`appuser`@`localhost` PROCEDURE `cws`.`getProductData`(
+CREATE PROCEDURE `cws`.`getProductData`(
     IN productId VARCHAR(128),
     IN lang VARCHAR(2)
 )
