@@ -38,9 +38,9 @@ public interface IProductReferenceDAO
     static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER + CNAME);
 
-    List<Object[]> getProductList(final String lang) throws SQLException;
+    List<Object[]> getProductList(final String lang);
 
-    List<Object[]> getFeaturedProducts(final String lang) throws SQLException;
+    List<Object[]> getFeaturedProducts(final String lang);
 
-    List<Object> getProductData(final String productId, final String lang) throws SQLException;
+    List<Object> getProductData(final String productId, final String lang);
 }

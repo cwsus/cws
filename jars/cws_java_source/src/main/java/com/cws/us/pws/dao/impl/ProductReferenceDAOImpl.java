@@ -15,11 +15,9 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Connection;
+import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-
-import javax.sql.DataSource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -60,21 +58,23 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
         this.jdbcTemplate = new JdbcTemplate(value);
     }
 
+    /**
+     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductList(String)
+     */
     @Override
-    public List<Object[]> getProductList(final String lang) throws SQLException
+    public List<Object[]> getProductList(final String lang)
     {
-        final String methodName = IProductReferenceDAO.CNAME + "#getProductList(final String lang) throws SQLException";
+        final String methodName = IProductReferenceDAO.CNAME + "#getProductList(final String lang)";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
         }
 
-        List<Object[]> response = null;
-
-        this.jdbcTemplate.execute(
+        List<Object[]> response = this.jdbcTemplate.execute(
                 new PreparedStatementCreator()
                 {
+                    @Override
                     public PreparedStatement createPreparedStatement(final Connection sqlConn) throws SQLException
                     {
                         final String methodName = IProductReferenceDAO.CNAME + "#createPreparedStatement(final Connection sqlConn) throws SQLException";
@@ -85,12 +85,28 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                             DEBUGGER.debug("Connection: {}", sqlConn);
                         }
 
-                        PreparedStatement stmt = sqlConn.prepareCall("{CALL getProductList(?)}");
-                        stmt.setString(1, lang);
+                        PreparedStatement stmt = null;
 
-                        if (DEBUG)
+                        try
                         {
-                            DEBUGGER.debug("PreparedStatement: {}", stmt);
+                            if (sqlConn.isClosed())
+                            {
+                                throw new SQLException("Unable to obtain audit datasource connection");
+                            }
+                            
+                            stmt = sqlConn.prepareCall("{CALL getProductList(?)}");
+                            stmt.setString(1, lang);
+
+                            if (DEBUG)
+                            {
+                                DEBUGGER.debug("PreparedStatement: {}", stmt);
+                            }
+                        }
+                        catch (SQLException sqx)
+                        {
+                            ERROR_RECORDER.error(sqx.getMessage(), sqx);
+
+                            throw new SQLException(sqx.getMessage(), sqx);
                         }
 
                         return stmt;
@@ -98,6 +114,7 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                 },
                 new PreparedStatementCallback<List<Object[]>>()
                 {
+                    @Override
                     public List<Object[]> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
                     {
                         final String methodName = IProductReferenceDAO.CNAME + "#doInPreparedStatement(final PreparedStatement stmt) throws SQLException";
@@ -113,6 +130,11 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
 
                         try
                         {
+                            if (stmt == null)
+                            {
+                                throw new SQLException("PreparedStatement is null. Cannot execute.");
+                            }
+
                             if (stmt.execute())
                             {
                                 resultSet = stmt.getResultSet();
@@ -181,23 +203,23 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
         return response;
     }
 
+    /**
+     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getFeaturedProducts(String)
+     */
     @Override
-    public List<Object[]> getFeaturedProducts(final String lang) throws SQLException
+    public List<Object[]> getFeaturedProducts(final String lang)
     {
-        final String methodName = IProductReferenceDAO.CNAME + "#getFeaturedProducts(final String lang) throws SQLException";
+        final String methodName = IProductReferenceDAO.CNAME + "#getFeaturedProducts(final String lang)";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
         }
 
-        List<Object[]> response = null;
-
-        Connection sqlConn = this.jdbcTemplate.getDataSource().getConnection();
-
-        this.jdbcTemplate.execute(
+        List<Object[]> response = this.jdbcTemplate.execute(
                 new PreparedStatementCreator()
                 {
+                    @Override
                     public PreparedStatement createPreparedStatement(final Connection sqlConn) throws SQLException
                     {
                         final String methodName = IProductReferenceDAO.CNAME + "#createPreparedStatement(final Connection sqlConn) throws SQLException";
@@ -208,12 +230,28 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                             DEBUGGER.debug("Connection: {}", sqlConn);
                         }
 
-                        PreparedStatement stmt = sqlConn.prepareCall("{CALL getFeaturedProducts(?)}");
-                        stmt.setString(1, lang);
+                        PreparedStatement stmt = null;
 
-                        if (DEBUG)
+                        try
                         {
-                            DEBUGGER.debug("PreparedStatement: {}", stmt);
+                            if (sqlConn.isClosed())
+                            {
+                                throw new SQLException("Unable to obtain audit datasource connection");
+                            }
+                            
+                            stmt = sqlConn.prepareCall("{CALL getFeaturedProducts(?)}");
+                            stmt.setString(1, lang);
+
+                            if (DEBUG)
+                            {
+                                DEBUGGER.debug("PreparedStatement: {}", stmt);
+                            }
+                        }
+                        catch (SQLException sqx)
+                        {
+                            ERROR_RECORDER.error(sqx.getMessage(), sqx);
+
+                            throw new SQLException(sqx.getMessage(), sqx);
                         }
 
                         return stmt;
@@ -221,6 +259,7 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                 },
                 new PreparedStatementCallback<List<Object[]>>()
                 {
+                    @Override
                     public List<Object[]> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
                     {
                         final String methodName = IProductReferenceDAO.CNAME + "#doInPreparedStatement(final PreparedStatement stmt) throws SQLException";
@@ -236,6 +275,11 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
 
                         try
                         {
+                            if (stmt == null)
+                            {
+                                throw new SQLException("PreparedStatement is null. Cannot execute.");
+                            }
+
                             if (stmt.execute())
                             {
                                 resultSet = stmt.getResultSet();
@@ -304,12 +348,10 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
     }
 
     /**
-     * @param productId
-     * @return
-     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductData(int)
+     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductData(String, String)
      */
     @Override
-    public List<Object> getProductData(final String productId, final String lang) throws SQLException
+    public List<Object> getProductData(final String productId, final String lang)
     {
         final String methodName = IProductReferenceDAO.CNAME + "#getProductData(final int productId, final String lang) throws SQLException";
 
@@ -334,9 +376,30 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
                             DEBUGGER.debug("Connection: {}", sqlConn);
                         }
 
-                        PreparedStatement stmt = sqlConn.prepareCall("{CALL getProductData(?, ?)}");
-                        stmt.setString(1, productId);
-                        stmt.setString(2, lang);
+                        PreparedStatement stmt = null;
+
+                        try
+                        {
+                            if (sqlConn.isClosed())
+                            {
+                                throw new SQLException("Unable to obtain audit datasource connection");
+                            }
+                            
+                            stmt = sqlConn.prepareCall("{CALL getProductData(?, ?)}");
+                            stmt.setString(1, productId);
+                            stmt.setString(2, lang);
+
+                            if (DEBUG)
+                            {
+                                DEBUGGER.debug("PreparedStatement: {}", stmt);
+                            }
+                        }
+                        catch (SQLException sqx)
+                        {
+                            ERROR_RECORDER.error(sqx.getMessage(), sqx);
+
+                            throw new SQLException(sqx.getMessage(), sqx);
+                        }
 
                         if (DEBUG)
                         {
@@ -363,6 +426,11 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
 
                         try
                         {
+                            if (stmt == null)
+                            {
+                                throw new SQLException("PreparedStatement is null. Cannot continue.");
+                            }
+
                             if (stmt.execute())
                             {
                                 resultSet = stmt.getResultSet();
