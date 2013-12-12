@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -44,17 +47,17 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
 {
     @Autowired private JdbcTemplate jdbcTemplate;
 
-    public final void setJdbcTemplate(final JdbcTemplate template)
+    public final void setJdbcTemplate(final DataSource value)
     {
-        final String methodName = IProductReferenceDAO.CNAME + "#setJdbcTemplate(final JdbcTemplate template)";
+        final String methodName = IProductReferenceDAO.CNAME + "#setJdbcTemplate(final DataSource value)";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("JdbcTemplate: {}", template);
+            DEBUGGER.debug("Value: {}", value);
         }
 
-        this.jdbcTemplate = template;
+        this.jdbcTemplate = new JdbcTemplate(value);
     }
 
     @Override
@@ -189,6 +192,8 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
         }
 
         List<Object[]> response = null;
+
+        Connection sqlConn = this.jdbcTemplate.getDataSource().getConnection();
 
         this.jdbcTemplate.execute(
                 new PreparedStatementCreator()
