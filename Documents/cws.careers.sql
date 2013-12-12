@@ -1,0 +1,106 @@
+--
+-- Table structure for table `cws`.`careers`
+--
+
+DROP TABLE IF EXISTS `cws`.`careers`;
+CREATE TABLE `cws`.`careers` (
+    `JOB_REQ_ID` VARCHAR(128) CHARACTER SET UTF8 NOT NULL,
+    `POSTING_DATE` DATE NOT NULL,
+    `UNPOSTING_DATE` DATE,
+    `JOB_TITLE` TEXT CHARACTER SET UTF8 NOT NULL,
+    `JOB_SHORT_DESC` TEXT CHARACTER SET UTF8 NOT NULL,
+    `JOB_LANG` VARCHAR(2) CHARACTER SET UTF8 NOT NULL DEFAULT 'en',
+    `JOB_DESCRIPTION` TEXT CHARACTER SET UTF8 NOT NULL,
+    PRIMARY KEY (`JOB_REQ_ID`),
+    FULLTEXT KEY `FK_search_jobs` (`JOB_REQ_ID`, `JOB_TITLE`, `JOB_SHORT_DESC`, `JOB_DESCRIPTION`)
+) ENGINE=MyISAM DEFAULT CHARSET=UTF8 ROW_FORMAT=COMPACT COLLATE UTF8_GENERAL_CI;
+
+/*!40000 ALTER TABLE `cws`.`careers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cws`.`careers` ENABLE KEYS */;
+
+COMMIT;
+
+--
+-- Definition of procedure `cws`.`getJobsByAttribute`
+--
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `cws`.`getJobsByAttribute`$$
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
+CREATE PROCEDURE `cws`.`getJobsByAttribute`(
+    IN searchTerms VARCHAR(100),
+    IN lang VARCHAR(2),
+    IN startRow INT
+)
+BEGIN
+    SELECT
+        JOB_REQ_ID,
+        POSTING_DATE,
+        UNPOSTING_DATE,
+        JOB_TITLE,
+        JOB_SHORT_DESC,
+        JOB_DESCRIPTION,
+    MATCH (`JOB_REQ_ID`, `JOB_TITLE`, `JOB_SHORT_DESC`, `JOB_DESCRIPTION`)
+    AGAINST (+searchTerms WITH QUERY EXPANSION)
+    FROM `cws`.`careers`
+    WHERE MATCH (`JOB_REQ_ID`, `JOB_TITLE`, `JOB_SHORT_DESC`, `JOB_DESCRIPTION`)
+    AGAINST (+searchTerms IN BOOLEAN MODE)
+    AND JOB_LANG = lang
+    LIMIT startRow, 20;
+END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+COMMIT;
+
+--
+-- Definition of procedure `cws`.`getCareerList`
+--
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `cws`.`getCareerList`$$
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
+CREATE PROCEDURE `cws`.`getCareerList`(
+    IN lang VARCHAR(2)
+)
+BEGIN
+    SELECT
+        JOB_REQ_ID,
+        POSTING_DATE,
+        UNPOSTING_DATE,
+        JOB_TITLE,
+        JOB_SHORT_DESC,
+        JOB_DESCRIPTION
+    FROM `cws`.`careers`
+    WHERE JOB_LANG = lang
+    ORDER BY IS_FEATURED ASC;
+END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+COMMIT;
+
+--
+-- Definition of procedure `cws`.`getCareerData`
+--
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `cws`.`getCareerData`$$
+/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
+CREATE PROCEDURE `cws`.`getCareerData`(
+    IN jobId VARCHAR(128),
+    IN lang VARCHAR(2)
+)
+BEGIN
+    SELECT
+        JOB_REQ_ID,
+        POSTING_DATE,
+        UNPOSTING_DATE,
+        JOB_TITLE,
+        JOB_SHORT_DESC,
+        JOB_DESCRIPTION
+    FROM `cws`.`careers`
+    WHERE JOB_REQ_ID = jobId
+    AND JOB_LANG = lang;
+END $$
+/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+
+DELIMITER ;
+COMMIT;
