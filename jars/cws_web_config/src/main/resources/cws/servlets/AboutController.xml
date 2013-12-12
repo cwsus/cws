@@ -9,8 +9,15 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <bean id="careerRef" class="com.cws.us.pws.processors.impl.CareerReferenceImpl">
+        <property name="dao" ref="careerDao" />
+    </bean>
+
     <bean id="aboutController" class="com.cws.us.pws.controllers.AboutController">
+        <property name="appConfig" ref="appConfig" />
+        <property name="careerRefSvc" ref="careerRef" />
         <property name="aboutUsPage" value="Corporate_AboutUs" />
         <property name="careersPage" value="Corporate_Careers" />
+        <property name="messageNoCareerLocated" value="no.career.located" />
     </bean>
 </beans>

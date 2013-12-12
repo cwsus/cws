@@ -1,13 +1,17 @@
-/**
+/*
  * Copyright (c) 2009 - 2013 By: CWS, Inc.
  * 
- * All rights reserved. These materials are confidential and
- * proprietary to CaspersBox Web Services N.A and no part of
- * these materials should be reproduced, published in any form
- * by any means, electronic or mechanical, including photocopy
- * or any information storage or retrieval system not should
- * the materials be disclosed to third parties without the
- * express written authorization of CaspersBox Web Services, N.A.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.cws.us.pws;
 
@@ -19,21 +23,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.cws.us.pws.Constants;
 import com.cws.us.pws.validators.EmailAddressValidator;
 import com.cws.us.pws.validators.EmailMessageValidator;
-/**
- * CWSPWS_java_source
- * com.cws.us.pws
- * ApplicationConfig.java
- *
- * $Id: cws-codetemplates.xml 2286 2013-01-03 20:50:12Z kmhuntly@gmail.com $
- * $Author: kmhuntly@gmail.com $
- * $Date: 2013-01-03 15:50:12 -0500 (Thu, 03 Jan 2013) $
- * $Revision: 2286 $
- * @author khuntly
- * @version 1.0
+/*
+ * Project: cws_java_source
+ * Package: com.cws.us.pws
+ * File: ApplicationServiceBean.java
  *
  * History
  * ----------------------------------------------------------------------------
- * khuntly @ Apr 18, 2013 7:42:45 PM
+ * kh05451 @ Jan 4, 2013 3:36:54 PM
  *     Created.
  */
 public class ApplicationServiceBean

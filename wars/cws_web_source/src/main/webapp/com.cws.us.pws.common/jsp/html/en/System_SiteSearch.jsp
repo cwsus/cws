@@ -73,7 +73,7 @@
         <p id="error"><spring:message code="${param.errorMessage}" /></p>
     </c:if>
 
-    <form:form name="siteSearchForm" method="post" action="${pageRequest.context.contextPath}/ui/common/search">
+    <form:form id="siteSearchForm" name="siteSearchForm" action="${pageRequest.context.contextPath}/ui/common/search" method="post">
         <div>
             <label id="searchTerms"><spring:message code="theme.search.terms" /></label>
             <input type="button" name="execute" value="<spring:message code='theme.button.submit.text' />" id="execute" class="submit" onclick="disableButton(this); validateForm(this.form);" />

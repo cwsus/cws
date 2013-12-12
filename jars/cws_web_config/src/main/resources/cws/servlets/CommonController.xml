@@ -12,18 +12,12 @@
     <import resource="classpath:/cws/mailTemplates/ContactResponse.xml" />
 
     <bean id="productRef" class="com.cws.us.pws.processors.impl.ProductReferenceImpl">
-        <property name="productDAO">
-            <ref bean="productDao" />
-        </property>
+        <property name="dao" ref="productDao" />
     </bean>
 
     <bean id="commonController" class="com.cws.us.pws.controllers.CommonController">
-        <property name="appConfig">
-            <ref bean="appConfig" />
-        </property>
-        <property name="productRefSvc">
-            <ref bean="productRef" />
-        </property>
+        <property name="appConfig" ref="appConfig" />
+        <property name="productRefSvc" ref="productRef" />
         <property name="contactResponseEmail" ref="contactResponseEmail" />
     </bean>
 </beans>

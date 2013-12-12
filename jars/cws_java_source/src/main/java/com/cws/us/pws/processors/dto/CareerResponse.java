@@ -15,41 +15,66 @@
  */
 package com.cws.us.pws.processors.dto;
 
-import java.util.Date;
+import java.util.List;
 import org.slf4j.Logger;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import org.slf4j.LoggerFactory;
 
 import com.cws.us.pws.Constants;
+import com.cws.esolutions.core.processors.enums.CoreServicesStatus;
 /*
  * Project: cws_java_source
  * Package: com.cws.us.pws.processors.dto
- * File: Career.java
+ * File: CareersResponse.java
  *
  * History
  * ----------------------------------------------------------------------------
  * kh05451 @ Jan 4, 2013 3:36:54 PM
  *     Created.
  */
-public class Career implements Serializable
+public class CareerResponse implements Serializable
 {
-    private Date postDate = null;
-    private Date unpostDate = null;
-    private String jobTitle = null;
-    private String jobReqId = null;
-    private String jobShortDesc = null;
-    private String jobDescription = null;
+    private Career career = null;
+    private String response = null;
+    private List<Career> careerList = null;
+    private CoreServicesStatus requestStatus = null;
 
-    private static final String CNAME = Career.class.getName();
-    private static final long serialVersionUID = 6015843683692286034L;
+    private static final long serialVersionUID = -7541177746694315851L;
+    private static final String CNAME = CareerResponse.class.getName();
 
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
 
-    public final void setJobReqId(final String value)
+    public final void setRequestStatus(final CoreServicesStatus value)
     {
-        final String methodName = Career.CNAME + "#setJobReqId(final String value)";
+        final String methodName = CareerResponse.CNAME + "#setRequestStatus(final CoreServicesStatus value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("CoreServicesStatus: {}", value);
+        }
+
+        this.requestStatus = value;
+    }
+
+    public final void setResponse(final String value)
+    {
+        final String methodName = CareerResponse.CNAME + "#setResponse(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug(value);
+        }
+
+        this.response = value;
+    }
+
+    public final void setCareerList(final List<Career> value)
+    {
+        final String methodName = CareerResponse.CNAME + "#setCareerList(final List<Career> value)";
 
         if (DEBUG)
         {
@@ -57,12 +82,12 @@ public class Career implements Serializable
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.jobReqId = value;
+        this.careerList = value;
     }
 
-    public final void setPostDate(final Date value)
+    public final void setCareer(final Career value)
     {
-        final String methodName = Career.CNAME + "#setPostDate(final Date value)";
+        final String methodName = CareerResponse.CNAME + "#setCareer(final Career value)";
 
         if (DEBUG)
         {
@@ -70,143 +95,65 @@ public class Career implements Serializable
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.postDate = value;
+        this.career = value;
     }
 
-    public final void setUnpostDate(final Date value)
+    public final CoreServicesStatus getRequestStatus()
     {
-        final String methodName = Career.CNAME + "#setUnpostDate(final Date value)";
+        final String methodName = CareerResponse.CNAME + "#getRequestStatus()";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
+            DEBUGGER.debug("CoreServicesStatus: {}", this.requestStatus);
         }
 
-        this.unpostDate = value;
+        return this.requestStatus;
     }
 
-    public final void setJobTitle(final String value)
+    public final String getResponse()
     {
-        final String methodName = Career.CNAME + "#setJobTitle(final String value)";
+        final String methodName = CareerResponse.CNAME + "#getResponse()";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
+            DEBUGGER.debug(this.response);
         }
 
-        this.jobTitle = value;
+        return this.response;
     }
 
-    public final void setJobShortDesc(final String value)
+    public final List<Career> getCareerList()
     {
-        final String methodName = Career.CNAME + "#setJobShortDesc(final String value)";
+        final String methodName = CareerResponse.CNAME + "#getCareerList()";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
+            DEBUGGER.debug("Value: {}", this.careerList);
         }
 
-        this.jobShortDesc = value;
+        return this.careerList;
     }
 
-    public final void setJobDescription(final String value)
+    public final Career getCareer()
     {
-        final String methodName = Career.CNAME + "#setJobDescription(final String value)";
+        final String methodName = CareerResponse.CNAME + "#getCareer()";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", value);
+            DEBUGGER.debug("Value: {}", this.career);
         }
 
-        this.jobDescription = value;
-    }
-
-    public final String getJobReqId()
-    {
-        final String methodName = Career.CNAME + "#getJobReqId()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.jobReqId);
-        }
-
-        return this.jobReqId;
-    }
-
-    public final String getJobTitle()
-    {
-        final String methodName = Career.CNAME + "#getJobTitle()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.jobTitle);
-        }
-
-        return this.jobTitle;
-    }
-
-    public final Date getPostDate()
-    {
-        final String methodName = Career.CNAME + "#getPostDate()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.postDate);
-        }
-
-        return this.postDate;
-    }
-
-    public final Date getUnpostDate()
-    {
-        final String methodName = Career.CNAME + "#getUnpostDate()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.unpostDate);
-        }
-
-        return this.unpostDate;
-    }
-
-    public final String getJobShortDesc()
-    {
-        final String methodName = Career.CNAME + "#getJobShortDesc()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.jobShortDesc);
-        }
-
-        return this.jobShortDesc;
-    }
-
-    public final String getJobDescription()
-    {
-        final String methodName = Career.CNAME + "#getJobDescription()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.jobDescription);
-        }
-
-        return this.jobDescription;
+        return this.career;
     }
 
     @Override
     public final String toString()
     {
-        final String methodName = Career.CNAME + "#toString()";
+        final String methodName = CareerResponse.CNAME + "#toString()";
 
         if (DEBUG)
         {

@@ -1,13 +1,17 @@
-/**
+/*
  * Copyright (c) 2009 - 2013 By: CWS, Inc.
  * 
- * All rights reserved. These materials are confidential and
- * proprietary to CaspersBox Web Services N.A and no part of
- * these materials should be reproduced, published in any form
- * by any means, electronic or mechanical, including photocopy
- * or any information storage or retrieval system not should
- * the materials be disclosed to third parties without the
- * express written authorization of CaspersBox Web Services, N.A.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.cws.us.pws.dao.impl;
 
@@ -17,37 +21,30 @@ import java.util.ArrayList;
 import java.sql.Connection;
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import org.springframework.jdbc.core.JdbcTemplate;
+import java.sql.CallableStatement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementCallback;
 
 import com.cws.us.pws.dao.interfaces.IProductReferenceDAO;
-/**
- * CWSPWS_java_source
- * com.cws.us.pws.dao.interfaces
- * ProductReferenceDAOImpl.java
- *
- * $Id$
- * $Author$
- * $Date$
- * $Revision$
- * @author 35033355
- * @version 1.0
+/*
+ * Project: cws_java_source
+ * Package: com.cws.us.pws.dao.impl
+ * File: CareersReferenceDAOImpl.java
  *
  * History
  * ----------------------------------------------------------------------------
- * 35033355 @ Apr 16, 2013 12:19:37 PM
+ * kh05451 @ Jan 4, 2013 3:36:54 PM
  *     Created.
+ */
+/**
+ * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO
  */
 public class ProductReferenceDAOImpl implements IProductReferenceDAO
 {
-    @Autowired private JdbcTemplate jdbcTemplate;
+    @Autowired private DataSource dataSource;
 
-    public final void setJdbcTemplate(final DataSource value)
+    public final void setDataSource(final DataSource value)
     {
-        final String methodName = IProductReferenceDAO.CNAME + "#setJdbcTemplate(final DataSource value)";
+        final String methodName = IProductReferenceDAO.CNAME + "#setDataSource(final DataSource value)";
 
         if (DEBUG)
         {
@@ -55,441 +52,336 @@ public class ProductReferenceDAOImpl implements IProductReferenceDAO
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.jdbcTemplate = new JdbcTemplate(value);
+        this.dataSource = value;
     }
 
     /**
-     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductList(String)
+     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductList(String) throws SQLException
      */
     @Override
-    public List<Object[]> getProductList(final String lang)
+    public List<Object[]> getProductList(final String lang) throws SQLException
     {
-        final String methodName = IProductReferenceDAO.CNAME + "#getProductList(final String lang)";
+        final String methodName = IProductReferenceDAO.CNAME + "#getProductList(final String lang) throws SQLException";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", lang);
         }
 
-        List<Object[]> response = this.jdbcTemplate.execute(
-                new PreparedStatementCreator()
+        Connection sqlConn = null;
+        ResultSet resultSet = null;
+        CallableStatement stmt = null;
+        List<Object[]> results = null;
+
+        try
+        {
+            sqlConn = this.dataSource.getConnection();
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("Connection: {}", sqlConn);
+            }
+
+            if (sqlConn.isClosed())
+            {
+                throw new SQLException("Unable to obtain connection to application datasource");
+            }
+
+            stmt = sqlConn.prepareCall("{ CALL getProductList(?) }");
+            stmt.setString(1, lang);
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("CallableStatement: {}", stmt);
+            }
+
+            if (!(stmt.execute()))
+            {
+                throw new SQLException("PreparedStatement is null. Cannot execute.");
+            }
+
+            resultSet = stmt.getResultSet();
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ResultSet: {}", resultSet);
+            }
+
+            if (resultSet.next())
+            {
+                resultSet.beforeFirst();
+                results = new ArrayList<Object[]>();
+
+                while (resultSet.next())
                 {
-                    @Override
-                    public PreparedStatement createPreparedStatement(final Connection sqlConn) throws SQLException
+                    Object[] data = new Object[]
                     {
-                        final String methodName = IProductReferenceDAO.CNAME + "#createPreparedStatement(final Connection sqlConn) throws SQLException";
+                        resultSet.getString(1), // PRODUCT_ID
+                        resultSet.getString(2), // PRODUCT_NAME
+                        resultSet.getString(3), // PRODUCT_SHORT_DESC
+                        resultSet.getString(4), // PRODUCT_DESC
+                        resultSet.getBigDecimal(5), // PRODUCT_PRICE
+                        resultSet.getBoolean(6) // IS_FEATURED
+                    };
 
-                        if (DEBUG)
-                        {
-                            DEBUGGER.debug(methodName);
-                            DEBUGGER.debug("Connection: {}", sqlConn);
-                        }
+                    results.add(data);
+                }
 
-                        PreparedStatement stmt = null;
-
-                        try
-                        {
-                            if (sqlConn.isClosed())
-                            {
-                                throw new SQLException("Unable to obtain audit datasource connection");
-                            }
-                            
-                            stmt = sqlConn.prepareCall("{CALL getProductList(?)}");
-                            stmt.setString(1, lang);
-
-                            if (DEBUG)
-                            {
-                                DEBUGGER.debug("PreparedStatement: {}", stmt);
-                            }
-                        }
-                        catch (SQLException sqx)
-                        {
-                            ERROR_RECORDER.error(sqx.getMessage(), sqx);
-
-                            throw new SQLException(sqx.getMessage(), sqx);
-                        }
-
-                        return stmt;
-                    }
-                },
-                new PreparedStatementCallback<List<Object[]>>()
+                if (DEBUG)
                 {
-                    @Override
-                    public List<Object[]> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
-                    {
-                        final String methodName = IProductReferenceDAO.CNAME + "#doInPreparedStatement(final PreparedStatement stmt) throws SQLException";
+                    DEBUGGER.debug("results: {}", results);
+                }
+            }
+        }
+        catch (SQLException sqx)
+        {
+            ERROR_RECORDER.error(sqx.getMessage(), sqx);
 
-                        if (DEBUG)
-                        {
-                            DEBUGGER.debug(methodName);
-                            DEBUGGER.debug("PreparedStatement: {}", stmt);
-                        }
+            throw new SQLException(sqx.getMessage(), sqx);
+        }
+        finally
+        {
+            if (resultSet != null)
+            {
+                resultSet.close();
+            }
 
-                        ResultSet resultSet = null;
-                        List<Object[]> results = null;
+            if (stmt != null)
+            {
+                stmt.close();
+            }
 
-                        try
-                        {
-                            if (stmt == null)
-                            {
-                                throw new SQLException("PreparedStatement is null. Cannot execute.");
-                            }
-
-                            if (stmt.execute())
-                            {
-                                resultSet = stmt.getResultSet();
-
-                                if (DEBUG)
-                                {
-                                    DEBUGGER.debug("ResultSet: {}", resultSet);
-                                }
-
-                                if (resultSet.next())
-                                {
-                                    resultSet.beforeFirst();
-                                    results = new ArrayList<Object[]>();
-
-                                    while (resultSet.next())
-                                    {
-                                        Object[] data = new Object[]
-                                        {
-                                            resultSet.getString(1), // PRODUCT_ID
-                                            resultSet.getString(2), // PRODUCT_NAME
-                                            resultSet.getString(3), // PRODUCT_SHORT_DESC
-                                            resultSet.getString(4), // PRODUCT_DESC
-                                            resultSet.getBigDecimal(5), // PRODUCT_PRICE
-                                            resultSet.getString(6), // PRODUCT_LANG
-                                            resultSet.getBoolean(7) // IS_FEATURED
-                                        };
-
-                                        results.add(data);
-                                    }
-
-                                    if (DEBUG)
-                                    {
-                                        DEBUGGER.debug("results: {}", results);
-                                    }
-                                }
-                            }
-                        }
-                        catch (SQLException sqx)
-                        {
-                            ERROR_RECORDER.error(sqx.getMessage(), sqx);
-        
-                            throw new SQLException(sqx.getMessage(), sqx);
-                        }
-                        finally
-                        {
-                            if (resultSet != null)
-                            {
-                                resultSet.close();
-                            }
-        
-                            if (stmt != null)
-                            {
-                                stmt.close();
-                            }
-                        }
-
-                        return results;
-                    }
-                });
+            if ((sqlConn != null) && (!(sqlConn.isClosed())))
+            {
+                sqlConn.close();
+            }
+        }
 
         if (DEBUG)
         {
-            DEBUGGER.debug("response: {}", response);
+            DEBUGGER.debug("results: {}", results);
         }
 
-        return response;
+        return results;
     }
 
     /**
-     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getFeaturedProducts(String)
+     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getFeaturedProducts(String) throws SQLException
      */
     @Override
-    public List<Object[]> getFeaturedProducts(final String lang)
+    public List<Object[]> getFeaturedProducts(final String lang) throws SQLException
     {
-        final String methodName = IProductReferenceDAO.CNAME + "#getFeaturedProducts(final String lang)";
+        final String methodName = IProductReferenceDAO.CNAME + "#getFeaturedProducts(final String lang) throws SQLException";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", lang);
         }
 
-        List<Object[]> response = this.jdbcTemplate.execute(
-                new PreparedStatementCreator()
+        Connection sqlConn = null;
+        ResultSet resultSet = null;
+        CallableStatement stmt = null;
+        List<Object[]> results = null;
+
+        try
+        {
+            sqlConn = this.dataSource.getConnection();
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("Connection: {}", sqlConn);
+            }
+
+            if (sqlConn.isClosed())
+            {
+                throw new SQLException("Unable to obtain connection to application datasource");
+            }
+
+            stmt = sqlConn.prepareCall("{ CALL getFeaturedProducts(?) }");
+            stmt.setString(1, lang);
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("CallableStatement: {}", stmt);
+            }
+
+            if (!(stmt.execute()))
+            {
+                throw new SQLException("PreparedStatement is null. Cannot execute.");
+            }
+
+            resultSet = stmt.getResultSet();
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ResultSet: {}", resultSet);
+            }
+
+            if (resultSet.next())
+            {
+                resultSet.beforeFirst();
+                results = new ArrayList<Object[]>();
+
+                while (resultSet.next())
                 {
-                    @Override
-                    public PreparedStatement createPreparedStatement(final Connection sqlConn) throws SQLException
+                    Object[] data = new Object[]
                     {
-                        final String methodName = IProductReferenceDAO.CNAME + "#createPreparedStatement(final Connection sqlConn) throws SQLException";
+                        resultSet.getString(1), // PRODUCT_ID
+                        resultSet.getString(2), // PRODUCT_NAME
+                        resultSet.getString(3), // PRODUCT_SHORT_DESC
+                        resultSet.getString(4), // PRODUCT_DESC
+                        resultSet.getBigDecimal(5), // PRODUCT_PRICE
+                        resultSet.getBoolean(6) // IS_FEATURED
+                    };
 
-                        if (DEBUG)
-                        {
-                            DEBUGGER.debug(methodName);
-                            DEBUGGER.debug("Connection: {}", sqlConn);
-                        }
+                    results.add(data);
+                }
 
-                        PreparedStatement stmt = null;
-
-                        try
-                        {
-                            if (sqlConn.isClosed())
-                            {
-                                throw new SQLException("Unable to obtain audit datasource connection");
-                            }
-                            
-                            stmt = sqlConn.prepareCall("{CALL getFeaturedProducts(?)}");
-                            stmt.setString(1, lang);
-
-                            if (DEBUG)
-                            {
-                                DEBUGGER.debug("PreparedStatement: {}", stmt);
-                            }
-                        }
-                        catch (SQLException sqx)
-                        {
-                            ERROR_RECORDER.error(sqx.getMessage(), sqx);
-
-                            throw new SQLException(sqx.getMessage(), sqx);
-                        }
-
-                        return stmt;
-                    }
-                },
-                new PreparedStatementCallback<List<Object[]>>()
+                if (DEBUG)
                 {
-                    @Override
-                    public List<Object[]> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
-                    {
-                        final String methodName = IProductReferenceDAO.CNAME + "#doInPreparedStatement(final PreparedStatement stmt) throws SQLException";
+                    DEBUGGER.debug("results: {}", results);
+                }
+            }
+        }
+        catch (SQLException sqx)
+        {
+            ERROR_RECORDER.error(sqx.getMessage(), sqx);
 
-                        if (DEBUG)
-                        {
-                            DEBUGGER.debug(methodName);
-                            DEBUGGER.debug("PreparedStatement: {}", stmt);
-                        }
+            throw new SQLException(sqx.getMessage(), sqx);
+        }
+        finally
+        {
+            if (resultSet != null)
+            {
+                resultSet.close();
+            }
 
-                        ResultSet resultSet = null;
-                        List<Object[]> results = null;
+            if (stmt != null)
+            {
+                stmt.close();
+            }
 
-                        try
-                        {
-                            if (stmt == null)
-                            {
-                                throw new SQLException("PreparedStatement is null. Cannot execute.");
-                            }
-
-                            if (stmt.execute())
-                            {
-                                resultSet = stmt.getResultSet();
-
-                                if (DEBUG)
-                                {
-                                    DEBUGGER.debug("ResultSet: {}", resultSet);
-                                }
-
-                                if (resultSet.next())
-                                {
-                                    resultSet.beforeFirst();
-                                    results = new ArrayList<Object[]>();
-
-                                    while (resultSet.next())
-                                    {
-                                        Object[] data = new Object[]
-                                        {
-                                            resultSet.getString(1),
-                                            resultSet.getString(2),
-                                            resultSet.getString(3),
-                                            resultSet.getString(4),
-                                            resultSet.getString(5),
-                                            resultSet.getString(6)
-                                        };
-
-                                        results.add(data);
-                                    }
-
-                                    if (DEBUG)
-                                    {
-                                        DEBUGGER.debug("results: {}", results);
-                                    }
-                                }
-                            }
-                        }
-                        catch (SQLException sqx)
-                        {
-                            ERROR_RECORDER.error(sqx.getMessage(), sqx);
-        
-                            throw new SQLException(sqx.getMessage(), sqx);
-                        }
-                        finally
-                        {
-                            if (resultSet != null)
-                            {
-                                resultSet.close();
-                            }
-        
-                            if (stmt != null)
-                            {
-                                stmt.close();
-                            }
-                        }
-
-                        return results;
-                    }
-                });
+            if ((sqlConn != null) && (!(sqlConn.isClosed())))
+            {
+                sqlConn.close();
+            }
+        }
 
         if (DEBUG)
         {
-            DEBUGGER.debug("response: {}", response);
+            DEBUGGER.debug("results: {}", results);
         }
 
-        return response;
+        return results;
     }
 
     /**
-     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductData(String, String)
+     * @see com.cws.us.pws.dao.interfaces.IProductReferenceDAO#getProductData(String, String) throws SQLException
      */
     @Override
-    public List<Object> getProductData(final String productId, final String lang)
+    public List<Object> getProductData(final String productId, final String lang) throws SQLException
     {
         final String methodName = IProductReferenceDAO.CNAME + "#getProductData(final int productId, final String lang) throws SQLException";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Product ID: {}", productId);
+            DEBUGGER.debug("Value: {}", productId);
+            DEBUGGER.debug("Value: {}", lang);
         }
 
-        List<Object> response = null;
+        Connection sqlConn = null;
+        ResultSet resultSet = null;
+        List<Object> results = null;
+        CallableStatement stmt = null;
 
-        this.jdbcTemplate.execute(
-                new PreparedStatementCreator()
+        try
+        {
+            sqlConn = this.dataSource.getConnection();
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("Connection: {}", sqlConn);
+            }
+
+            if (sqlConn.isClosed())
+            {
+                throw new SQLException("Unable to obtain connection to application datasource");
+            }
+
+            stmt = sqlConn.prepareCall("{ CALL getProductData(?, ?) }");
+            stmt.setString(1, productId);
+            stmt.setString(2, lang);
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("CallableStatement: {}", stmt);
+            }
+
+            if (!(stmt.execute()))
+            {
+                throw new SQLException("PreparedStatement is null. Cannot execute.");
+            }
+
+            resultSet = stmt.getResultSet();
+
+            if (DEBUG)
+            {
+                DEBUGGER.debug("ResultSet: {}", resultSet);
+            }
+
+            if (resultSet.next())
+            {
+                resultSet.beforeFirst();
+                results = new ArrayList<Object>();
+
+                while (resultSet.next())
                 {
-                    public PreparedStatement createPreparedStatement(final Connection sqlConn) throws SQLException
-                    {
-                        final String methodName = IProductReferenceDAO.CNAME + "#createPreparedStatement(final Connection sqlConn) throws SQLException";
+                    results.add(resultSet.getString(1)); // PRODUCT_ID
+                    results.add(resultSet.getString(2)); // PRODUCT_NAME
+                    results.add(resultSet.getString(3)); // PRODUCT_SHORT_DESC
+                    results.add(resultSet.getString(4)); // PRODUCT_DESC
+                    results.add(resultSet.getBigDecimal(5)); // PRODUCT_PRICE
+                    results.add(resultSet.getBoolean(6)); // IS_FEATURED
+                }
 
-                        if (DEBUG)
-                        {
-                            DEBUGGER.debug(methodName);
-                            DEBUGGER.debug("Connection: {}", sqlConn);
-                        }
-
-                        PreparedStatement stmt = null;
-
-                        try
-                        {
-                            if (sqlConn.isClosed())
-                            {
-                                throw new SQLException("Unable to obtain audit datasource connection");
-                            }
-                            
-                            stmt = sqlConn.prepareCall("{CALL getProductData(?, ?)}");
-                            stmt.setString(1, productId);
-                            stmt.setString(2, lang);
-
-                            if (DEBUG)
-                            {
-                                DEBUGGER.debug("PreparedStatement: {}", stmt);
-                            }
-                        }
-                        catch (SQLException sqx)
-                        {
-                            ERROR_RECORDER.error(sqx.getMessage(), sqx);
-
-                            throw new SQLException(sqx.getMessage(), sqx);
-                        }
-
-                        if (DEBUG)
-                        {
-                            DEBUGGER.debug("PreparedStatement: {}", stmt);
-                        }
-
-                        return stmt;
-                    }
-                },
-                new PreparedStatementCallback<List<Object>>()
+                if (DEBUG)
                 {
-                    public List<Object> doInPreparedStatement(final PreparedStatement stmt) throws SQLException
-                    {
-                        final String methodName = IProductReferenceDAO.CNAME + "#createPreparedStatement(final PreparedStatement stmt) throws SQLException";
+                    DEBUGGER.debug("results: {}", results);
+                }
+            }
+        }
+        catch (SQLException sqx)
+        {
+            ERROR_RECORDER.error(sqx.getMessage(), sqx);
 
-                        if (DEBUG)
-                        {
-                            DEBUGGER.debug(methodName);
-                            DEBUGGER.debug("PreparedStatement: {}", stmt);
-                        }
+            throw new SQLException(sqx.getMessage(), sqx);
+        }
+        finally
+        {
+            if (resultSet != null)
+            {
+                resultSet.close();
+            }
 
-                        ResultSet resultSet = null;
-                        List<Object> results = null;
+            if (stmt != null)
+            {
+                stmt.close();
+            }
 
-                        try
-                        {
-                            if (stmt == null)
-                            {
-                                throw new SQLException("PreparedStatement is null. Cannot continue.");
-                            }
-
-                            if (stmt.execute())
-                            {
-                                resultSet = stmt.getResultSet();
-
-                                if (DEBUG)
-                                {
-                                    DEBUGGER.debug("ResultSet: {}", resultSet);
-                                }
-
-                                if (resultSet.next())
-                                {
-                                    resultSet.beforeFirst();
-                                    results = new ArrayList<Object>();
-
-                                    while (resultSet.next())
-                                    {
-                                        results.add(resultSet.getString(1));
-                                        results.add(resultSet.getString(2));
-                                        results.add(resultSet.getString(3));
-                                        results.add(resultSet.getString(4));
-                                        results.add(resultSet.getString(5));
-                                        results.add(resultSet.getString(6));
-                                    }
-
-                                    if (DEBUG)
-                                    {
-                                        DEBUGGER.debug("results: {}", results);
-                                    }
-                                }
-                            }
-                        }
-                        catch (SQLException sqx)
-                        {
-                            ERROR_RECORDER.error(sqx.getMessage(), sqx);
-        
-                            throw new SQLException(sqx.getMessage(), sqx);
-                        }
-                        finally
-                        {
-                            if (resultSet != null)
-                            {
-                                resultSet.close();
-                            }
-        
-                            if (stmt != null)
-                            {
-                                stmt.close();
-                            }
-                        }
-
-                        return results;
-                    }
-                });
+            if ((sqlConn != null) && (!(sqlConn.isClosed())))
+            {
+                sqlConn.close();
+            }
+        }
 
         if (DEBUG)
         {
-            DEBUGGER.debug("response: {}", response);
+            DEBUGGER.debug("results: {}", results);
         }
 
-        return response;
+        return results;
     }
 }

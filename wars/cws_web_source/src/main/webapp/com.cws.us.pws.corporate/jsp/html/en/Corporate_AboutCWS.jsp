@@ -41,6 +41,13 @@
     <spring:message code="corporate.street.addr.2" /><br />
     <spring:message code="corporate.city.addr" />
 
+    <c:if test="${not empty fn:trim(doCareersExist) and doCareersExist eq true}">
+        <div class="middle-column-box-left-standard">
+            <div class="middle-column-title-standard"><spring:message code="careers.title" /></div>
+            <spring:message code="careers.open.positions" />
+        </div>
+    </c:if>
+        
     <%--
     <div class="middle-column-title-standard"><a href="../Docs/KevinHuntly.pdf" title="Resume">Kevin Huntly - Lead Developer</a></div>
     A computing professional for nearly ten years, Kevin is the founder and driving force behind

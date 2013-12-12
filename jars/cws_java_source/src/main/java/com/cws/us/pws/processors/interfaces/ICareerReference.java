@@ -19,30 +19,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cws.us.pws.Constants;
-import com.cws.us.pws.processors.dto.ProductRequest;
-import com.cws.us.pws.processors.dto.ProductResponse;
-import com.cws.us.pws.processors.exception.ProductRequestException;
+import com.cws.us.pws.processors.dto.CareerRequest;
+import com.cws.us.pws.processors.dto.CareerResponse;
+import com.cws.us.pws.processors.exception.CareerRequestException;
 /*
  * Project: cws_java_source
  * Package: com.cws.us.pws.processors.interfaces
- * File: IProductReference.java
+ * File: ICareersReference.java
  *
  * History
  * ----------------------------------------------------------------------------
  * kh05451 @ Jan 4, 2013 3:36:54 PM
  *     Created.
  */
-public interface IProductReference
+public interface ICareerReference
 {
-    static final String CNAME = IProductReference.class.getName();
+    static final String CNAME = ICareerReference.class.getName();
 
     static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER + CNAME);
 
-    ProductResponse getProductList(final ProductRequest request) throws ProductRequestException;
+    CareerResponse getCareerList(final CareerRequest request) throws CareerRequestException;
 
-    ProductResponse getFeaturedProducts(final ProductRequest request) throws ProductRequestException;
-
-    ProductResponse getProductData(final ProductRequest request) throws ProductRequestException;
+    CareerResponse getCareerData(final CareerRequest request) throws CareerRequestException;
 }

@@ -1,13 +1,17 @@
-/**
+/*
  * Copyright (c) 2009 - 2013 By: CWS, Inc.
  * 
- * All rights reserved. These materials are confidential and
- * proprietary to CaspersBox Web Services N.A and no part of
- * these materials should be reproduced, published in any form
- * by any means, electronic or mechanical, including photocopy
- * or any information storage or retrieval system not should
- * the materials be disclosed to third parties without the
- * express written authorization of CaspersBox Web Services, N.A.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.cws.us.pws.controllers;
 
@@ -37,25 +41,14 @@ import com.cws.us.pws.processors.dto.ProductResponse;
 import com.cws.us.pws.processors.impl.ProductReferenceImpl;
 import com.cws.esolutions.core.processors.enums.CoreServicesStatus;
 import com.cws.us.pws.processors.exception.ProductRequestException;
-/**
- * CWSPWS_java_source
- * com.cws.us.pws.controllers
- * ProductController.java
- *
- * This is a VERY basic controller because it really doesn't need to do
- * anything. It loads the home page and that's pretty much it - nothing
- * fancy.
- *
- * $Id$
- * $Author$
- * $Date$
- * $Revision$
- * @author 35033355
- * @version 1.0
+/*
+ * Project: cws_java_source
+ * Package: com.cws.us.pws.controllers
+ * File: ProductController.java
  *
  * History
  * ----------------------------------------------------------------------------
- * 35033355 @ Apr 10, 2013 12:59:40 PM
+ * kh05451 @ Jan 4, 2013 3:36:54 PM
  *     Created.
  */
 @Controller

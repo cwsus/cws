@@ -15,66 +15,36 @@
  */
 package com.cws.us.pws.processors.dto;
 
-import java.util.List;
 import org.slf4j.Logger;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import org.slf4j.LoggerFactory;
 
 import com.cws.us.pws.Constants;
-import com.cws.esolutions.core.processors.enums.CoreServicesStatus;
 /*
  * Project: cws_java_source
  * Package: com.cws.us.pws.processors.dto
- * File: ProductResponse.java
+ * File: CareersRequest.java
  *
  * History
  * ----------------------------------------------------------------------------
  * kh05451 @ Jan 4, 2013 3:36:54 PM
  *     Created.
  */
-public class ProductResponse implements Serializable
+public class CareerRequest implements Serializable
 {
-    private String response = null;
-    private Product product = null;
-    private List<Product> productList = null;
-    private CoreServicesStatus requestStatus = null;
+    private String lang = "en";
+    private Career career = null;
 
-    private static final long serialVersionUID = -7541177746694315851L;
-    private static final String CNAME = ProductResponse.class.getName();
+    private static final long serialVersionUID = 2978648123311533361L;
+    private static final String CNAME = CareerRequest.class.getName();
 
     private static final Logger DEBUGGER = LoggerFactory.getLogger(Constants.DEBUGGER);
     private static final boolean DEBUG = DEBUGGER.isDebugEnabled();
 
-    public final void setRequestStatus(final CoreServicesStatus value)
+    public final void setLang(final String value)
     {
-        final String methodName = ProductResponse.CNAME + "#setRequestStatus(final CoreServicesStatus value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("CoreServicesStatus: {}", value);
-        }
-
-        this.requestStatus = value;
-    }
-
-    public final void setResponse(final String value)
-    {
-        final String methodName = ProductResponse.CNAME + "#setResponse(final String value)";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug(value);
-        }
-
-        this.response = value;
-    }
-
-    public final void setProductList(final List<Product> value)
-    {
-        final String methodName = ProductResponse.CNAME + "#setProductList(final List<Product> value)";
+        final String methodName = CareerRequest.CNAME + "#setLang(final String value)";
 
         if (DEBUG)
         {
@@ -82,12 +52,12 @@ public class ProductResponse implements Serializable
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.productList = value;
+        this.lang = value;
     }
 
-    public final void setProduct(final Product value)
+    public final void setCareer(final Career value)
     {
-        final String methodName = ProductResponse.CNAME + "#setProduct(final Product value)";
+        final String methodName = CareerRequest.CNAME + "#setCareer(final Career value)";
 
         if (DEBUG)
         {
@@ -95,65 +65,39 @@ public class ProductResponse implements Serializable
             DEBUGGER.debug("Value: {}", value);
         }
 
-        this.product = value;
+        this.career = value;
     }
 
-    public final CoreServicesStatus getRequestStatus()
+    public final Career getCareer()
     {
-        final String methodName = ProductResponse.CNAME + "#getRequestStatus()";
+        final String methodName = CareerRequest.CNAME + "#getCareer()";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("CoreServicesStatus: {}", this.requestStatus);
+            DEBUGGER.debug("Value: {}", this.career);
         }
 
-        return this.requestStatus;
+        return this.career;
     }
 
-    public final String getResponse()
+    public final String getLang()
     {
-        final String methodName = ProductResponse.CNAME + "#getResponse()";
+        final String methodName = CareerRequest.CNAME + "#getLang(final String value)";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug(this.response);
+            DEBUGGER.debug("Value: {}", this.lang);
         }
 
-        return this.response;
-    }
-
-    public final List<Product> getProductList()
-    {
-        final String methodName = ProductResponse.CNAME + "#getProductList()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.productList);
-        }
-
-        return this.productList;
-    }
-
-    public final Product getProduct()
-    {
-        final String methodName = ProductResponse.CNAME + "#getProduct()";
-
-        if (DEBUG)
-        {
-            DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Value: {}", this.product);
-        }
-
-        return this.product;
+        return this.lang;
     }
 
     @Override
     public final String toString()
     {
-        final String methodName = ProductResponse.CNAME + "#toString()";
+        final String methodName = CareerRequest.CNAME + "#toString()";
 
         if (DEBUG)
         {

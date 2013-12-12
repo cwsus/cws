@@ -28,7 +28,19 @@
  */
 --%>
 
-<div class="middle-column-box-full-standard">
-    <div class="middle-column-title-standard"><spring:message code="careers.title" /></div>        
-    <spring:message code="no.available.careers" />
-</div>
+<c:choose>
+    <c:when test="${not empty careerList}">
+        <c:forEach var="career" items="${careerList}">
+            <div class="middle-column-box-full-standard">
+                <div class="middle-column-title-standard">${career.jobTitle}</div>
+                ${career.jobShortDesc}
+            </div>
+        </c:forEach>
+    </c:when>
+    <c:otherwise>
+        <div class="middle-column-box-full-standard">
+            <div class="middle-column-title-standard"><spring:message code="careers.title" /></div>
+            <spring:message code="no.career.located" />
+        </div>
+    </c:otherwise>
+</c:choose>

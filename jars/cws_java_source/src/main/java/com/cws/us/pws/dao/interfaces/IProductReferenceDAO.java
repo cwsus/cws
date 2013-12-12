@@ -1,13 +1,17 @@
-/**
+/*
  * Copyright (c) 2009 - 2013 By: CWS, Inc.
  * 
- * All rights reserved. These materials are confidential and
- * proprietary to CaspersBox Web Services N.A and no part of
- * these materials should be reproduced, published in any form
- * by any means, electronic or mechanical, including photocopy
- * or any information storage or retrieval system not should
- * the materials be disclosed to third parties without the
- * express written authorization of CaspersBox Web Services, N.A.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.cws.us.pws.dao.interfaces;
 
@@ -17,17 +21,14 @@ import java.sql.SQLException;
 import org.slf4j.LoggerFactory;
 
 import com.cws.us.pws.Constants;
-/**
- * CWSPWS_java_source
- * com.cws.us.pws.dao.interfaces
- * IProductReferenceDAO.java
- *
- * @author 35033355
- * @version 1.0
+/*
+ * Project: cws_java_source
+ * Package: com.cws.us.pws.dao.interfaces
+ * File: IProductReferenceDAO.java
  *
  * History
  * ----------------------------------------------------------------------------
- * 35033355 @ Apr 16, 2013 12:13:33 PM
+ * kh05451 @ Jan 4, 2013 3:36:54 PM
  *     Created.
  */
 public interface IProductReferenceDAO
@@ -38,9 +39,34 @@ public interface IProductReferenceDAO
     static final boolean DEBUG = DEBUGGER.isDebugEnabled();
     static final Logger ERROR_RECORDER = LoggerFactory.getLogger(Constants.ERROR_LOGGER + CNAME);
 
-    List<Object[]> getProductList(final String lang);
+    /**
+     * 
+     * TODO: Add in the method description/comments
+     *
+     * @param lang
+     * @return
+     * @throws SQLException
+     */
+    List<Object[]> getProductList(final String lang) throws SQLException;
 
-    List<Object[]> getFeaturedProducts(final String lang);
+    /**
+     * 
+     * TODO: Add in the method description/comments
+     *
+     * @param lang
+     * @return
+     * @throws SQLException
+     */
+    List<Object[]> getFeaturedProducts(final String lang) throws SQLException;
 
-    List<Object> getProductData(final String productId, final String lang);
+    /**
+     * 
+     * TODO: Add in the method description/comments
+     *
+     * @param productId
+     * @param lang
+     * @return
+     * @throws SQLException
+     */
+    List<Object> getProductData(final String productId, final String lang) throws SQLException;
 }

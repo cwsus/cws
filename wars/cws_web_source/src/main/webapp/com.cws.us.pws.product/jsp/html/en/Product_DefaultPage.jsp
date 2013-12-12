@@ -59,7 +59,7 @@
 
 <div class="middle-column-box-full-standard">
     <div class="middle-column-title-standard"><spring:message code="theme.search.button.text" /></div>
-    <form:form name="siteSearchForm" method="post" action="${pageRequest.context.contextPath}/ui/corp/search.htm">
+    <form:form id="siteSearchForm" name="siteSearchForm" action="${pageRequest.context.contextPath}/ui/common/search" method="post">
         <div>
             <label id="searchTerms"><spring:message code="theme.search.terms" /></label>
             <br />

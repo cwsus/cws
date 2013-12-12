@@ -12,9 +12,7 @@
 
     <!-- load up logging -->
     <bean id="eSolutions" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="staticMethod">
-            <value>org.springframework.util.Log4jConfigurer.initLogging</value>
-        </property>
+        <property name="staticMethod" value="org.springframework.util.Log4jConfigurer.initLogging" />
         <property name="arguments">
             <list>
                 <value>classpath:logging/logging.xml</value>
@@ -27,6 +25,7 @@
     </bean>
 
     <import resource="classpath:/cws/dao/ProductReferenceDAO.xml" />
+    <import resource="classpath:/cws/dao/CareerReferenceDAO.xml" />
 
     <bean id="messageValidator" class="com.cws.us.pws.validators.EmailMessageValidator">
         <property name="messageSubjectRequired" value="theme.subject.required" />
@@ -40,12 +39,8 @@
 
     <!-- application configuration -->
     <bean id="appConfig" class="com.cws.us.pws.ApplicationServiceBean">
-        <property name="messageValidator">
-            <ref bean="messageValidator" />
-        </property>
-        <property name="emailValidator">
-            <ref bean="addressValidator" />
-        </property>
+        <property name="messageValidator" ref="messageValidator" />
+        <property name="emailValidator" ref="addressValidator" />
         <property name="fileEncoding" value="UTF-8" />
         <property name="applicationName" value="cws" /> <!-- application name -->
         <property name="applicationId" value="B5FFD1BD-6970-42AC-9115-41E935BF03BD" />
