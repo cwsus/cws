@@ -214,7 +214,7 @@ public class ProductController
             ERROR_RECORDER.error(prx.getMessage(), prx);
 
             mView = new ModelAndView(new RedirectView());
-            mView.setViewName(appConfig.getErrorResponsePage());
+            mView.setViewName(this.appConfig.getErrorResponsePage());
         }
 
         if (DEBUG)
@@ -226,17 +226,16 @@ public class ProductController
     }
 
     @RequestMapping(value = "/product/{product}", method = RequestMethod.GET)
-    public final ModelAndView getProductInfo(@PathVariable("productId") final String productId)
+    public final ModelAndView getProductInfo(@PathVariable("product") final String product)
     {
-        final String methodName = ProductController.CNAME + "#getProductInfo(@PathVariable(\"productId\") final String productId)";
+        final String methodName = ProductController.CNAME + "#getProductInfo(@PathVariable(\"product\") final String product)";
 
         if (DEBUG)
         {
             DEBUGGER.debug(methodName);
-            DEBUGGER.debug("Product: {}", productId);
+            DEBUGGER.debug("Product: {}", product);
         }
 
-        Product product = null;
         ModelAndView mView = new ModelAndView();
 
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -288,7 +287,7 @@ public class ProductController
         try
         {
             Product reqProduct = new Product();
-            reqProduct.setProductId(productId);
+            reqProduct.setProductId(product);
 
             if (DEBUG)
             {
@@ -313,14 +312,14 @@ public class ProductController
 
             if (productResponse.getRequestStatus() == CoreServicesStatus.SUCCESS)
             {
-                product = productResponse.getProduct();
+                Product resProduct = productResponse.getProduct();
 
                 if (DEBUG)
                 {
-                    DEBUGGER.debug("Product: {}", product);
+                    DEBUGGER.debug("Product: {}", resProduct);
                 }
 
-                mView.addObject("product", product);
+                mView.addObject("product", resProduct);
                 mView.setViewName(this.showProduct);
             }
             else
@@ -334,7 +333,7 @@ public class ProductController
         {
             ERROR_RECORDER.error(prx.getMessage(), prx);
 
-            mView.setViewName(appConfig.getErrorResponsePage());
+            mView.setViewName(this.appConfig.getErrorResponsePage());
         }
 
         if (DEBUG)

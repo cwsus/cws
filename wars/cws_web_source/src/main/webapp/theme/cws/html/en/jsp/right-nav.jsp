@@ -1,7 +1,10 @@
 <div id="right-column">
     <div class="right-column-box-standard">
-        <div class="right-column-title-blue"><spring:message code="theme.right-nav.questions" /></div>
-        <spring:message code="theme.questions.anchor" arguments="${pageContext.request.contextPath}/ui/common/contact" />
+        <div class="right-column-title-blue">
+            <a href="${pageContext.request.contextPath}/ui/common/contact" title="<spring:message code="theme.top-nav.contact" />">
+                <spring:message code="theme.right-nav.questions" /></a>
+        </div>
+        <spring:message code="theme.questions.anchor" />
     </div>
 
     <c:if test="${not empty newsItems}">

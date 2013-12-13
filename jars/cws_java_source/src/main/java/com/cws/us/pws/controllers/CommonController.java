@@ -223,7 +223,7 @@ public class CommonController
             ERROR_RECORDER.error(prx.getMessage(), prx);
 
             mView = new ModelAndView(new RedirectView());
-            mView.setViewName(appConfig.getErrorResponsePage());
+            mView.setViewName(this.appConfig.getErrorResponsePage());
         }
 
         mView.setViewName(this.appConfig.getHomePage());
@@ -652,8 +652,6 @@ public class CommonController
 
         try
         {
-            System.out.println(message);
-            System.out.println(message.getEmailAddr().get(0));
             EmailUtils.sendEmailMessage(message, true);
 
             EmailMessage autoResponse = new EmailMessage();
