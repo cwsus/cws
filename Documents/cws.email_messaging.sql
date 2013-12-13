@@ -16,18 +16,16 @@ CREATE TABLE `cws`.`email_messages` (
     PRIMARY KEY  (`EMAIL_MESSAGE_ID`),
     FULLTEXT KEY `EMAIL_SEARCH` (`EMAIL_MESSAGE_FROM`, `EMAIL_MESSAGE_BODY`, `EMAIL_MESSAGE_SUBJECT`, `EMAIL_MESSAGE_SOURCES`)
 ) ENGINE=MyISAM DEFAULT CHARSET=UTF8 ROW_FORMAT=COMPACT COLLATE UTF8_GENERAL_CI;
+COMMIT;
 
---
--- Dumping data for table `cws`.`email_messages`
---
-/*!40000 ALTER TABLE `cws`.`email_messages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cws`.`email_messages` ENABLE KEYS */;
-COMMIT;    
+ALTER TABLE `cws`.`email_messages` CONVERT TO CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI;
+COMMIT;
+
+DELIMITER $$
 
 --
 -- Definition of procedure `cws`.`getEmailByAttribute`
 --
-DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`getEmailByAttribute`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
 CREATE PROCEDURE `cws`.`getEmailByAttribute`(
@@ -52,13 +50,11 @@ BEGIN
     AGAINST (+attributeName IN BOOLEAN MODE);
 END $$
 /*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
+COMMIT$$
 
 --
 -- Definition of procedure `cws`.`insertEmailMessage`
 --
-DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`insertEmailMessage`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
 CREATE PROCEDURE `cws`.`insertEmailMessage`(
@@ -88,13 +84,11 @@ BEGIN
     COMMIT;
 END $$
 /*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
+COMMIT$$
 
 --
 -- Definition of procedure `cws`.`retrieve_email_count`
 --
-DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`retrieve_email_count`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
 CREATE PROCEDURE `cws`.`retrieve_email_count`(
@@ -104,13 +98,11 @@ BEGIN
     FROM `cws`.`email_messages`;
 END $$
 /*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
+COMMIT$$
 
 --
 -- Definition of procedure `cws`.`retrieveMessages`
 --
-DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`retrieveMessages`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
 CREATE PROCEDURE `cws`.`retrieveMessages`(
@@ -130,13 +122,11 @@ BEGIN
     FROM `cws`.`email_messages`;
 END $$
 /*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
+COMMIT$$
 
 --
 -- Definition of procedure `cws`.`retrieveMessage`
 --
-DELIMITER $$
 DROP PROCEDURE IF EXISTS `cws`.`retrieveMessage`$$
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER' */ $$
 CREATE PROCEDURE `cws`.`retrieveMessage`(
@@ -158,6 +148,7 @@ BEGIN
     WHERE EMAIL_MESSAGE_ID = messageId;
 END $$
 /*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
+COMMIT$$
 
 DELIMITER ;
 COMMIT;
