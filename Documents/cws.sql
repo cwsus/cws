@@ -25,6 +25,7 @@ SOURCE ./cws.email_messaging.sql;
 SOURCE ./cws.search.sql;
 SOURCE ./cws.products.sql;
 SOURCE ./cws.careers.sql;
+SOURCE ./cws.news.sql;
 
 COMMIT;
 
