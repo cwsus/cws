@@ -653,7 +653,7 @@ public class CommonController
         try
         {
             System.out.println(message);
-            System.out.println(message.getEmailAddr());
+            System.out.println(message.getEmailAddr().get(0));
             EmailUtils.sendEmailMessage(message, true);
 
             EmailMessage autoResponse = new EmailMessage();

@@ -100,7 +100,7 @@
                 <form:errors path="messageBody" cssClass="error" />
                 <br /><br />
                 <input type="button" name="execute" value="<spring:message code='theme.button.submit.text' />" id="execute" class="submit" onclick="disableButton(this); validateForm(this.form);" />
-                <input type="button" name="reset" value="<spring:message code='theme.button.reset.text' />" id="reset" class="submit" onclick="clearForm();" />
+                <input type="button" name="reset" value="<spring:message code='theme.button.reset.text' />" id="execute" class="submit" onclick="clearForm();" />
             </p>
         </form:form>
     </p>

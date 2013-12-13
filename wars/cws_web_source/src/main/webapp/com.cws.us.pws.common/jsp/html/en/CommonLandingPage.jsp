@@ -36,8 +36,11 @@
 
 <c:if test="${not empty featuredProducts}">
     <c:forEach var="product" items="${featuredProducts}">
-        <div class="middle-column-box-left-standard">
-            <div class="middle-column-title-standard">${product.productName}</div>
+        <div class="middle-column-box-full-standard">
+            <div class="middle-column-title-standard">
+                <a href="${pageContext.request.contextPath}/ui/products/product/${product.productId}"
+                    title="${product.productName}">${product.productName}</a>
+            </div>
             ${product.shortDesc}
         </div>
     </c:forEach>

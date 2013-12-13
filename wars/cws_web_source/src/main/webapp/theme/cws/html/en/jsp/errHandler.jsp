@@ -105,7 +105,7 @@
 			
 			<div id="left-column-first">
 			    <img class="img-left-nav" src="/html/cws/img/img_left_nav.jpg" alt="" />
-</div>
+            </div>
 
             <div id="middle-column">
                 <div class="middle-column-box-full-standard">

@@ -38,6 +38,7 @@ public class Product implements Serializable
     private String shortDesc = null; // PRODUCT_SHORT_DESC
     private String productName = null; // PRODUCT_NAME
     private String productDesc = null; // PRODUCT_DESC
+    private String searchTerms = null;
     private boolean isFeatured = false; // IS_FEATURED
     private BigDecimal productCost = null; // PRODUCT_PRICE
 
@@ -125,6 +126,19 @@ public class Product implements Serializable
         this.productCost = value;
     }
 
+    public final void setSearchTerms(final String value)
+    {
+        final String methodName = Product.CNAME + "#setSearchTerms(final String value)";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", value);
+        }
+
+        this.searchTerms = value;
+    }
+
     public final String getProductId()
     {
         final String methodName = Product.CNAME + "#getProductId()";
@@ -201,6 +215,19 @@ public class Product implements Serializable
         }
 
         return this.productCost;
+    }
+
+    public final String getSearchTerms()
+    {
+        final String methodName = Product.CNAME + "#getSearchTerms()";
+
+        if (DEBUG)
+        {
+            DEBUGGER.debug(methodName);
+            DEBUGGER.debug("Value: {}", this.searchTerms);
+        }
+
+        return this.searchTerms;
     }
 
     @Override
